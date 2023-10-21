@@ -93,5 +93,8 @@ List<String> startsWithA =
  <div align="justify">
 Next blog: I would be posting another blog with in detail examples for all the usages for functional programming in Java. Stay tuned!
 </div>
+ <br />  
 
-{% include disqus.html %}
+{% if site.disqus.shortname %}
+  {% include disqus.html %}
+{% endif %}
