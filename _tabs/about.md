@@ -5,10 +5,12 @@ order: 4
 ---
 
 ## Who am I?
-
-Hi there! I'm a software engineer who is enthusiast about technology. 
-I love music a lot, I spend time learning new things on this in free time. 
-Apart from this I also dedicate my time for public speaking. 
+ <div align="justify">
+I'm a software engineer who is enthusiast about technology, music and public speaking majorly.
+I spend time learning new things in free time.
+</div>
 
 ## What will this blog have?
-I would share my knowledge around music, technology and public speaking in this blog. 
+ <div align="justify">
+I would be sharing my learnings around various interesting topics I have come accross. Do support me in liking and sharing the blog posts if you liked it. Feel free to also add comments if you would love to hear more from me any particular topic. 
+</div>
