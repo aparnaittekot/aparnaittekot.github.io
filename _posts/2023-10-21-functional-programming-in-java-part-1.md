@@ -95,7 +95,7 @@ I would be posting another blog with in detail examples for all the usages for f
 </div>
 [Part 2 - Functional Programming in Java (Detailed Code Examples) - (Coming Soon!)](../functional-programming-in-java-part-2)
  <br />  
-
+ <br />  
 {% if site.disqus.shortname %}
   {% include disqus.html %}
 {% endif %}
