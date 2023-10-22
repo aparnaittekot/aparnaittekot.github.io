@@ -15,10 +15,8 @@ This blog aims to define what functional programming is and few very basic examp
 Below are some examples of code snippets we may or may not have encountered in code which has the concept of functional programming. 
  </div>
 
-# Iterating a list
-
+## Iterating a list
 ### The imperative way
-
  <div align="justify">
 Use case: Loop through a list and print its values. In the imperative world, a for statement would be used for the same like below and iterate each item.
 </div>
@@ -38,7 +36,7 @@ Replace for loop statement with forEach() to use the functional way and this red
 listOfNames.forEach((name) -> System.out.println(name));
 ```
 
-# Transforming a list
+## Transforming a list
 ### The imperative way
  <div align="justify">
 Use case: Transforming through a list of names to contain all upper case names. In the imperative world, we would just use a for statement, iterate and add the upper case name to the newly created list. 
@@ -63,7 +61,8 @@ List<String> uppercaseNames = listOfNames.stream()
    .collect(Collectors.toList());
 ```
 
-# Finding elements in a collection
+## Finding elements in a collection
+
 ### The imperative way
  <div align="justify">
 Use case: Find list of names that contains all names that starts with A. In the imperative world, you would just use a for statement and check if each item starts with letter A. 
@@ -90,9 +89,11 @@ List<String> startsWithA =
       .collect(Collectors.toList());
 ```
 
+## Upcoming blog - Part 2
  <div align="justify">
-Next blog: I would be posting another blog with in detail examples for all the usages for functional programming in Java. Stay tuned!
+I would be posting another blog with in detail examples for all the usages for functional programming in Java. Stay tuned! 
 </div>
+[Part 2 - Functional Programming in Java (Detailed Code Examples) - (Coming Soon!)](../functional-programming-in-java-part-2)
  <br />  
 
 {% if site.disqus.shortname %}
