@@ -1,8 +1,8 @@
 --- 
 title: Part 1 - Functional Programming in Java (What and Why?)
-date: 2023-10-21 00:00:00
+date: 2023-10-21 00:00:00 +0530
 categories: [Technology]
-tags: [Coding, FunctionalProgramming, Java, FirstBlog]
+tags: [coding, functionalProgramming, java, firstBlog]
 comments: true
 ---
 
@@ -94,7 +94,7 @@ List<String> startsWithA =
  <div align="justify">
 I would be posting another blog with in detail examples for all the usages for functional programming in Java. Stay tuned! 
 </div>
-[Part 2 - Functional Programming in Java (Detailed Code Examples) - (Coming Soon!)](../functional-programming-in-java-part-two)
+[Part 2 - Functional Programming in Java (Detailed Code Examples) - (Coming Soon!)](../functional-programming-in-java-part-1)
  <br />  
  <br />  
 {% if site.disqus.shortname %}

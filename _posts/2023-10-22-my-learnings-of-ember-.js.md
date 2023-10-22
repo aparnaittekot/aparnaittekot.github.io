@@ -1,8 +1,8 @@
 --- 
 title: My learnings of Ember.js (Coming Soon!)
-date: 2023-10-21 00:00:00
+date: 2023-10-22 00:00:00 +0530
 categories: [Technology]
-tags: [Coding, Ember.js, JavaScript, WebDevelopment]
+tags: [coding, emberjs, javaScript, webDevelopment]
 comments: false
 ---
 
