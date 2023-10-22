@@ -12,5 +12,5 @@ I spend time learning new things in free time.
 
 ## What will this blog have?
  <div align="justify">
-I would be sharing my learnings around various interesting topics I have come accross. Do support me in liking and sharing the blog posts if you liked it. Feel free to also add comments if you would love to hear more from me any particular topic. 
+I would be sharing my learnings around various interesting topics I have come accross. Do share and like the blog posts if found them interesting. Feel free to also add comments if you would love to hear more from me any particular topic. 
 </div>
