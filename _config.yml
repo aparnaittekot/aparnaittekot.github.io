@@ -13,16 +13,16 @@ baseurl: ''
 lang: en
 
 # Change to your timezone › http://www.timezoneconverter.com/cgi-bin/findzone/findzone
-timezone: Asia/Calcutta
+timezone: Asia/Calcutta 
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
 title: Aparna Ittekot              # the main title
 
-tagline: Blogs majorily based on my learnings. Checkout the categories and tags tabs for topics.     # it will display as the sub-title
+tagline: Blogs majorily based on unique learnings on any topics aka "categories" (For example, technology, music etc). This blog is also open to collaborations and suggestions, check the "about" page for more details.   # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
-  Aparna Ittekot. My Blog. Technology. Music. Public Speaking
+  Blogs majorily based on learnings any topics. 
 
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
 url: https://aparnaittekot.github.io

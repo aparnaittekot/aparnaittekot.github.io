@@ -4,13 +4,18 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-## Who am I?
- <div align="justify">
-I'm a software engineer who is enthusiast about technology, music and public speaking majorly.
-I spend time learning new things in free time.
-</div>
+## Authors
+### Aparna Ittekot
+<div align="justify">
+I'm a software engineer who is enthusiast about technology, music and public speaking.
+I try to learn new things on any various topics in free time.
+</div> 
+
+## How to collaborate and provide suggestions on blogs?
+This blog is open to collaborations and suggestions on ideas if any, feel free to add to this form [Suggestions and collaborations Form](https://forms.gle/xht5UFjQ67woTu1y9).
 
 ## What will this blog have?
  <div align="justify">
-I would be sharing my learnings around various interesting topics I have come accross. Do share and like the blog posts if found them interesting. Feel free to also add comments if you would love to hear more from me any particular topic. 
-</div>
+Blogs based on unique learnings around various interesting topics (for example: technology, music, sports etc). 
+
+<br/>Do share, like or comment on the blog posts if you found them interesting. 
