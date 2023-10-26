@@ -1,5 +1,5 @@
 --- 
-title: Functional Programming in Java (What and Why?)
+title: Functional Programming in Java - What and Why?
 date: 2023-10-21 00:00:00 +0530
 categories: [Technology]
 tags: [coding, functional-programming, java, first-blog]

@@ -1,9 +1,9 @@
 --- 
-title: Detailed Code Examples on Functional Programming In Java - (Coming Soon!)
-categories: [Technology]
-date: 2023-10-22 00:00:00 +0530
-tags: [coming-soon, coding, functional-programming, java]
+title: (Coming Soon!) Detailed Code Examples on Functional Programming In Java
+categories: [Coming Soon]
 comments: false
+tags: [coming-soon]
+date: 0000-00-00 00:00:00 +0530
 ---
 
-Coming Soon - 27/10/2023
+Coming Soon - Oct 2023
