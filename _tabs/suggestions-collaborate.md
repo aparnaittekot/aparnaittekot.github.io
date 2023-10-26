@@ -1,8 +1,15 @@
 ---
-title: Want to collaborate?
+title: Want to suggest ideas or collaborate?
 icon: fas fa-info-circle
-order: 6
+order: 7
 ---
+
+## Suggesting new blog ideas
+
+If you have suggestions on blog ideas, feel free to add to this form [Suggestions Form](https://forms.gle/fASthhHszCjMpRy2A). 
+
+
+## Collaborations
 
 This blog is open for collaborations.
 

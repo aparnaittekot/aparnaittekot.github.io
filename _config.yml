@@ -20,7 +20,7 @@ timezone: Asia/Calcutta
 
 title: Aparna's Blogs # the main title
 
-tagline: Contains blog posts on any topics aka categories (For example, technology, music, public speaking etc). I'm also open to suggestions and collaborations.   # it will display as the sub-title
+tagline: Contains blog posts on any topics aka categories (For example, technology, music, public speaking etc). This blog is open to suggestions and collaborations.  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
 
@@ -75,13 +75,13 @@ avatar: /assets/img/site/avatar.png
 
 # boolean type, the global switch for ToC in posts.
 toc: true
+future: true
 
 disqus:
   comments: true  # boolean type, the global switch for posts comments.
   shortname: 'aparnaittekot'    # Fill with your Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
 
 paginate: 10
-future: false
 
 # ------------ The following options are not recommended to be modified ------------------
 

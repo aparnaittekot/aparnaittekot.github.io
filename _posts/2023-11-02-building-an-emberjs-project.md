@@ -1,8 +1,8 @@
 --- 
-title: (Coming Soon!) Building an ember.js application
-date: 0000-00-00 00:00:00 +0530
+title: Building an ember.js application
 categories: [Coming Soon]
 comments: false
+date: 2023-11-02 00:00:00 +0530
 tags: [coming-soon]
 ---
 

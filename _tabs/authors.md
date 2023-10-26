@@ -1,11 +1,10 @@
 ---
-title: About
+title: Authors
 icon: fas fa-info-circle
-order: 4
+order: 6
 ---
 
-## Author
-### Aparna Ittekot
+## Aparna Ittekot (Main Author)
 <div align="justify">
 I'm a software engineer who is enthusiastic about technology, music and public speaking.
 I try to learn new things on any various topics in free time.
@@ -20,4 +19,4 @@ Blogs based on learnings around various topics (for example: technology, music, 
 </div>
 
  <br/>
-Additionally, you can also contribute to the blogs as well. Feel free to check the section [Want to Contribute?](../collaborations) for more details.
+Additionally, you can also suggest or contribute to the blogs as well. Feel free to check the section [Want to suggest ideas or collaborate?](../suggestions-collaborate) for more details.
