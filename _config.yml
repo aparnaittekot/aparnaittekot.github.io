@@ -18,7 +18,7 @@ timezone: Asia/Calcutta
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
-title: Aparna's Blogs # the main title
+title: Blogs # the main title
 
 tagline: Contains blog posts on any topics aka categories (For example, technology, music, public speaking etc). This blog is open to suggestions and collaborations.  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
