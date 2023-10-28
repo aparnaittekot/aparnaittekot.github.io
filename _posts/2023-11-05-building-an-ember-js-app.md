@@ -1,8 +1,8 @@
 --- 
 title: Building an ember.js application
-categories: [Coming Soon]
+categories: [Technology]
 comments: false
-date: 2023-11-15 00:00:00 +0530
+date: 2023-11-05 00:00:00 +0530
 tags: [coming-soon]
 ---
 

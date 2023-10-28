@@ -2,11 +2,13 @@
 title: Functional Programming in Java - What and Why?
 date: 2023-10-21 00:00:00 +0530
 categories: [Technology]
-tags: [coding, functional-programming, java, first-blog]
+tags: [first-blog, coding, functional-programming, java]
 comments: true
+# image:
+#   path: /commons/FP.png
 ---
 
- <div align="justify">
+<div align="justify">
 This blog aims to define what functional programming is and few very basic examples of the same. **Note: I will be posting another blog with in detail examples for functional programming in Java.**
  <br />
  <br />  
