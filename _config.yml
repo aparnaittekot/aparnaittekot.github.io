@@ -25,7 +25,7 @@ description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
   
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
-url: https://aparnaittekot.github.io
+url: https://aparnaittekot.com/
 authors: [Aparna Ittekot]             # change to your full name
 
 github:
