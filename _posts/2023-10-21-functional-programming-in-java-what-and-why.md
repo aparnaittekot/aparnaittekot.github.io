@@ -1,5 +1,5 @@
 --- 
-title: Functional Programming in Java - What and Why?
+title: Functional programming in Java - What and Why?
 date: 2023-10-21 00:00:00 +0530
 categories: [Technology]
 tags: [first-blog, coding, functional-programming, java]
@@ -94,11 +94,12 @@ List<String> startsWithA =
 
 ## Upcoming blog - Part 2
  <div align="justify">
-I would be posting another blog with in detail examples for all the usages for functional programming in Java. Stay tuned! 
+I would be posting few more blogs with in detail examples for usages of functional programming in Java. Stay tuned! 
 </div>
-[Detailed Code Examples on Functional Programming In Java - (Coming Soon!)](../functional-programming-in-java-examples)
+1. [Functional Interfaces examples (Functional programming)](../functional-programming-in-java-examples)
+2. [Monads examples (Functional programming)](../functional-programming-monads)
  <br />  
- <br />  
+  <br />  
 {% if site.disqus.shortname %}
   {% include disqus.html %}
 {% endif %}
