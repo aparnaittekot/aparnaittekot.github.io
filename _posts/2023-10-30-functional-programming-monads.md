@@ -3,7 +3,7 @@ title: Monads examples (Functional programming)
 categories: [Technology]
 comments: false
 tags: [coming-soon, functional-programming, monads]
-date: 2023-10-29 00:00:00 +0530
+date: 2023-10-30 00:00:00 +0530
 ---
 
 Pre-read blogs:

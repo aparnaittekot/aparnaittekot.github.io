@@ -11,7 +11,7 @@ Before moving to examples, do read the blog [Functional programming in Java - Wh
 There are few other ways apart from lambdas, that uses the concept of functional programming and they are:
 </div>
 * Functional Interfaces 
-* Monads - [Blog post on Monads](../functional-programming-monads).
+* Monads - [Jump to Monads section](#monads)
 
 ## Functional Interfaces
 <div align="justify">
