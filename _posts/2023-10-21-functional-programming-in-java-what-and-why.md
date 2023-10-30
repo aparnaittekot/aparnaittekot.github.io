@@ -26,7 +26,7 @@ Use case: Loop through a list and print its values. In the imperative world, a f
 
 ```java
 for(int i = 0; i < listOfNames.size(); i++) {                      
-    System.out.println(listOfNames.get(i)); 
+    logger.debug(listOfNames.get(i)); 
 }
 ```
 
@@ -36,7 +36,7 @@ Replace for loop statement with forEach() to use the functional way and this red
 </div>
 
 ```java
-listOfNames.forEach((name) -> System.out.println(name));
+listOfNames.forEach((name) -> logger.debug(name));
 ```
 
 ## Transforming a list

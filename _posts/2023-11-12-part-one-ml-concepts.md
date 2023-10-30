@@ -1,5 +1,5 @@
 --- 
-title: Part 1 - Machine Learning concepts
+title: Part 1 - Machine Learning basic concepts
 categories: [Technology]
 comments: false
 tags: [coming-soon]

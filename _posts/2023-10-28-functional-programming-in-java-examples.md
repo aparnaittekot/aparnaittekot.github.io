@@ -23,7 +23,7 @@ Functional interfaces is an interface with one abstract method which can be used
 Given a list of names, find the number the names in the list.
 ```java 
 Function<List<String>, Integer> sizeOfList = (value) -> value.size();
-System.out.println("Number of names : " + sizeOfList.apply(names));
+logger.debug("Number of names : {}", sizeOfList.apply(names));
 ```
 
 ### Case 1.1: Nested functions
@@ -39,7 +39,7 @@ Function<List<String>, Integer> sizeOfList = (value) -> value.size();
 // Nesting : Function 1 andThen Function 2
 Function<List<String>, List<String>> numberOfNamesStartsWithA = startsWithA.andThen(startsWithA);
 
-System.out.println("Number of names that starts with A : " + numberOfNamesStartsWithA.apply(names);
+logger.debug("Number of names that starts with A : {}", numberOfNamesStartsWithA.apply(names);
 ```
 
 ### Case 1.2: Function as parameter and result R
@@ -52,7 +52,7 @@ Function<Integer, Integer> multiplyBy20 = (value) -> value * 20;
 Function<Integer, Integer> add10      = (value) -> value + 10;
 // Function 2 instance passed as parameter to Function 1
 Function<Integer, Integer> add10ThenMultiplyBy20 = multiplyBy20.compose(add10);
-System.out.println(add10ThenMultiplyBy20.apply(30);); // (30 + 10) * 20 = 800
+logger.debug(add10ThenMultiplyBy20.apply(30)); // (30 + 10) * 20 = 800
 ```
 
 ### Case 1.3: Two parameters (A and B) and result R
@@ -60,7 +60,7 @@ System.out.println(add10ThenMultiplyBy20.apply(30);); // (30 + 10) * 20 = 800
 Given two numbers, find the sum of the numbers.
 ```java 
 BiFunction<Integer, Integer, Integer> addTwoNumbers = (a, b) -> a + b;
-System.out.println(addTwoNumbers.apply(30, 10);); // (30 + 10) = 40
+logger.debug(addTwoNumbers.apply(30, 10)); // (30 + 10) = 40
 ```
 
 ### Case 1.4: Three parameters (A, B and C) and result R
@@ -68,7 +68,7 @@ System.out.println(addTwoNumbers.apply(30, 10);); // (30 + 10) = 40
 Given three numbers, find the sum of the numbers.
 ```java 
 TriFunction<Integer, Integer> addThreeNumbers = (a, b, c) -> a + b + c;
-System.out.println(addThreeNumbers.apply(30, 10, 40);); // (30 + 10+ 40) = 80
+logger.debug(addThreeNumbers.apply(30, 10, 40)); // (30 + 10+ 40) = 80
 ```
 
 ### Case 2: Single Parameter T and boolean result
@@ -76,15 +76,15 @@ System.out.println(addThreeNumbers.apply(30, 10, 40);); // (30 + 10+ 40) = 80
 Given a number, find if the number is greater than 100 or not.
 ```java 
 Predicate<Integer> isNumberGreaterThan100 = value -> (value > 100);  
-System.out.println(isNumberGreaterThan100.test(10));  // false
-System.out.println(isNumberGreaterThan100.test(200));  // true
+logger.debug(isNumberGreaterThan100.test(10));  // false
+logger.debug(isNumberGreaterThan100.test(200));  // true
 ```
 
 ### Case 3: Single Parameter T and no result
 #### `Consumer<T>` and `accept()`
 Given list of names, display all the names in the list.
 ```java 
-Consumer<List<String>> displayNames = values -> values.stream().forEach(a -> System.out.print(name + " "));
+Consumer<List<String>> displayNames = values -> values.stream().forEach(a -> logger.debug("{} ", name));
 displayNames.accept(names);
 ```
 
@@ -92,8 +92,8 @@ displayNames.accept(names);
 #### `Consumer<T>`, `andThen()` and `accept()`
 Given list of names, display all the names in the list followed by the number of names.
 ```java 
-Consumer<List<String>> displayNames = values -> values.stream().forEach(a -> System.out.print(name + " "));
-Consumer<Integer> printSizeOfList = values -> System.out.println("Total number of names" + values.size);
+Consumer<List<String>> displayNames = values -> values.stream().forEach(a -> logger.debug("{} ", name));
+Consumer<Integer> printSizeOfList = values -> logger.debug("Total number of names : {}", values.size);
 displayNames.andThen(printSizeOfList).accept(names);
 ```
 
@@ -102,7 +102,7 @@ displayNames.andThen(printSizeOfList).accept(names);
 Print a random number.
 ```java 
 Supplier<Double> findRandomValue = () -> Math.random(); 
-System.out.println(findRandomValue.get()); 
+logger.debug(findRandomValue.get()); 
 ```
 
 ## Monads
