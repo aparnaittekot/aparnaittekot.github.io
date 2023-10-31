@@ -1,8 +1,8 @@
 --- 
-title: Part 1 - Machine Learning basic concepts
+title: Machine Learning - Data Preprocessing
 categories: [Technology]
-comments: false
 tags: [coming-soon]
+comments: false
 date: 2023-11-12 00:00:00 +0530
 ---
 

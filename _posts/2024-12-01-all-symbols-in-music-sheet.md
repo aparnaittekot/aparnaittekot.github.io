@@ -1,8 +1,8 @@
 --- 
-title: (Cheatsheet) Commonly seen symbols In Music Sheet
+title: Music Sheet Symbols and it's significance
 categories: [Music]
-comments: false
 tags: [coming-soon]
+comments: false
 date: 2024-01-31 00:00:00 +0530
 ---
 

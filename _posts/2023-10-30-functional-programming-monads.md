@@ -1,5 +1,5 @@
 --- 
-title: Monads examples (Functional programming)
+title: Monads in Java
 categories: [Technology]
 comments: false
 tags: [coming-soon, functional-programming, monads]

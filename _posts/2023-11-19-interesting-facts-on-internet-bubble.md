@@ -1,8 +1,8 @@
 --- 
-title: Interesting facts about the Internet Bubble
+title: Dotcom Bubble
 categories: [Technology]
-comments: false
 tags: [coming-soon]
+comments: false
 date: 2023-11-19 00:00:00 +0530
 ---
 

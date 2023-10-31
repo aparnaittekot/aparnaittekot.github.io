@@ -1,5 +1,5 @@
 --- 
-title: Functional Interface examples (Functional programming)
+title: Functional Interfaces in Java
 categories: [Technology]
 tags: [coding, java, functional-programming, functional-interface]
 date: 2023-10-28 00:00:00 +0530

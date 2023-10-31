@@ -1,9 +1,9 @@
 --- 
-title: The Must Know Design Patterns
+title: Design Patterns
 categories: [Technology]
-comments: false
 tags: [coming-soon]
+comments: false
 date: 2023-12-31 00:00:00 +0530
 ---
 
-Coming Soon - Jan 2024
+Coming Soon - Dec 2024
