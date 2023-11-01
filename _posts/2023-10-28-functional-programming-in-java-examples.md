@@ -1,8 +1,12 @@
 --- 
 title: Functional Interfaces in Java
+tagline: Examples for functional interfaces.
 categories: [Technology]
-tags: [coding, java, functional-programming, functional-interface]
+tags: [coding, java, functional-programming, functional-interface, technology]
 date: 2023-10-28 00:00:00 +0530
+name: Functional programming, Functional Interfaces
+type: BlogPosting
+last_modified_at: 2023-11-01 00:00:00 +0530
 ---
 
 Before moving to examples, do read the blog [Functional programming in Java - What and Why?](../functional-programming-in-java-what-and-why) to get more context on what is functional programming.
@@ -106,7 +110,7 @@ logger.debug(findRandomValue.get());
 ```
 
 ## Monads
-Monads will be taken up in a different [blog post](../functional-programming-monads).
+[blog post on Monads](../functional-programming-monads).
 
 <br/>
 {% if site.disqus.shortname %}

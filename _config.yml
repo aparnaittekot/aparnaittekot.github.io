@@ -34,6 +34,9 @@ github:
 social:
   name: Aparna Ittekot              # it will shows as the copyright owner in Footer
   email: aparnaittkot@gmail.com  # change to your email address
+  links:
+    # The first element serves as the copyright owner's link
+    - https://github.com/aparnaittekot #change to your github homepage
 
 # google_site_verification: mlwABpnF22MCyeNCQoei9VdIPvqy_uV7b4v_vArTxXM # change to your verification string
 # --------------------------

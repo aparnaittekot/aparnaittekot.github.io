@@ -1,5 +1,5 @@
 --- 
-title: Design Patterns
+title: (New) Design Patterns
 categories: [Technology]
 tags: [coming-soon]
 comments: false

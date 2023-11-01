@@ -1,5 +1,5 @@
 --- 
-title: Circle Of Fifths (Chords and Scales)
+title: (New) Circle Of Fifths - Chords and Scales
 categories: [Music]
 tags: [coming-soon]
 comments: false
