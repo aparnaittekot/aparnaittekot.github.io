@@ -18,9 +18,9 @@ timezone: Asia/Calcutta
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
-title: A Unified Blog # the main title
+title: A Unified Website # the main title
 
-tagline: Contains blog posts on any topics aka categories (For example, technology, music, public speaking etc). This blog is open to suggestions and collaborations.  # it will display as the sub-title
+tagline: Website that has content on multiple topics aka categories (For example, technology, music, public speaking etc). This website is open to suggestions and collaborations.  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
   

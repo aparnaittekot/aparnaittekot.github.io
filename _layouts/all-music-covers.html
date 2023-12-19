@@ -1,6 +1,6 @@
 ---
 layout: page
-# The Archives of posts.
+# The Archives of music covers.
 ---
 
 {% include lang.html %}
@@ -10,7 +10,8 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
   {% for post in site.posts %}
-  {% if post.tags contains "coming-soon" and post.categories contains "Technology" %}
+  {% if post.tags contains "coming-soon" or post.tags contains "music-soon" or post.categories contains "Technology"%}
+  {% else %}
     {% assign cur_year = post.date | date: '%Y' %}
 
     {% if cur_year != last_year %}
@@ -33,5 +34,5 @@ layout: page
     </li>
     {% endif %}
     {% if forloop.last %}</ul>{% endif %}
-  {% endfor %} 
+  {% endfor %}
 </div>

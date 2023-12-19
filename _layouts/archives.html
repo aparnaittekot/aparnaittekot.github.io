@@ -10,7 +10,7 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
   {% for post in site.posts %}
-  {% if post.tags contains "coming-soon" %}
+  {% if post.tags contains "coming-soon" or post.tags contains "music-soon" or post.categories contains "Music"%}
   {% else %}
     {% assign cur_year = post.date | date: '%Y' %}
 

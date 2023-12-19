@@ -1,6 +1,6 @@
 ---
 layout: archives
-title: All blogs
+title: All Posts
 icon: fas fa-archive
 order: 2
 future: false

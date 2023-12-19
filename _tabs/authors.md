@@ -1,7 +1,7 @@
 ---
 title: Authors
 icon: fas fa-info-circle
-order: 6
+order: 8
 ---
 
 ## Aparna Ittekot (Main Author)

@@ -42,7 +42,7 @@ refactor: true
 
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}
-    {% if post.tags contains "coming-soon" %}
+    {% if post.tags contains "coming-soon" or post.tags contains "music-soon" %}
     {% else %}
     <article class="card-wrapper card">
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">

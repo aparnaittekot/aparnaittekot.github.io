@@ -1,6 +1,5 @@
 ---
 layout: page
-# The Archives of posts.
 ---
 
 {% include lang.html %}
@@ -10,7 +9,7 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
   {% for post in site.posts %}
-  {% if post.tags contains "coming-soon" and post.categories contains "Technology" %}
+  {% if post.tags contains "music-soon" %}
     {% assign cur_year = post.date | date: '%Y' %}
 
     {% if cur_year != last_year %}
@@ -33,5 +32,5 @@ layout: page
     </li>
     {% endif %}
     {% if forloop.last %}</ul>{% endif %}
-  {% endfor %} 
+  {% endfor %}
 </div>

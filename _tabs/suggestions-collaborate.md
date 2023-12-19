@@ -1,7 +1,7 @@
 ---
 title: Want to suggest ideas or collaborate?
 icon: fas fa-info-circle
-order: 7
+order: 9
 ---
 
 ## Suggesting new blog ideas
