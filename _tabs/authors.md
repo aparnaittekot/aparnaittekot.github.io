@@ -12,11 +12,10 @@ I try to learn new things on any various topics in free time.
 
 ## Blog Content
  <div align="justify">
-Blogs based on learnings around various topics (for example: technology, music, sports etc). 
+Blogs based on learnings around various topics (for example: technology, music, sports etc). Do share, like or comment on the blog posts.
+</div> 
 
-<br/>
-<br/>Do share, like or comment on the blog posts if you found them interesting. 
-</div>
-
- <br/>
-Additionally, you can also suggest or contribute to the blogs as well. Feel free to check the section [Want to suggest ideas or collaborate?](../suggestions-collaborate) for more details.
+## Music Covers
+ <div align="justify">
+Keyboard or guitar covers that I do in my free time. 
+</div> 

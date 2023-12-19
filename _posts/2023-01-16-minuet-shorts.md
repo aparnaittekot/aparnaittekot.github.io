@@ -1,6 +1,6 @@
 --- 
 title: Minuet in G Major - Bach (Petzold) - Short Keyboard Cover
-categories: [Music]
+categories: [MusicCover]
 tags: [keyboard-cover]
 comments: false
 date: 2023-01-16 00:00:00 +0530

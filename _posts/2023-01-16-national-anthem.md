@@ -1,6 +1,6 @@
 --- 
 title: Jana Gana Mana | Keyboard Cover | National Anthem | Aparna Ittekot
-categories: [Music]
+categories: [MusicCover]
 tags: [keyboard-cover]
 comments: false
 date: 2023-08-15 00:00:00 +0530
