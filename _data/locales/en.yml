@@ -15,9 +15,9 @@ tabs:
   tags: Tags
   all-posts: All Blog Posts
   authors: Authors
-  upcoming-blogs: Upcoming Blogs
+  # upcoming-blogs: Upcoming Blogs
   all-music-covers: Music Covers
-  upcoming-music-covers: Upcoming Music Covers
+  # upcoming-music-covers: Upcoming Music Covers
 
 # the text displayed in the search bar & search results
 search:
