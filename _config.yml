@@ -20,7 +20,7 @@ timezone: Asia/Calcutta
 
 title: A Unified Website # the main title
 
-tagline: Website that has content on multiple topics for example - technology, music, public speaking etc.  # it will display as the sub-title
+tagline: Website that has content on multiple topics for example - technology, music, public speaking etc).  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
   
@@ -36,7 +36,7 @@ social:
   email: aparnaittkot@gmail.com  # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://github.com/aparnaittekot #change to your github homepage
+    - https://aparnaittekot.com/ #change to your github homepage
 
 # google_site_verification: mlwABpnF22MCyeNCQoei9VdIPvqy_uV7b4v_vArTxXM # change to your verification string
 # --------------------------
@@ -78,7 +78,7 @@ avatar:
 
 # boolean type, the global switch for ToC in posts.
 toc: true
-future: true
+future: false
 
 disqus:
   comments: true  # boolean type, the global switch for posts comments.
