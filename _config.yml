@@ -20,7 +20,7 @@ timezone: Asia/Calcutta
 
 title: A Unified Website # the main title
 
-tagline: Website that has content on multiple topics for example - technology, music, public speaking etc).  # it will display as the sub-title
+tagline: Mostly on technology, music and public speaking.  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
   
