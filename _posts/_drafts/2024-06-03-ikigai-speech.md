@@ -1,6 +1,6 @@
 --- 
 title: Ikigai
-categories: [InterestingTopics]
+categories: [Generic topic]
 tagline: Ikigai
 description: Ikigai - A Reason For Being
 tags: [toastmasters, public-speaking, speech, interesting-topics]

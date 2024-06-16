@@ -1,6 +1,6 @@
 --- 
 title: Frogs vs Fungal Infection
-categories: [InterestingFacts]
+categories: [Research topic]
 tagline: How does frogs fight fungal infection with ease?
 description: How does frogs fight fungal infection with ease?
 tags: [toastmasters, redqueeneffect, research]
