@@ -1,21 +1,21 @@
 ---
 title: Authors
-icon: fas fa-info-circle
-order: 6
+icon: fas fa-regular fa-at
+order: 8
 ---
 
-## Aparna Ittekot (Main Author)
+## Aparna Ittekot
 <div align="justify">
 I'm a software engineer who is enthusiastic about technology, music and public speaking.
 I try to learn new things on any various topics in free time.
 </div> 
 
-## Blog Content
- <div align="justify">
-Blogs based on learnings around various topics (for example: technology, music, sports etc). Do share, like or comment on the blog posts.
+#### Blog Content
+<div align="justify">
+Blogs based on learnings around various topics (for example: technology, music etc). Do share, like or comment on the blog posts.
 </div> 
 
-## Music Covers
+#### Music Covers
  <div align="justify">
 Keyboard or guitar covers that I do in my free time. 
 </div> 

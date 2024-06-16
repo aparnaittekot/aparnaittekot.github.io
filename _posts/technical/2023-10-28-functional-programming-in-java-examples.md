@@ -1,7 +1,7 @@
 --- 
 title: Functional Interfaces in Java
 tagline: Examples for functional interfaces.
-categories: [Technology]
+categories: [Coding]
 tags: [coding, java, functional-programming, functional-interface, technology]
 date: 2023-10-28 00:00:00 +0530
 name: Functional programming, Functional Interfaces

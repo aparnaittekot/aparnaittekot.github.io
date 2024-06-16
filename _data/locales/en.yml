@@ -16,7 +16,8 @@ tabs:
   all-posts: All Blog Posts
   authors: Authors
   # upcoming-blogs: Upcoming Blogs
-  all-music-covers: Music Covers
+  music: Music
+  technology: Technology
   # upcoming-music-covers: Upcoming Music Covers
 
 # the text displayed in the search bar & search results

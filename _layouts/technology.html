@@ -1,6 +1,6 @@
 ---
 layout: page
-# The Archives of music covers.
+# The Archives of technology.
 ---
 
 {% include lang.html %}
@@ -10,17 +10,17 @@ layout: page
 
 <div id="archives" class="pl-xl-3">
   {% for post in site.posts %}
-  {% if post.tags contains "coming-soon" or post.tags contains "music-soon" or post.categories contains "Technology"%}
-  {% else %}
-    {% assign cur_year = post.date | date: '%Y' %}
+    {% if post.tags contains "technology" %}
+      {% assign cur_year = post.date | date: '%Y' %}
 
-    {% if cur_year != last_year %}
-      {% unless forloop.first %}</ul>{% endunless %}
+      {% if cur_year != last_year %}
+        {% unless forloop.first %}</ul>{% endunless %}
 
-      <time class="year lead d-block">{{ cur_year }}</time>
-      {{ '<ul class="list-unstyled">' }}
+        <time class="year lead d-block">{{ cur_year }}</time>
+        {{ '<ul class="list-unstyled">' }}
 
       {% assign last_year = cur_year %}
+    {% else %}
     {% endif %}
 
     <li>

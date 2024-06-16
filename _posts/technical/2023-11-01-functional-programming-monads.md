@@ -1,6 +1,6 @@
 --- 
 title: Monads in Java
-categories: [Technology]
+categories: [Coding]
 tagline: Introduction to monads in Java.
 tags: [monads, java, functional-programming, coding, technology]
 date: 2023-11-01 00:00:00 +0530
