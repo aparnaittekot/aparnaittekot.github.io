@@ -19,4 +19,6 @@ Today is India’s independence day. Here are some interesting facts:
 
 Here's a keyboard cover of the National Anthem
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/0sk-u2i_mLM/0.jpg)](https://youtu.be/0sk-u2i_mLM)
+<!-- [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/0sk-u2i_mLM/0.jpg)](https://youtu.be/0sk-u2i_mLM) -->
+
+{% include embed/youtube.html id='0sk-u2i_mLM' %}

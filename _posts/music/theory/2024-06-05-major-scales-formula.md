@@ -4,13 +4,14 @@ categories: [Music Theory]
 tags: [keyboard-cover, music, theory, western]
 date: 2024-06-05 00:00:00 +0530
 type: Music Theory
+pin: true
 ---
 
-Let's first look at all 12 notes:
+Below are the `12 music notes` in western music
 
-```
-A - A#(or Bb) - B - C - C#(or Db) - D - D#(or Eb) - E - F - F#(or Gb) - G - G#(or Ab) - A
-```
+> A --- A#(or Bb) ---- B ---- C --- C#(or Db) --- D --- D#(or Eb) --- E --- F --- F#(or Gb) --- G --- G#(or Ab) --- A
+{: .prompt-info }
+
 Note : `#` is pronounced as Sharp and `b` as Flat. For example: A# is `A Sharp` and Bb is `B flat`. 
 
 ### Formula
@@ -22,7 +23,8 @@ H means Half step (For example, from A to A#, it is a half step as it has one ho
 ```
 
 Here's a trick to remember this:
-`Women Wearing Hats Walked With Wonderful Heels`
+> Women Wearing Hats Walked With Wonderful Heels
+{: .prompt-info }
 
 ### Constructing major scales
 
@@ -66,16 +68,18 @@ C --- D --- E --- F --- G --- A --- B --- C
 * Ab major scale: `Ab – Bb – C – Db – Eb – F – G – Ab`
 
 
-### Interesting observations
+### Pointers
+[1] From A to B note, it is 2 hops for a Whole step. (DO NOT COUNT number of notes). 
+`A -> A# -> B`
 
-[1] `Keep it simple` : Make sure to use the notations in such a way that the character is not repeated for simplicity.
+[2] `Keep it simple` : Make sure to use the notations in such a way that the character is not repeated for simplicity.
 
 For example for C# Major:
 `C# – D# – E# – F# – G# – A# – B# – C#`
 
 The order (C# – D# – E# – F# – G# – A# – C – C#) can be avoided as C is repeated in the form of C and C#. Similarly the order, (C# – D# – F – F# – G# – A# – B# – C#) can be avoided as F is repeated in form of F and F#.
 
-[2] `Using sharp or flat scale` : If you cannot do [1] on a note, use the # (sharp) or b (flat) versions of the note to form the scale. 
+[3] `Using sharp or flat scale` : If you cannot do [1] on a note, use the # (sharp) or b (flat) versions of the note to form the scale. 
 
 For example for D#, the order is:
 (D# – F – G – G# – A# – C – D – D#)
@@ -83,3 +87,8 @@ This is not simple to use and this cannot be converted like mentioned in [1].
 Hence you can use Eb (flat) which is same as D#. 
 
 `Eb – F – G – Ab – Bb – C – D – Eb`
+
+
+{% if site.disqus.shortname %}
+  {% include disqus.html %}
+{% endif %}
