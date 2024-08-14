@@ -1,0 +1,21 @@
+---
+layout: page
+# All the Tags of posts.
+---
+
+<div id="tags" class="d-flex flex-wrap mx-xl-2">
+    {% assign tags = '' | split: '' %}
+    {% for t in site.new_words %}
+      {% assign tags = tags | push: t %}
+    {% endfor %}
+  
+    {% assign sorted_tags = tags | sort_natural %}
+  
+    {% for t in sorted_tags %}
+      <div>
+        <a class="tag">
+          {{ t.name }} - {{ t.meaning }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
