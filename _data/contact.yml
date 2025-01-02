@@ -12,9 +12,4 @@
 -
   type: linkedin
   icon: 'fab fa-linkedin'   # icons powered by <https://fontawesome.com/>
-  url:  'https://www.linkedin.com/in/aparnaittekot/' 
-
--
-  type: reddit
-  icon: 'fab fa-reddit'   # icons powered by <https://fontawesome.com/>
-  url:  'https://www.reddit.com/user/aparna_ittekot/'     
+  url:  'https://www.linkedin.com/in/aparnaittekot/'
