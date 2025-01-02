@@ -1,5 +1,5 @@
 --- 
-title: Learn Major Scales Quickly (music theory)
+title: Learn Major Scales Quickly
 categories: [Music Theory]
 tags: [music-thoeory, music]
 comments: false
