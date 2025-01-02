@@ -1,12 +1,12 @@
 --- 
 title: Learn Major Scales Quickly (music theory)
 categories: [Music Theory]
-tags: [music-thoeory]
+tags: [music-thoeory, music]
 comments: false
 date: 2025-01-01 00:00:00 +0530
 layout: page
 type: MusicTheory
 ---
 
-Cheatcode for learning Major Scales Quickly (music theory)
+Cheatcode for learning Major Scales Quickly. 
 {% include embed/youtube.html id='CzDGIaTfr8U' %}
