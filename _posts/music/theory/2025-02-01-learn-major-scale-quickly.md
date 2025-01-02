@@ -8,5 +8,5 @@ layout: page
 type: MusicTheory
 ---
 
-My attempt at covering The Minuets in G major, a music piece by composer Christian Petzold.
+Cheatcode for learning Major Scales Quickly (music theory)
 {% include embed/youtube.html id='CzDGIaTfr8U' %}
