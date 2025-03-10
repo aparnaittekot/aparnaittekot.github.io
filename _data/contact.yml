@@ -24,3 +24,15 @@
   type: linkedin
   icon: 'fab fa-linkedin' 
   url:  'https://www.linkedin.com/in/aparnaittekot/'
+
+-
+  type: goodreads
+  icon: 'fab fa-goodreads' 
+  url:  'https://www.goodreads.com/aparnaittekot/'
+
+-
+  type: reddit
+  icon: 'fab fa-reddit' 
+  url:  'https://www.reddit.com/user/aparna_ittekot/'
+  
+
