@@ -1,3 +1,39 @@
+/* Make ALL text pure black in Light Mode */
+
+/* Titles and Headings */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3,
+html[data-theme="light"] h4,
+html[data-theme="light"] h5,
+html[data-theme="light"] h6,
 html[data-theme="light"] .site-title {
+  color: #000000 !important;
+}
+
+/* Post/article content */
+html[data-theme="light"] p,
+html[data-theme="light"] li,
+html[data-theme="light"] blockquote,
+html[data-theme="light"] code,
+html[data-theme="light"] span,
+html[data-theme="light"] strong,
+html[data-theme="light"] em,
+html[data-theme="light"] td,
+html[data-theme="light"] th,
+html[data-theme="light"] a {
+  color: #000000 !important;
+}
+
+/* Sidebar text (optional, if needed) */
+html[data-theme="light"] .sidebar,
+html[data-theme="light"] .sidebar a,
+html[data-theme="light"] .sidebar p {
+  color: #000000 !important;
+}
+
+/* Footer text (optional, for full consistency) */
+html[data-theme="light"] footer,
+html[data-theme="light"] footer a {
   color: #000000 !important;
 }
