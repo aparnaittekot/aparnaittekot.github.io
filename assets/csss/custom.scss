@@ -8,7 +8,7 @@ html[data-theme="light"] h4,
 html[data-theme="light"] h5,
 html[data-theme="light"] h6,
 html[data-theme="light"] .site-title {
-  color: #333333 !important; /* Darker grey for better readability */
+  color: #000000 !important; /* Black for all titles */
 }
 
 /* Post/article content */
@@ -22,49 +22,44 @@ html[data-theme="light"] em,
 html[data-theme="light"] td,
 html[data-theme="light"] th,
 html[data-theme="light"] a {
-  color: #333333 !important; /* Slightly darker grey for content text */
+  color: #000000 !important; /* Black for content */
 }
 
 /* Sidebar text (optional, if needed) */
 html[data-theme="light"] .sidebar,
 html[data-theme="light"] .sidebar a,
 html[data-theme="light"] .sidebar p {
-  color: #333333 !important;
+  color: #000000 !important;
 }
 
 /* Footer text (optional, for full consistency) */
 html[data-theme="light"] footer,
 html[data-theme="light"] footer a {
-  color: #333333 !important;
+  color: #000000 !important;
 }
 
-/* Light Mode: Add border and better style for post titles */
-html[data-theme="light"] article h1,
-html[data-theme="light"] article h2,
-html[data-theme="light"] article h3,
-html[data-theme="light"] article h4,
-html[data-theme="light"] article h5,
-html[data-theme="light"] article h6 {
-  border: 3px solid #4CAF50;   /* Green border for better contrast */
-  background-color: #f9f9f9;   /* Light grey background to enhance readability */
-  padding: 12px 20px;           /* Padding inside the border */
-  margin-bottom: 20px;          /* Space below the title */
-  border-radius: 8px;           /* Rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Soft shadow for a 3D effect */
+/* Make the website title in the left pane black in both modes */
+html[data-theme="light"] .site-title {
+  color: #000000 !important; /* Black title in Light Mode */
 }
 
-/* Dark Mode: Different border and improved styling */
+/* Dark Mode: Black border and black text */
 html[data-theme="dark"] article h1,
 html[data-theme="dark"] article h2,
 html[data-theme="dark"] article h3,
 html[data-theme="dark"] article h4,
 html[data-theme="dark"] article h5,
 html[data-theme="dark"] article h6 {
-  border: 3px solid #3498db;    /* Blue border for contrast in Dark Mode */
-  background-color: #333333;    /* Darker background for readability */
-  color: #ffffff !important;    /* White text for better visibility */
-  padding: 12px 20px;           /* Padding inside the border */
-  margin-bottom: 20px;          /* Space below the title */
-  border-radius: 8px;           /* Rounded corners */
+  border: 3px solid #000000;  /* Black border */
+  background-color: #222222;  /* Dark background for Dark Mode */
+  color: #000000 !important;  /* Black text for better visibility */
+  padding: 12px 20px;         /* Padding inside the border */
+  margin-bottom: 20px;        /* Space below the title */
+  border-radius: 8px;         /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);  /* Soft shadow for a 3D effect */
+}
+
+/* Dark Mode: Ensure website title is black */
+html[data-theme="dark"] .site-title {
+  color: #000000 !important; /* Black title in Dark Mode */
 }
