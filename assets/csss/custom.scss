@@ -39,11 +39,18 @@ html[data-theme="light"] footer a {
 }
 
 /* Make the website title in the left pane black in both modes */
-html[data-theme="light"] .site-title {
+html[data-theme="light"] .site-header .site-title,
+html[data-theme="light"] .sidebar .site-title {
   color: #000000 !important; /* Black title in Light Mode */
 }
 
-/* Dark Mode: Black border and black text */
+/* Dark Mode: Ensure website title is black */
+html[data-theme="dark"] .site-header .site-title,
+html[data-theme="dark"] .sidebar .site-title {
+  color: #000000 !important; /* Black title in Dark Mode */
+}
+
+/* Dark Mode: Black border and black text for post titles */
 html[data-theme="dark"] article h1,
 html[data-theme="dark"] article h2,
 html[data-theme="dark"] article h3,
@@ -57,9 +64,4 @@ html[data-theme="dark"] article h6 {
   margin-bottom: 20px;        /* Space below the title */
   border-radius: 8px;         /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);  /* Soft shadow for a 3D effect */
-}
-
-/* Dark Mode: Ensure website title is black */
-html[data-theme="dark"] .site-title {
-  color: #000000 !important; /* Black title in Dark Mode */
 }
