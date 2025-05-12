@@ -1,4 +1,3 @@
-body,
-body * {
-  color: black !important;
+.site-title {
+  color: #000 !important;
 }
