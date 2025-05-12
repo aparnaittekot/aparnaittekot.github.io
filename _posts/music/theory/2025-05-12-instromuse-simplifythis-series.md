@@ -13,4 +13,6 @@ I'm starting a weekly series of "SimplifyThis" where you folks can add your inpu
 Here's the form for you to fill 
 Please do submit your ideas here for [SimplifyThis Series 1](https://docs.google.com/forms/d/e/1FAIpQLScUWHoqH0lkCoM0AAq0nk-g-mvjI7HEKlYibq1EZJZEC1bfrA/viewform). This closes on 17th May for series 1.
 
-Will soon be adding a view of the items added so far.
+Here's the view of the items added so far:
+
+<iframe src="https://understood-raclette-d73.notion.site/ebd/1f18814487d780ac80eefe1873741fa7?v=1f18814487d780268ff1000cf2f1eb71&hide-header=true&hide-share=true" width="100%" height="600" frameborder="0" allowfullscreen />
