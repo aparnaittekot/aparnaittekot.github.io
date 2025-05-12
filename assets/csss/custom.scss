@@ -65,3 +65,19 @@ html[data-theme="dark"] article h6 {
   border-radius: 8px;         /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);  /* Soft shadow for a 3D effect */
 }
+
+iframe[src*="notion.site"] {
+  display: block;
+}
+
+iframe[src*="notion.site"]::after {
+  content: "";
+  display: none;
+}
+
+/* Optionally, you can hide specific Notion page elements */
+iframe {
+  height: 600px;
+  width: 100%;
+  border: none;
+}
