@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Music Concepts Submissions 
-permalink: /instromuse-series/view/
+title: Music Theory Topic Submissions 
+permalink: /instromuse-series
 pin: true
 categories: [Music Theory]
 tags: [instromuse-series, music, theory]
