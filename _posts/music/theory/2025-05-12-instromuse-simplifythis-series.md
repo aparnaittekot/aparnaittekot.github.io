@@ -15,4 +15,4 @@ Please do submit your ideas here for [SimplifyThis Series 1](https://docs.google
 
 Here's the view of the items added so far:
 
-<iframe src="https://understood-raclette-d73.notion.site/ebd/1f18814487d780ac80eefe1873741fa7?v=1f18814487d780268ff1000cf2f1eb71&hide-header=true&hide-share=true" width="100%" height="600" frameborder="0" allowfullscreen />
+<iframe src="https://understood-raclette-d73.notion.site/ebd/1f18814487d780ac80eefe1873741fa7?v=1f18814487d780268ff1000cf2f1eb71&hide-header=true&hide-share=true" width="100%" height="100vh" frameborder="0" allowfullscreen />
