@@ -170,5 +170,7 @@ jekyll-archives:
     tag: /tags/:name/
     category: /categories/:name/
     
-custom_css:
-  - /assets/css/custom.css
+assets:
+  self_host:
+    enabled: true
+  custom_css: /assets/css/custom.scss
