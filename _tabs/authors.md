@@ -1,7 +1,7 @@
 ---
 title: Authors
 icon: fas fa-regular fa-at
-order: 9
+order: 5
 ---
 
 ## Aparna Ittekot
