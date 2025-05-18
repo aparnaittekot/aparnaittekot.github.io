@@ -4,6 +4,8 @@ categories: [Music Theory]
 tags: [keyboard-cover, music, theory, western]
 date: 2024-07-08 00:00:00 +0530
 type: Music Theory
+description: Blog for Minor Scales Formula
+subType: Blog 
 ---
 
 

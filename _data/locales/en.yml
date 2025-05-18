@@ -13,11 +13,12 @@ tabs:
   home: Home
   categories: Categories
   tags: Tags
-  all-posts: All Posts
+  all-posts: Archives
   coming-soon: Coming Soon
   authors: Authors
   # upcoming-blogs: Upcoming Blogs
-  music: Music
+  music: Music Covers
+  music-theory: Music Theory
   technology: Technology
   # upcoming-music-covers: Upcoming Music Covers
 

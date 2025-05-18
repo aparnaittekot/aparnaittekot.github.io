@@ -6,6 +6,8 @@ comments: false
 date: 2023-01-16 00:00:00 +0530
 layout: page
 type: MusicCover
+description: Minuet in G Major - Keyboard Cover
+subType: Video 
 ---
 
 My attempt at covering The Minuets in G major, a music piece by composer Christian Petzold.

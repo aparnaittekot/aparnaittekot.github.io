@@ -1,0 +1,101 @@
+---
+layout: page
+# The Archives of music.
+---
+
+{% include lang.html %}
+
+{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
+{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+
+<style>
+.music-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2rem;
+}
+.music-tile {
+  background: #181818;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  padding: 0.8rem;
+  width: 260px;
+  min-width: 200px;
+  max-width: 340px;
+  min-height: 80px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: box-shadow 0.2s;
+  color: #f1f1f1;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  word-break: break-word;
+}
+.music-tile:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.32);
+}
+.music-tile-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #fff;
+}
+.music-tile-title a {
+  color: #fff;
+  text-decoration: none;
+}
+.music-tile-title a:hover {
+  color: #1db954;
+}
+.music-tile-meta {
+  font-size: 0.85rem;
+  color: #b3b3b3;
+  margin-bottom: 0.3rem;
+}
+.music-tile-categories {
+  font-size: 0.75rem;
+  color: #fff;
+  font-weight: 600;
+}
+</style>
+
+<div class="music-tiles">
+  {% for post in site.posts %}
+    {% if post.tags contains "music" and post.categories contains "Music Theory" %}
+      <div class="music-tile">
+        <div>
+          <div class="music-tile-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </div>
+          <div class="music-tile-preview" style="margin-top:0.5rem;">
+            <a href="{{ post.url | relative_url }}">
+              <div style="color:#b3b3b3;font-size:0.92em;line-height:1.4em;max-height:3.8em;overflow:hidden;">
+                {{ post.description | default: post.excerpt | strip_html | truncate: 110 }}
+              </div>
+            </a>
+          </div>
+          {% if post.categories %}
+            <div style="margin-top:0.6em;"></div>
+            <div class="music-tile-categories">
+              {{ post.categories | join: ", " }}
+              {% if post.subType %}
+                <span style="color:#b3b3b3;font-size:0.85em;font-weight:400;">&nbsp;|&nbsp;{{ post.subType }}</span>
+              {% endif %}
+            </div>
+          {% endif %}
+          <div style="color:#b3b3b3;font-size:0.85em;margin-top:0.5em;">
+            {{ post.date | date: "%b %-d, %Y" }}
+          </div>
+        </div>
+        {% if post.video %}
+          <div style="margin-top: 0.5rem;">
+            <iframe width="100%" height="90" src="{{ post.video }}" frameborder="0" allowfullscreen></iframe>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>

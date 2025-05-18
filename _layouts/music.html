@@ -8,31 +8,188 @@ layout: page
 {% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
 {% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
 
-<div id="archives" class="pl-xl-3">
-  {% for post in site.posts %}
-    {% if post.tags contains "music" %}
-      {% assign cur_year = post.date | date: '%Y' %}
+<style>
+.music-tiles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 2rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.music-tile {
+  background: #181818;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  padding: 0.8rem;
+  width: 200px;
+  min-height: 120px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+  color: #f1f1f1;
+  margin-bottom: 1.2rem;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+}
+.music-tile:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.32);
+}
+.music-tile-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #fff;
+  min-height: 2.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.music-tile-title a {
+  color: #fff;
+  text-decoration: none;
+}
+.music-tile-title a:hover {
+  color: #1db954;
+}
+.music-tile-meta {
+  font-size: 0.85rem;
+  color: #b3b3b3;
+  margin-bottom: 0.3rem;
+}
+.music-tile-categories {
+  font-size: 0.75rem;
+  color: #1db954;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+.music-tile-preview {
+  margin-top: 0.5rem;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.music-tile-preview img {
+  width: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  background: #222;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.18);
+  max-height: 120px;
+  min-height: 80px;
+  display: block;
+}
+@media (max-width: 900px) {
+  .music-tiles {
+    gap: 0.7rem;
+  }
+  .music-tile {
+    width: 48%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 100px;
+    padding: 0.5rem;
+  }
+  .music-tile-preview img {
+    max-height: 80px;
+    min-height: 50px;
+  }
+}
+@media (max-width: 600px) {
+  .music-tiles {
+    gap: 0.5rem;
+  }
+  .music-tile {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 80px;
+    padding: 0.4rem;
+  }
+  .music-tile-preview img {
+    max-height: 60px;
+    min-height: 40px;
+  }
+}
+</style>
 
-      {% if cur_year != last_year %}
-        {% unless forloop.first %}</ul>{% endunless %}
-
-        <time class="year lead d-block">{{ cur_year }}</time>
-        {{ '<ul class="list-unstyled">' }}
-
-      {% assign last_year = cur_year %}
-    {% else %}
-    {% endif %}
-
-    <li>
-      {% assign ts = post.date | date: '%s' %}
-      <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
-      <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
-        {{ post.date | date: df_strftime_m }}
-      </span>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <text>({{post.categories }})            </text>
-    </li>
-    {% endif %}
-    {% if forloop.last %}</ul>{% endif %}
-  {% endfor %}
+<div class="music-tiles">
+  <!-- Only show dynamic YouTube videos and shorts, remove picking from posts -->
+  <div id="youtube-dynamic-tiles"></div>
 </div>
+
+<script>
+const apiKey = 'AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM';
+const channelHandle = '@instro_muse';
+const maxResults = 50; // Number of videos/shorts to show
+
+async function getChannelIdFromHandle(handle) {
+  // Fetch channel ID using the handle
+  const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=${encodeURIComponent(handle)}&key=${apiKey}`;
+  const resp = await fetch(url);
+  const data = await resp.json();
+  if (data.items && data.items.length > 0) {
+    return data.items[0].snippet.channelId;
+  }
+  return null;
+}
+
+async function fetchVideosAndShorts(channelId) {
+  // Fetch latest videos (including shorts) from the channel
+  const url = `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${maxResults}`;
+  const resp = await fetch(url);
+  const data = await resp.json();
+  if (!data.items) return [];
+  return data.items.filter(item =>
+    item.id.kind === "youtube#video"
+  );
+}
+
+function renderYouTubeTiles(videos) {
+  const container = document.getElementById('youtube-dynamic-tiles');
+  if (!container) return;
+  container.innerHTML = ""; // Clear previous
+  videos.forEach(video => {
+    const videoId = video.id.videoId;
+    const title = video.snippet.title;
+    const isShort = video.snippet.title.toLowerCase().includes('shorts') || video.snippet.description.toLowerCase().includes('shorts');
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
+    const thumbUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    const tile = document.createElement('div');
+    tile.className = 'music-tile';
+    tile.innerHTML = `
+      <div>
+        <div class="music-tile-title" title="${title}">
+          <a href="${videoUrl}" target="_blank" rel="noopener">${title}</a>
+        </div>
+        <div class="music-tile-categories">${isShort ? 'Short' : 'Video'}</div>
+      </div>
+      <div class="music-tile-preview">
+        <a href="${videoUrl}" target="_blank" rel="noopener">
+          <img src="${thumbUrl}" alt="YouTube preview">
+        </a>
+      </div>
+    `;
+    container.appendChild(tile);
+  });
+}
+
+(async function() {
+  try {
+    const channelId = await getChannelIdFromHandle(channelHandle);
+    if (!channelId) return;
+    const videos = await fetchVideosAndShorts(channelId);
+    renderYouTubeTiles(videos);
+  } catch (e) {
+    // Fail silently
+  }
+})();
+</script>

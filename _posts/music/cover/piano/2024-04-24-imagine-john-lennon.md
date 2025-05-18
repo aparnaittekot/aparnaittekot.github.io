@@ -6,6 +6,8 @@ comments: false
 date: 2024-04-24 00:00:00 +0530
 layout: page
 type: MusicCover
+description: Imagine by John Lennon - Keyboard Cover
+subType: Video 
 ---
 
 Keyboard cover of Imagine by John Lennon

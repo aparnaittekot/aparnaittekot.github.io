@@ -7,6 +7,8 @@ date: 2023-11-01 00:00:00 +0530
 name: Functional programming, Monads
 type: BlogPosting
 last_modified_at: 2023-11-01 00:00:00 +0530
+description: Monads in Java
+subType: Blog 
 ---
 
 ## Pre-read blogs:

@@ -6,6 +6,8 @@ comments: false
 date: 2023-08-15 00:00:00 +0530
 layout: page
 type: MusicCover
+description: Jana Gana Mana - Keyboard Cover
+subType: Video 
 ---
 
 Today is India’s independence day. Here are some interesting facts:

@@ -7,6 +7,8 @@ date: 2023-10-28 00:00:00 +0530
 name: Functional programming, Functional Interfaces
 type: BlogPosting
 last_modified_at: 2023-11-01 00:00:00 +0530
+description: Functional Interfaces in Java
+subType: Blog 
 ---
 
 Before moving to examples, do read the blog [Functional programming in Java - What and Why?](../functional-programming-in-java-what-and-why) to get more context on what is functional programming.

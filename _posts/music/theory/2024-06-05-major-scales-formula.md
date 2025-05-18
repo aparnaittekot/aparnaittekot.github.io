@@ -4,6 +4,8 @@ categories: [Music Theory]
 tags: [keyboard-cover, music, theory, western]
 date: 2024-06-05 00:00:00 +0530
 type: Music Theory
+description: Blog for Major Scales Formula
+subType: Blog 
 ---
 
 Below are the `12 music notes` in western music
