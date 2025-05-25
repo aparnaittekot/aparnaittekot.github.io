@@ -181,7 +181,7 @@ layout: page
       <button class="music-vote-popup-close" id="music-vote-popup-close" title="Close">&times;</button>
       <div class="music-vote-title" style="text-align:center;">Music Request Details</div>
       <form id="music-vote-form" class="music-vote-form" autocomplete="off">
-        <label for="topic">What is the Topic of the request?<span style="color:#ff6666">*</span> </label>
+        <label for="topic">What is the topic of the request?<span style="color:#ff6666">*</span> </label>
         <input id="topic" name="topic" type="text" required placeholder="e.g. Explain Circle of Fifths In Simple Terms">
       
         <label for="contentType">Is this music theory, cover or something else?<span style="color:#ff6666">*</span></label>
@@ -206,7 +206,7 @@ layout: page
         <select id="instrument" name="instrument" required>
           <option value="">Select</option>
           <option value="ANY">Any</option>
-          <option value="PIANO">Keyboard / Piano</option>
+          <option value="PIANO">Piano</option>
           <option value="ACOUSTIC_GUITAR">Acoustic Guitar</option>
           <option value="ELECTRIC_GUITAR">Electric Guitar</option>
         </select>
@@ -220,7 +220,11 @@ layout: page
     </div>
   </div>
   <div class="music-vote-table-section">
-    <!-- Button moved above table -->
+    <div style="margin-bottom:1.2em;display:flex;align-items:center;gap:0.7em;">
+      <input id="music-vote-search" type="text" placeholder="Search requests..." style="flex:1;max-width:340px;padding:0.5em 1em;border-radius:7px;border:1px solid #444;background:#181818;color:#fff;">
+      <button id="music-vote-search-btn" style="background:#1db954;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Search</button>
+      <button id="music-vote-search-clear" type="button" style="margin-left:0.5em;background:#444;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Clear</button>
+    </div>
     <table class="music-vote-table" id="music-vote-table">
       <thead>
         <tr>
@@ -244,6 +248,7 @@ layout: page
 // API endpoints
 const API_WRITE = 'https://musiccontentapi.onrender.com/create';
 const API_READ = 'https://musiccontentapi.onrender.com/all';
+const API_SEARCH = 'https://musiccontentapi.onrender.com/search';
 
 // Popup logic
 const popupBtn = document.getElementById('music-vote-popup-btn');
@@ -276,7 +281,7 @@ function getResourceTypeValue() {
 }
 function getInstrumentValue() {
   const v = instrumentSelect.value;
-  if (v === 'Keyboard / Piano' || v === 'PIANO') return 'PIANO';
+  if (v === 'Piano' || v === 'PIANO') return 'PIANO';
   if (v === 'Acoustic Guitar' || v === 'ACOUSTIC_GUITAR') return 'ACOUSTIC_GUITAR';
   if (v === 'Electric Guitar' || v === 'ELECTRIC_GUITAR') return 'ELECTRIC_GUITAR';
   if (v === 'Any' || v === 'ANY') return null;
@@ -299,7 +304,7 @@ function displayResourceType(v) {
   return v || '';
 }
 function displayInstrument(v) {
-  if (v === 'PIANO') return 'Keyboard / Piano';
+  if (v === 'PIANO') return 'Piano';
   if (v === 'ACOUSTIC_GUITAR') return 'Acoustic Guitar';
   if (v === 'ELECTRIC_GUITAR') return 'Electric Guitar';
   if (!v || v === 'ANY' || v === null) return 'Any';
@@ -432,4 +437,49 @@ document.addEventListener('DOMContentLoaded', () => {
   // Start loading immediately, don't wait for all DOM
   setTimeout(loadMusicTopics, 1);
 });
+
+// Search logic
+const searchInput = document.getElementById('music-vote-search');
+const searchBtn = document.getElementById('music-vote-search-btn');
+const searchClearBtn = document.getElementById('music-vote-search-clear');
+
+searchBtn.addEventListener('click', function() {
+  doSearch();
+});
+searchInput.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    doSearch();
+  }
+});
+searchClearBtn.addEventListener('click', function() {
+  searchInput.value = '';
+  searchInput.focus();
+  loadMusicTopics();
+});
+
+async function doSearch() {
+  const q = searchInput.value.trim();
+  const tbody = document.getElementById('music-vote-table-body');
+  if (!q) {
+    loadMusicTopics();
+    return;
+  }
+  tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Searching...</td></tr>';
+  try {
+    const resp = await fetch(`${API_SEARCH}?query=${encodeURIComponent(q)}`);
+    if (!resp.ok) {
+      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
+      return;
+    }
+    const topics = await resp.json();
+    if (!topics.length) {
+      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests matching your search query.</td></tr>';
+      return;
+    }
+    renderMusicVoteTable(topics);
+  } catch {
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
+  }
+}
 </script>
