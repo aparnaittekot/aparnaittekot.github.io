@@ -292,9 +292,7 @@ function getContentTypeValue() {
   if (v.toLowerCase() === 'custom') {
     v = customContentTypeInput.value.trim();
   }
-  if (v === 'Music Theory') return 'MUSIC_THEORY';
-  if (v === 'Music Cover') return 'MUSIC_COVER';
-  return v.toUpperCase().replace(/\s+/g, '_');
+  return displayContentType(v);
 }
 
 // Map API values to display values for reading
@@ -311,10 +309,11 @@ function displayInstrument(v) {
   return v;
 }
 function displayContentType(v) {
-  if (v === 'MUSIC_THEORY') return 'Music Theory';
-  if (v === 'MUSIC_COVER') return 'Music Cover';
-  if (!v) return '';
-  return v.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+   return v
+    .split(/[^a-zA-Z0-9]+/)             // split by non-alphanumeric chars
+    .filter(Boolean)                    // remove empty strings
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // capitalize
+    .join(' ');
 }
 
 // Handle custom content type input visibility and value
@@ -389,7 +388,7 @@ function renderMusicVoteTable(topics) {
   const tbody = document.getElementById('music-vote-table-body');
   tbody.innerHTML = '';
   if (!topics.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests so far.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No music requests so far.</td></tr>';
     return;
   }
   topics.forEach(row => {
