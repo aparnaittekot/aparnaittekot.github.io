@@ -175,39 +175,44 @@ layout: page
 </style>
 
 <div class="music-vote-layout">
-  <button id="music-vote-popup-btn" class="music-vote-popup-btn" type="button">Suggest a Topic</button>
+  <button id="music-vote-popup-btn" class="music-vote-popup-btn" type="button">Any requests from your side? Click here to submit!</button>
   <div id="music-vote-popup-overlay" class="music-vote-popup-overlay">
     <div class="music-vote-popup-content">
       <button class="music-vote-popup-close" id="music-vote-popup-close" title="Close">&times;</button>
-      <div class="music-vote-title" style="text-align:center;">Suggest a Music Content Topic</div>
+      <div class="music-vote-title" style="text-align:center;">Music Request Details</div>
       <form id="music-vote-form" class="music-vote-form" autocomplete="off">
-        <label for="topic">Content Topic</label>
-        <input id="topic" name="topic" type="text" required placeholder="e.g. Circle of Fifths">
+        <label for="topic">What is the Topic of the request?<span style="color:#ff6666">*</span> </label>
+        <input id="topic" name="topic" type="text" required placeholder="e.g. Explain Circle of Fifths In Simple Terms">
+      
+        <label for="contentType">Is this music theory, cover or something else?<span style="color:#ff6666">*</span></label>
+        <div style="display:flex;gap:0.5em;align-items:center;">
+          <select id="contentType" name="contentType" required style="flex:1;">
+            <option value="">Select</option>
+            <option value="Music Theory">Music Theory</option>
+            <option value="Music Cover">Music Cover</option>
+            <option value="Custom">Others (Custom)</option>
+          </select>
+          <input id="customContentType" name="customContentType" type="text" placeholder="Add a custom input" style="flex:1;display:none;">
+        </div>
 
-        <label for="contentType">Content Type</label>
-        <select id="contentType" name="contentType" required>
-          <option value="">Select</option>
-          <option value="Music Theory">Music Theory</option>
-          <option value="Music Cover">Music Cover</option>
-        </select>
-
-        <label for="resourceType">Resource Type</label>
+        <label for="resourceType">How do you want this released?<span style="color:#ff6666">*</span></label>
         <select id="resourceType" name="resourceType" required>
           <option value="">Select</option>
-          <option value="VIDEO">VIDEO</option>
-          <option value="BLOG">BLOG</option>
+          <option value="VIDEO">YouTube Video</option>
+          <option value="BLOG">Blog</option>
         </select>
 
-        <label for="instrument">Instrument</label>
+        <label for="instrument">Which instrument do you prefer for this?<span style="color:#ff6666">*</span></label>
         <select id="instrument" name="instrument" required>
           <option value="">Select</option>
-          <option value="PIANO">PIANO</option>
-          <option value="ACOUSTIC_GUITAR">ACOUSTIC_GUITAR</option>
-          <option value="ELECTRIC_GUITAR">ELECTRIC_GUITAR</option>
+          <option value="ANY">Any</option>
+          <option value="PIANO">Keyboard / Piano</option>
+          <option value="ACOUSTIC_GUITAR">Acoustic Guitar</option>
+          <option value="ELECTRIC_GUITAR">Electric Guitar</option>
         </select>
 
-        <label for="description">Description</label>
-        <textarea id="description" name="description" rows="3" required placeholder="Describe the topic..."></textarea>
+        <label for="description">[Optional] Detailed description</label>
+        <textarea id="description" name="description" rows="2" placeholder="Add more details regarding the content if you have any"></textarea>
 
         <button type="submit">Submit</button>
         <div id="music-vote-status" class="music-vote-status"></div>
@@ -219,13 +224,13 @@ layout: page
     <table class="music-vote-table" id="music-vote-table">
       <thead>
         <tr>
-          <th>Content Topic</th>
-          <th>Content Type</th>
-          <th>Resource Type</th>
+          <th></th>
+          <th>Topic</th>
+          <th>Topic Type</th>
+          <th>Release Mode</th>
           <th>Instrument</th>
           <th>Description</th>
-          <th>Status</th>
-          <th>Date</th>
+          <th>Release Date</th>
         </tr>
       </thead>
       <tbody id="music-vote-table-body">
@@ -236,43 +241,9 @@ layout: page
 </div>
 
 <script>
-// Notion API endpoints (backend proxy required)
-const NOTION_API_WRITE = 'https://your-backend.example.com/api/music-content';
-const NOTION_API_READ = 'https://your-backend.example.com/api/music-content/list';
-
-// Render table rows
-function renderMusicVoteTable(topics) {
-  const tbody = document.getElementById('music-vote-table-body');
-  tbody.innerHTML = '';
-  if (!topics.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No topics yet.</td></tr>';
-    return;
-  }
-  topics.forEach(row => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${row.topic || ''}</td>
-      <td>${row.contentType || ''}</td>
-      <td>${row.resourceType || ''}</td>
-      <td>${row.instrument || ''}</td>
-      <td>${row.description || ''}</td>
-      <td>${row.status || ''}</td>
-      <td>${row.date ? row.date.split('T')[0] : ''}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// Fetch topics from Notion (via backend)
-async function fetchMusicTopics() {
-  try {
-    const resp = await fetch(NOTION_API_READ);
-    if (!resp.ok) return [];
-    return await resp.json();
-  } catch {
-    return [];
-  }
-}
+// API endpoints
+const API_WRITE = 'https://musiccontentapi.onrender.com/create';
+const API_READ = 'https://musiccontentapi.onrender.com/all';
 
 // Popup logic
 const popupBtn = document.getElementById('music-vote-popup-btn');
@@ -292,23 +263,93 @@ popupOverlay.addEventListener('click', function(e) {
   if (e.target === popupOverlay) popupOverlay.classList.remove('active');
 });
 
-// Handle form submission
+// Resource type and instrument value mapping
+const resourceTypeSelect = document.getElementById('resourceType');
+const instrumentSelect = document.getElementById('instrument');
+
+// Utility: Map display values to API values for writing
+function getResourceTypeValue() {
+  const v = resourceTypeSelect.value;
+  if (v === 'YouTube Video' || v === 'VIDEO') return 'VIDEO';
+  if (v === 'Blog' || v === 'BLOG') return 'BLOG';
+  return v;
+}
+function getInstrumentValue() {
+  const v = instrumentSelect.value;
+  if (v === 'Keyboard / Piano' || v === 'PIANO') return 'PIANO';
+  if (v === 'Acoustic Guitar' || v === 'ACOUSTIC_GUITAR') return 'ACOUSTIC_GUITAR';
+  if (v === 'Electric Guitar' || v === 'ELECTRIC_GUITAR') return 'ELECTRIC_GUITAR';
+  if (v === 'Any' || v === 'ANY') return null;
+  return v;
+}
+function getContentTypeValue() {
+  let v = contentTypeSelect.value;
+  if (v.toLowerCase() === 'custom') {
+    v = customContentTypeInput.value.trim();
+  }
+  if (v === 'Music Theory') return 'MUSIC_THEORY';
+  if (v === 'Music Cover') return 'MUSIC_COVER';
+  return v.toUpperCase().replace(/\s+/g, '_');
+}
+
+// Map API values to display values for reading
+function displayResourceType(v) {
+  if (v === 'VIDEO') return 'YouTube Video';
+  if (v === 'BLOG') return 'Blog';
+  return v || '';
+}
+function displayInstrument(v) {
+  if (v === 'PIANO') return 'Keyboard / Piano';
+  if (v === 'ACOUSTIC_GUITAR') return 'Acoustic Guitar';
+  if (v === 'ELECTRIC_GUITAR') return 'Electric Guitar';
+  if (!v || v === 'ANY' || v === null) return 'Any';
+  return v;
+}
+function displayContentType(v) {
+  if (v === 'MUSIC_THEORY') return 'Music Theory';
+  if (v === 'MUSIC_COVER') return 'Music Cover';
+  if (!v) return '';
+  return v.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+}
+
+// Handle custom content type input visibility and value
+const contentTypeSelect = document.getElementById('contentType');
+const customContentTypeInput = document.getElementById('customContentType');
+
+contentTypeSelect.addEventListener('change', function() {
+  if (this.value.toLowerCase() === 'custom') {
+    customContentTypeInput.style.display = '';
+    customContentTypeInput.required = true;
+  } else {
+    customContentTypeInput.style.display = 'none';
+    customContentTypeInput.required = false;
+    customContentTypeInput.value = '';
+  }
+  // Auto-set resource type if Music Cover is selected
+  if (this.value === 'Music Cover') {
+    resourceTypeSelect.value = 'YouTube Video';
+    resourceTypeSelect.disabled = true;
+  } else {
+    resourceTypeSelect.disabled = false;
+  }
+});
+
+// Handle form submission (write)
 document.getElementById('music-vote-form').addEventListener('submit', async function(e) {
   e.preventDefault();
   const statusDiv = document.getElementById('music-vote-status');
   statusDiv.textContent = 'Submitting...';
 
   const data = {
-    topic: document.getElementById('topic').value.trim(),
-    contentType: document.getElementById('contentType').value,
-    resourceType: document.getElementById('resourceType').value,
-    instrument: document.getElementById('instrument').value,
+    content_key: document.getElementById('topic').value.trim(),
+    content_type: getContentTypeValue(),
+    resource_type: getResourceTypeValue(),
+    instrument: getInstrumentValue(),
     description: document.getElementById('description').value.trim()
-    // status, date, link removed from form submission
   };
 
   try {
-    const resp = await fetch(NOTION_API_WRITE, {
+    const resp = await fetch(API_WRITE, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -327,10 +368,68 @@ document.getElementById('music-vote-form').addEventListener('submit', async func
   }
 });
 
+// Fetch topics from API (read)
+async function fetchMusicTopics() {
+  try {
+    const resp = await fetch(API_READ);
+    if (!resp.ok) return [];
+    return await resp.json();
+  } catch {
+    return [];
+  }
+}
+
+// Render table rows
+function renderMusicVoteTable(topics) {
+  const tbody = document.getElementById('music-vote-table-body');
+  tbody.innerHTML = '';
+  if (!topics.length) {
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests so far.</td></tr>';
+    return;
+  }
+  topics.forEach(row => {
+    let tick = '';
+    if (row.status && row.status.toUpperCase() === 'RELEASED') {
+      tick = '✅';
+    } else if (row.status) {
+      tick = '';
+    } else {
+      tick = '';
+    }
+    // Map "date" to "Release Date" and show "Not Set" if null/empty
+    let releaseDate = row.date ? row.date.split('T')[0] : 'Not Set';
+    // If link is present, hyperlink the topic
+    let topicCell = row.content_key || '';
+    if (row.link) {
+      topicCell = `<a href="${row.link}" target="_blank" rel="noopener">${topicCell}</a>`;
+    }
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:center;">${tick}</td>
+      <td>${topicCell}</td>
+      <td>${displayContentType(row.content_type)}</td>
+      <td>${displayResourceType(row.resource_type)}</td>
+      <td>${displayInstrument(row.instrument)}</td>
+      <td>${row.description || ''}</td>
+      <td>${releaseDate}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
 // Load and render topics
 async function loadMusicTopics() {
+  // Render loading state immediately
+  const tbody = document.getElementById('music-vote-table-body');
+  tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
+  // Fetch in parallel, then render
   const topics = await fetchMusicTopics();
   renderMusicVoteTable(topics);
 }
-document.addEventListener('DOMContentLoaded', loadMusicTopics);
+
+// Fetch topics as soon as possible
+document.addEventListener('DOMContentLoaded', () => {
+  // Start loading immediately, don't wait for all DOM
+  setTimeout(loadMusicTopics, 1);
+});
 </script>

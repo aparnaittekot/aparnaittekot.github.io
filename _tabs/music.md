@@ -1,6 +1,6 @@
 ---
 layout: music
-title: Music Topics
+title: Music Requests
 icon: fas fa-music
 order: 3
 ---
