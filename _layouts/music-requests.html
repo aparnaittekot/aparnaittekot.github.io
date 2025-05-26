@@ -273,13 +273,22 @@ const API_WRITE = 'https://musiccontentapi.onrender.com/create';
 const API_READ = 'https://musiccontentapi.onrender.com/all';
 const API_SEARCH = 'https://musiccontentapi.onrender.com/search';
 
+// Wrap all logic in DOMContentLoaded to ensure all elements exist before attaching listeners
 document.addEventListener('DOMContentLoaded', function() {
-  // Popup logic
+  // Defensive: Query all elements inside the DOMContentLoaded callback
   const popupBtn = document.getElementById('music-popup-btn');
   const popupOverlay = document.getElementById('music-popup-overlay');
   const popupClose = document.getElementById('music-popup-close');
+  const musicForm = document.getElementById('music-form');
+  const contentTypeSelect = document.getElementById('contentType');
+  const customContentTypeInput = document.getElementById('customContentType');
+  const resourceTypeSelect = document.getElementById('resourceType');
+  const instrumentSelect = document.getElementById('instrument');
+  const searchInput = document.getElementById('music-search');
+  const searchBtn = document.getElementById('music-search-btn');
+  const searchClearBtn = document.getElementById('music-search-clear');
 
-  // Defensive: Only attach popup logic if all elements exist
+  // Popup logic
   if (popupBtn && popupOverlay && popupClose) {
     popupBtn.addEventListener('click', function() {
       popupOverlay.classList.add('active');
@@ -296,33 +305,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Search logic
-  const searchInput = document.getElementById('music-search');
-  const searchBtn = document.getElementById('music-search-btn');
-  const searchClearBtn = document.getElementById('music-search-clear');
-
-  // Defensive: Only attach search logic if elements exist
-  if (searchBtn && searchInput) {
-    searchBtn.addEventListener('click', function() {
-      doSearch();
-    });
-    searchInput.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        doSearch();
+  // Custom content type logic
+  if (contentTypeSelect && customContentTypeInput && resourceTypeSelect) {
+    contentTypeSelect.addEventListener('change', function() {
+      if (this.value.toLowerCase() === 'custom') {
+        customContentTypeInput.style.display = '';
+        customContentTypeInput.required = true;
+      } else {
+        customContentTypeInput.style.display = 'none';
+        customContentTypeInput.required = false;
+        customContentTypeInput.value = '';
       }
-    });
-  }
-  if (searchClearBtn && searchInput) {
-    searchClearBtn.addEventListener('click', function() {
-      searchInput.value = '';
-      searchInput.focus();
-      loadMusicTopics();
+      if (this.value === 'Music Cover') {
+        resourceTypeSelect.value = 'YouTube Video';
+        resourceTypeSelect.disabled = true;
+      } else {
+        resourceTypeSelect.disabled = false;
+      }
     });
   }
 
   // Form logic
-  const musicForm = document.getElementById('music-form');
   if (musicForm) {
     musicForm.addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -358,242 +361,153 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Custom content type logic
-  const contentTypeSelect = document.getElementById('contentType');
-  const customContentTypeInput = document.getElementById('customContentType');
-  const resourceTypeSelect = document.getElementById('resourceType');
-  if (contentTypeSelect && customContentTypeInput && resourceTypeSelect) {
-    contentTypeSelect.addEventListener('change', function() {
-      if (this.value.toLowerCase() === 'custom') {
-        customContentTypeInput.style.display = '';
-        customContentTypeInput.required = true;
-      } else {
-        customContentTypeInput.style.display = 'none';
-        customContentTypeInput.required = false;
-        customContentTypeInput.value = '';
+  // Search logic
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', function() {
+      doSearch();
+    });
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
       }
-      if (this.value === 'Music Cover') {
-        resourceTypeSelect.value = 'YouTube Video';
-        resourceTypeSelect.disabled = true;
-      } else {
-        resourceTypeSelect.disabled = false;
-      }
+    });
+  }
+  if (searchClearBtn && searchInput) {
+    searchClearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      searchInput.focus();
+      loadMusicTopics();
     });
   }
 
   // Initial load
   setTimeout(loadMusicTopics, 1);
-});
 
-// Resource type and instrument value mapping
-const resourceTypeSelect = document.getElementById('resourceType');
-const instrumentSelect = document.getElementById('instrument');
-
-// Utility: Map display values to API values for writing
-function getResourceTypeValue() {
-  const v = resourceTypeSelect.value;
-  if (v === 'YouTube Video' || v === 'VIDEO') return 'VIDEO';
-  if (v === 'Blog' || v === 'BLOG') return 'BLOG';
-  return v;
-}
-function getInstrumentValue() {
-  const v = instrumentSelect.value;
-  if (v === 'Piano' || v === 'PIANO') return 'PIANO';
-  if (v === 'Acoustic Guitar' || v === 'ACOUSTIC_GUITAR') return 'ACOUSTIC_GUITAR';
-  if (v === 'Electric Guitar' || v === 'ELECTRIC_GUITAR') return 'ELECTRIC_GUITAR';
-  if (v === 'Any' || v === 'ANY') return null;
-  return v;
-}
-function getContentTypeValue() {
-  let v = contentTypeSelect.value;
-  if (v.toLowerCase() === 'custom') {
-    v = customContentTypeInput.value.trim();
+  // Helper functions must be inside DOMContentLoaded if they reference DOM elements above
+  function getResourceTypeValue() {
+    if (!resourceTypeSelect) return '';
+    const v = resourceTypeSelect.value;
+    if (v === 'YouTube Video' || v === 'VIDEO') return 'VIDEO';
+    if (v === 'Blog' || v === 'BLOG') return 'BLOG';
+    return v;
   }
-  return displayContentType(v);
-}
-
-// Map API values to display values for reading
-function displayResourceType(v) {
-  if (v === 'VIDEO') return 'YouTube Video';
-  if (v === 'BLOG') return 'Blog';
-  return v || '';
-}
-function displayInstrument(v) {
-  if (v === 'PIANO') return 'Piano';
-  if (v === 'ACOUSTIC_GUITAR') return 'Acoustic Guitar';
-  if (v === 'ELECTRIC_GUITAR') return 'Electric Guitar';
-  if (!v || v === 'ANY' || v === null) return 'Any';
-  return v;
-}
-function displayContentType(v) {
-   return v
-    .split(/[^a-zA-Z0-9]+/)             // split by non-alphanumeric chars
-    .filter(Boolean)                    // remove empty strings
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // capitalize
-    .join(' ');
-}
-
-// Handle custom content type input visibility and value
-const contentTypeSelect = document.getElementById('contentType');
-const customContentTypeInput = document.getElementById('customContentType');
-
-contentTypeSelect.addEventListener('change', function() {
-  if (this.value.toLowerCase() === 'custom') {
-    customContentTypeInput.style.display = '';
-    customContentTypeInput.required = true;
-  } else {
-    customContentTypeInput.style.display = 'none';
-    customContentTypeInput.required = false;
-    customContentTypeInput.value = '';
+  function getInstrumentValue() {
+    if (!instrumentSelect) return '';
+    const v = instrumentSelect.value;
+    if (v === 'Piano' || v === 'PIANO') return 'PIANO';
+    if (v === 'Acoustic Guitar' || v === 'ACOUSTIC_GUITAR') return 'ACOUSTIC_GUITAR';
+    if (v === 'Electric Guitar' || v === 'ELECTRIC_GUITAR') return 'ELECTRIC_GUITAR';
+    if (v === 'Any' || v === 'ANY') return null;
+    return v;
   }
-});
-
-// Handle form submission (write)
-document.getElementById('music-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const statusDiv = document.getElementById('music-status');
-  statusDiv.textContent = 'Submitting...';
-
-  const data = {
-    content_key: document.getElementById('topic').value.trim(),
-    content_type: getContentTypeValue(),
-    resource_type: getResourceTypeValue(),
-    instrument: getInstrumentValue(),
-    description: document.getElementById('description').value.trim()
-  };
-
-  try {
-    const resp = await fetch(API_WRITE, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (resp.ok) {
-      statusDiv.textContent = 'Thank you! Your suggestion was submitted.';
-      this.reset();
-      setTimeout(() => { statusDiv.textContent = ''; }, 2000);
-      setTimeout(loadMusicTopics, 800);
-      popupOverlay.classList.remove('active');
-    } else {
-      statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
+  function getContentTypeValue() {
+    if (!contentTypeSelect) return '';
+    let v = contentTypeSelect.value;
+    if (v.toLowerCase() === 'custom' && customContentTypeInput) {
+      v = customContentTypeInput.value.trim();
     }
-  } catch {
-    statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
+    return displayContentType(v);
   }
-});
+  function displayResourceType(v) {
+    if (v === 'VIDEO') return 'YouTube Video';
+    if (v === 'BLOG') return 'Blog';
+    return v || '';
+  }
+  function displayInstrument(v) {
+    if (v === 'PIANO') return 'Piano';
+    if (v === 'ACOUSTIC_GUITAR') return 'Acoustic Guitar';
+    if (v === 'ELECTRIC_GUITAR') return 'Electric Guitar';
+    if (!v || v === 'ANY' || v === null) return 'Any';
+    return v;
+  }
+  function displayContentType(v) {
+    return v
+      .split(/[^a-zA-Z0-9]+/)
+      .filter(Boolean)
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  }
 
-// Fetch topics from API (read)
-async function fetchMusicTopics() {
-  try {
-    const resp = await fetch(API_READ);
-    if (!resp.ok) return [];
-    return await resp.json();
-  } catch {
-    return [];
-  }
-}
-
-// Render table rows
-function renderMusicTable(topics) {
-  const tbody = document.getElementById('music-table-body');
-  if (!tbody) return; // Prevent JS error if tbody is missing
-  tbody.innerHTML = '';
-  if (!topics.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No music requests so far.</td></tr>';
-    return;
-  }
-  topics.forEach(row => {
-    let tick = '';
-    if (row.status && row.status.toUpperCase() === 'RELEASED') {
-      tick = '✅';
-    } else if (row.status) {
-      tick = '';
-    } else {
-      tick = '';
+  // Table rendering and loading
+  async function fetchMusicTopics() {
+    try {
+      const resp = await fetch(API_READ);
+      if (!resp.ok) return [];
+      return await resp.json();
+    } catch {
+      return [];
     }
-    // Map "date" to "Release Date" and show "Not Set" if null/empty
-    let releaseDate = row.date ? row.date.split('T')[0] : 'Not Set';
-    // If link is present, hyperlink the topic
-    let topicCell = row.content_key || '';
-    if (row.link) {
-      topicCell = `<a href="${row.link}" target="_blank" rel="noopener">${topicCell}</a>`;
-    }
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td style="text-align:center;">${tick}</td>
-      <td>${topicCell}</td>
-      <td>${displayContentType(row.content_type)}</td>
-      <td>${displayResourceType(row.resource_type)}</td>
-      <td>${displayInstrument(row.instrument)}</td>
-      <td>${row.description || ''}</td>
-      <td>${releaseDate}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// Load and render topics
-async function loadMusicTopics() {
-  const tbody = document.getElementById('music-table-body');
-  if (!tbody) return; // Prevent JS error if tbody is missing
-  tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
-  try {
-    // Fetch in parallel, then render
-    const topics = await fetchMusicTopics();
-    renderMusicTable(topics);
-  } catch {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Music requests are temporarily unavailable. If you are looking to submit a request, here is an alternate link : https://forms.gle/Qi5CJ686goWrkeUY9</td></tr>';
   }
-}
 
-// Fetch topics as soon as possible
-document.addEventListener('DOMContentLoaded', () => {
-  // Start loading immediately, don't wait for all DOM
-  setTimeout(loadMusicTopics, 1);
-});
-
-// Search logic
-const searchInput = document.getElementById('music-search');
-const searchBtn = document.getElementById('music-search-btn');
-const searchClearBtn = document.getElementById('music-search-clear');
-
-searchBtn.addEventListener('click', function() {
-  doSearch();
-});
-searchInput.addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    doSearch();
-  }
-});
-searchClearBtn.addEventListener('click', function() {
-  searchInput.value = '';
-  searchInput.focus();
-  loadMusicTopics();
-});
-
-async function doSearch() {
-  const q = searchInput.value.trim();
-  const tbody = document.getElementById('music-table-body');
-  if (!q) {
-    loadMusicTopics();
-    return;
-  }
-  tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Searching...</td></tr>';
-  try {
-    const resp = await fetch(`${API_SEARCH}?query=${encodeURIComponent(q)}`);
-    if (!resp.ok) {
-      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
-      return;
-    }
-    const topics = await resp.json();
+  function renderMusicTable(topics) {
+    const tbody = document.getElementById('music-table-body');
+    if (!tbody) return;
+    tbody.innerHTML = '';
     if (!topics.length) {
-      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests matching your search query.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No music requests so far.</td></tr>';
       return;
     }
-    renderMusicTable(topics);
-  } catch {
-    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
+    topics.forEach(row => {
+      let tick = '';
+      if (row.status && row.status.toUpperCase() === 'RELEASED') {
+        tick = '✅';
+      }
+      let releaseDate = row.date ? row.date.split('T')[0] : 'Not Set';
+      let topicCell = row.content_key || '';
+      if (row.link) {
+        topicCell = `<a href="${row.link}" target="_blank" rel="noopener">${topicCell}</a>`;
+      }
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="text-align:center;">${tick}</td>
+        <td>${topicCell}</td>
+        <td>${displayContentType(row.content_type)}</td>
+        <td>${displayResourceType(row.resource_type)}</td>
+        <td>${displayInstrument(row.instrument)}</td>
+        <td>${row.description || ''}</td>
+        <td>${releaseDate}</td>
+      `;
+      tbody.appendChild(tr);
+    });
   }
-}
+
+  async function loadMusicTopics() {
+    const tbody = document.getElementById('music-table-body');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
+    try {
+      const topics = await fetchMusicTopics();
+      renderMusicTable(topics);
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Music requests are temporarily unavailable. If you are looking to submit a request, here is an alternate link : https://forms.gle/Qi5CJ686goWrkeUY9</td></tr>';
+    }
+  }
+
+  async function doSearch() {
+    const q = searchInput ? searchInput.value.trim() : '';
+    const tbody = document.getElementById('music-table-body');
+    if (!tbody) return;
+    if (!q) {
+      loadMusicTopics();
+      return;
+    }
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Searching...</td></tr>';
+    try {
+      const resp = await fetch(`${API_SEARCH}?query=${encodeURIComponent(q)}`);
+      if (!resp.ok) {
+        tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
+        return;
+      }
+      const topics = await resp.json();
+      if (!topics.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests matching your search query.</td></tr>';
+        return;
+      }
+      renderMusicTable(topics);
+    } catch {
+      tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
+    }
+  }
+});
 </script>
