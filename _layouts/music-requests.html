@@ -279,11 +279,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const popupOverlay = document.getElementById('music-popup-overlay');
   const popupClose = document.getElementById('music-popup-close');
 
+  // Defensive: Only attach popup logic if all elements exist
   if (popupBtn && popupOverlay && popupClose) {
     popupBtn.addEventListener('click', function() {
       popupOverlay.classList.add('active');
       setTimeout(() => {
-        document.getElementById('topic').focus();
+        const topicInput = document.getElementById('topic');
+        if (topicInput) topicInput.focus();
       }, 200);
     });
     popupClose.addEventListener('click', function() {
@@ -299,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const searchBtn = document.getElementById('music-search-btn');
   const searchClearBtn = document.getElementById('music-search-clear');
 
+  // Defensive: Only attach search logic if elements exist
   if (searchBtn && searchInput) {
     searchBtn.addEventListener('click', function() {
       doSearch();
@@ -327,11 +330,11 @@ document.addEventListener('DOMContentLoaded', function() {
       statusDiv.textContent = 'Submitting...';
 
       const data = {
-        content_key: document.getElementById('topic').value.trim(),
+        content_key: document.getElementById('topic') ? document.getElementById('topic').value.trim() : '',
         content_type: getContentTypeValue(),
         resource_type: getResourceTypeValue(),
         instrument: getInstrumentValue(),
-        description: document.getElementById('description').value.trim()
+        description: document.getElementById('description') ? document.getElementById('description').value.trim() : ''
       };
 
       try {
@@ -345,12 +348,12 @@ document.addEventListener('DOMContentLoaded', function() {
           this.reset();
           setTimeout(() => { statusDiv.textContent = ''; }, 2000);
           setTimeout(loadMusicTopics, 800);
-          popupOverlay.classList.remove('active');
+          if (popupOverlay) popupOverlay.classList.remove('active');
         } else {
-          statusDiv.textContent = 'Failed to submit. Please try again later.';
+          statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
         }
       } catch {
-        statusDiv.textContent = 'Failed to submit. Please try again later.';
+        statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
       }
     });
   }
@@ -493,6 +496,7 @@ async function fetchMusicTopics() {
 // Render table rows
 function renderMusicTable(topics) {
   const tbody = document.getElementById('music-table-body');
+  if (!tbody) return; // Prevent JS error if tbody is missing
   tbody.innerHTML = '';
   if (!topics.length) {
     tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No music requests so far.</td></tr>';
@@ -530,8 +534,8 @@ function renderMusicTable(topics) {
 
 // Load and render topics
 async function loadMusicTopics() {
-  // Render loading state immediately
   const tbody = document.getElementById('music-table-body');
+  if (!tbody) return; // Prevent JS error if tbody is missing
   tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
   try {
     // Fetch in parallel, then render
