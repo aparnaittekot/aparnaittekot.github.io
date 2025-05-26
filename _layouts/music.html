@@ -329,13 +329,6 @@ contentTypeSelect.addEventListener('change', function() {
     customContentTypeInput.required = false;
     customContentTypeInput.value = '';
   }
-  // Auto-set resource type if Music Cover is selected
-  if (this.value === 'Music Cover') {
-    resourceTypeSelect.value = 'YouTube Video';
-    resourceTypeSelect.disabled = true;
-  } else {
-    resourceTypeSelect.disabled = false;
-  }
 });
 
 // Handle form submission (write)
