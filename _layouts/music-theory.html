@@ -14,15 +14,15 @@ layout: page
   flex-wrap: wrap;
   gap: 1.2rem;
   margin-top: 2rem;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 .music-tile {
   background: #181818;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.18);
   padding: 0.8rem;
-  width: 260px;
-  min-width: 200px;
-  max-width: 340px;
+  min-width: 0;
   min-height: 80px;
   height: auto;
   display: flex;
@@ -31,8 +31,38 @@ layout: page
   transition: box-shadow 0.2s;
   color: #f1f1f1;
   box-sizing: border-box;
-  flex: 0 0 auto;
+  flex: 1 1 calc((100% - 2.4rem) / 3); /* 3 tiles per row, 2 gaps */
+  max-width: calc((100% - 2.4rem) / 3);
   word-break: break-word;
+}
+@media (max-width: 1100px) {
+  .music-tiles {
+    justify-content: center;
+  }
+  .music-tile {
+    max-width: 100%;
+    min-width: 180px;
+    flex: 1 1 220px;
+  }
+}
+@media (max-width: 900px) {
+  .music-tile {
+    flex: 1 1 48%;
+    max-width: 48%;
+  }
+}
+@media (max-width: 700px) {
+  .music-tiles {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+  .music-tile {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+  }
 }
 .music-tile:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.32);
