@@ -472,10 +472,10 @@ document.getElementById('music-form').addEventListener('submit', async function(
       setTimeout(loadMusicTopics, 800);
       popupOverlay.classList.remove('active');
     } else {
-      statusDiv.textContent = 'Failed to submit. Please try again later.';
+      statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
     }
   } catch {
-    statusDiv.textContent = 'Failed to submit. Please try again later.';
+    statusDiv.textContent = 'Currently unavailable to submit form. Alternatively, you can submit here : https://forms.gle/Qi5CJ686goWrkeUY9';
   }
 });
 
@@ -533,9 +533,13 @@ async function loadMusicTopics() {
   // Render loading state immediately
   const tbody = document.getElementById('music-table-body');
   tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
-  // Fetch in parallel, then render
-  const topics = await fetchMusicTopics();
-  renderMusicTable(topics);
+  try {
+    // Fetch in parallel, then render
+    const topics = await fetchMusicTopics();
+    renderMusicTable(topics);
+  } catch {
+    tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Music requests are temporarily unavailable. If you are looking to submit a request, here is an alternate link : https://forms.gle/Qi5CJ686goWrkeUY9</td></tr>';
+  }
 }
 
 // Fetch topics as soon as possible
