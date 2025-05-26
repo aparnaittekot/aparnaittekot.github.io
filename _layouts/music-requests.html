@@ -4,13 +4,13 @@ layout: page
 ---
 
 <style>
-.music-vote-layout {
+.music-layout {
   display: block;
   margin: 2.5rem auto;
   max-width: 1200px;
   position: relative;
 }
-.music-vote-table-section {
+.music-table-section {
   width: 100%;
   background: #23272f;
   border-radius: 16px;
@@ -20,7 +20,7 @@ layout: page
   margin-bottom: 2.5rem;
   overflow-x: auto;
 }
-.music-vote-form-section {
+.music-form-section {
   max-width: 420px;
   margin: 0 auto;
   background: #23272f;
@@ -29,13 +29,13 @@ layout: page
   padding: 1.2rem 1rem 1.5rem 1rem;
   color: #fff;
 }
-.music-vote-title {
+.music-title {
   font-size: 1.2em;
   font-weight: 700;
   margin-bottom: 1em;
   text-align: left;
 }
-.music-vote-table {
+.music-table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0;
@@ -46,44 +46,44 @@ layout: page
   font-size: 0.98em;
   table-layout: auto;
 }
-.music-vote-table th, .music-vote-table td {
+.music-table th, .music-table td {
   padding: 0.55em 0.6em;
   border-bottom: 1px solid #333;
   text-align: left;
   font-size: 0.97em;
   vertical-align: top;
 }
-.music-vote-table th {
+.music-table th {
   color: #b3b3b3;
   font-weight: 700;
   background: #23272f;
   border-bottom: 2px solid #23272f;
 }
-.music-vote-table tr:last-child td {
+.music-table tr:last-child td {
   border-bottom: none;
 }
-.music-vote-table td {
+.music-table td {
   color: #fff;
   background: #181818;
   border-bottom: 1px solid #23272f;
 }
-.music-vote-table thead th:first-child,
-.music-vote-table tbody td:first-child {
+.music-table thead th:first-child,
+.music-table tbody td:first-child {
   border-top-left-radius: 10px;
 }
-.music-vote-table thead th:last-child,
-.music-vote-table tbody td:last-child {
+.music-table thead th:last-child,
+.music-table tbody td:last-child {
   border-top-right-radius: 10px;
 }
-.music-vote-form label {
+.music-form label {
   color: #fff;
   font-weight: 600;
   font-size: 1em;
   margin-bottom: 0.2em;
 }
-.music-vote-form input,
-.music-vote-form select,
-.music-vote-form textarea {
+.music-form input,
+.music-form select,
+.music-form textarea {
   padding: 0.5em 0.8em;
   border-radius: 7px;
   border: 1px solid #444;
@@ -94,10 +94,10 @@ layout: page
   box-sizing: border-box;
   margin-bottom: 0.7em;
 }
-.music-vote-form textarea {
+.music-form textarea {
   resize: vertical;
 }
-.music-vote-form button {
+.music-form button {
   background: #1db954;
   color: #fff;
   font-weight: 700;
@@ -110,14 +110,14 @@ layout: page
   margin-top: 0.3em;
   width: 100%;
 }
-.music-vote-status {
+.music-status {
   min-height: 1.2em;
   font-size: 0.98em;
   color: #b3b3b3;
   margin-top: 0.2em;
   text-align: center;
 }
-.music-vote-popup-btn {
+.music-popup-btn {
   position: static;
   margin: 1.2rem 0 1.2rem 0;
   display: block;
@@ -133,11 +133,11 @@ layout: page
   box-shadow: 0 2px 8px rgba(0,0,0,0.13);
   transition: background 0.2s;
 }
-.music-vote-popup-btn:hover {
+.music-popup-btn:hover {
   background: #1db954;
   color: #fff;
 }
-.music-vote-popup-overlay {
+.music-popup-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
@@ -148,10 +148,10 @@ layout: page
   z-index: 1000;
   background: rgba(0,0,0,0.45);
 }
-.music-vote-popup-overlay.active {
+.music-popup-overlay.active {
   display: flex;
 }
-.music-vote-popup-content {
+.music-popup-content {
   background: #23272f;
   border-radius: 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.18);
@@ -168,7 +168,7 @@ layout: page
   from { opacity: 0; transform: translateY(-40px);}
   to { opacity: 1; transform: translateY(0);}
 }
-.music-vote-popup-close {
+.music-popup-close {
   position: absolute;
   top: 1.1rem;
   right: 1.2rem;
@@ -181,29 +181,29 @@ layout: page
   z-index: 1002;
 }
 @media (max-width: 900px) {
-  .music-vote-layout {
+  .music-layout {
     flex-direction: column;
     gap: 1.5rem;
   }
-  .music-vote-table-section, .music-vote-form-section {
+  .music-table-section, .music-form-section {
     max-width: 100%;
     min-width: 0;
     padding: 1.2rem 0.7rem 1.5rem 0.7rem;
   }
-  .music-vote-table th, .music-vote-table td {
+  .music-table th, .music-table td {
     font-size: 0.95em;
     padding: 0.45em 0.4em;
   }
 }
 </style>
 
-<div class="music-vote-layout">
-  <button id="music-vote-popup-btn" class="music-vote-popup-btn" type="button">Music Request Submission Form</button>
-  <div id="music-vote-popup-overlay" class="music-vote-popup-overlay">
-    <div class="music-vote-popup-content">
-      <button class="music-vote-popup-close" id="music-vote-popup-close" title="Close">&times;</button>
-      <div class="music-vote-title" style="text-align:center;">Music Request Details</div>
-      <form id="music-vote-form" class="music-vote-form" autocomplete="off">
+<div class="music-layout">
+  <button id="music-popup-btn" class="music-popup-btn" type="button">Music Request Submission Form</button>
+  <div id="music-popup-overlay" class="music-popup-overlay">
+    <div class="music-popup-content">
+      <button class="music-popup-close" id="music-popup-close" title="Close">&times;</button>
+      <div class="music-title" style="text-align:center;">Music Request Details</div>
+      <form id="music-form" class="music-form" autocomplete="off">
         <label for="topic">What is the topic of the request?<span style="color:#ff6666">*</span> </label>
         <input id="topic" name="topic" type="text" required placeholder="e.g. Explain Circle of Fifths In Simple Terms">
       
@@ -238,17 +238,17 @@ layout: page
         <textarea id="description" name="description" rows="2" placeholder="Add more details regarding the content if you have any"></textarea>
 
         <button type="submit">Submit</button>
-        <div id="music-vote-status" class="music-vote-status"></div>
+        <div id="music-status" class="music-status"></div>
       </form>
     </div>
   </div>
-  <div class="music-vote-table-section">
+  <div class="music-table-section">
     <div style="margin-bottom:1.2em;display:flex;align-items:center;gap:0.7em;">
-      <input id="music-vote-search" type="text" placeholder="Search requests..." style="flex:1;max-width:340px;padding:0.5em 1em;border-radius:7px;border:1px solid #444;background:#181818;color:#fff;">
-      <button id="music-vote-search-btn" style="background:#1db954;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Search</button>
-      <button id="music-vote-search-clear" type="button" style="margin-left:0.5em;background:#444;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Clear</button>
+      <input id="music-search" type="text" placeholder="Search requests..." style="flex:1;max-width:340px;padding:0.5em 1em;border-radius:7px;border:1px solid #444;background:#181818;color:#fff;">
+      <button id="music-search-btn" style="background:#1db954;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Search</button>
+      <button id="music-search-clear" type="button" style="margin-left:0.5em;background:#444;color:#fff;border:none;padding:0.5em 1.2em;border-radius:7px;font-weight:600;cursor:pointer;">Clear</button>
     </div>
-    <table class="music-vote-table" id="music-vote-table">
+    <table class="music-table" id="music-table">
       <thead>
         <tr>
           <th></th>
@@ -260,7 +260,7 @@ layout: page
           <th>Release Date</th>
         </tr>
       </thead>
-      <tbody id="music-vote-table-body">
+      <tbody id="music-table-body">
         <!-- JS will populate rows here -->
       </tbody>
     </table>
@@ -273,22 +273,113 @@ const API_WRITE = 'https://musiccontentapi.onrender.com/create';
 const API_READ = 'https://musiccontentapi.onrender.com/all';
 const API_SEARCH = 'https://musiccontentapi.onrender.com/search';
 
-// Popup logic
-const popupBtn = document.getElementById('music-vote-popup-btn');
-const popupOverlay = document.getElementById('music-vote-popup-overlay');
-const popupClose = document.getElementById('music-vote-popup-close');
+document.addEventListener('DOMContentLoaded', function() {
+  // Popup logic
+  const popupBtn = document.getElementById('music-popup-btn');
+  const popupOverlay = document.getElementById('music-popup-overlay');
+  const popupClose = document.getElementById('music-popup-close');
 
-popupBtn.addEventListener('click', function() {
-  popupOverlay.classList.add('active');
-  setTimeout(() => {
-    document.getElementById('topic').focus();
-  }, 200);
-});
-popupClose.addEventListener('click', function() {
-  popupOverlay.classList.remove('active');
-});
-popupOverlay.addEventListener('click', function(e) {
-  if (e.target === popupOverlay) popupOverlay.classList.remove('active');
+  if (popupBtn && popupOverlay && popupClose) {
+    popupBtn.addEventListener('click', function() {
+      popupOverlay.classList.add('active');
+      setTimeout(() => {
+        document.getElementById('topic').focus();
+      }, 200);
+    });
+    popupClose.addEventListener('click', function() {
+      popupOverlay.classList.remove('active');
+    });
+    popupOverlay.addEventListener('click', function(e) {
+      if (e.target === popupOverlay) popupOverlay.classList.remove('active');
+    });
+  }
+
+  // Search logic
+  const searchInput = document.getElementById('music-search');
+  const searchBtn = document.getElementById('music-search-btn');
+  const searchClearBtn = document.getElementById('music-search-clear');
+
+  if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', function() {
+      doSearch();
+    });
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
+      }
+    });
+  }
+  if (searchClearBtn && searchInput) {
+    searchClearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      searchInput.focus();
+      loadMusicTopics();
+    });
+  }
+
+  // Form logic
+  const musicForm = document.getElementById('music-form');
+  if (musicForm) {
+    musicForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const statusDiv = document.getElementById('music-status');
+      statusDiv.textContent = 'Submitting...';
+
+      const data = {
+        content_key: document.getElementById('topic').value.trim(),
+        content_type: getContentTypeValue(),
+        resource_type: getResourceTypeValue(),
+        instrument: getInstrumentValue(),
+        description: document.getElementById('description').value.trim()
+      };
+
+      try {
+        const resp = await fetch(API_WRITE, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (resp.ok) {
+          statusDiv.textContent = 'Thank you! Your suggestion was submitted.';
+          this.reset();
+          setTimeout(() => { statusDiv.textContent = ''; }, 2000);
+          setTimeout(loadMusicTopics, 800);
+          popupOverlay.classList.remove('active');
+        } else {
+          statusDiv.textContent = 'Failed to submit. Please try again later.';
+        }
+      } catch {
+        statusDiv.textContent = 'Failed to submit. Please try again later.';
+      }
+    });
+  }
+
+  // Custom content type logic
+  const contentTypeSelect = document.getElementById('contentType');
+  const customContentTypeInput = document.getElementById('customContentType');
+  const resourceTypeSelect = document.getElementById('resourceType');
+  if (contentTypeSelect && customContentTypeInput && resourceTypeSelect) {
+    contentTypeSelect.addEventListener('change', function() {
+      if (this.value.toLowerCase() === 'custom') {
+        customContentTypeInput.style.display = '';
+        customContentTypeInput.required = true;
+      } else {
+        customContentTypeInput.style.display = 'none';
+        customContentTypeInput.required = false;
+        customContentTypeInput.value = '';
+      }
+      if (this.value === 'Music Cover') {
+        resourceTypeSelect.value = 'YouTube Video';
+        resourceTypeSelect.disabled = true;
+      } else {
+        resourceTypeSelect.disabled = false;
+      }
+    });
+  }
+
+  // Initial load
+  setTimeout(loadMusicTopics, 1);
 });
 
 // Resource type and instrument value mapping
@@ -355,9 +446,9 @@ contentTypeSelect.addEventListener('change', function() {
 });
 
 // Handle form submission (write)
-document.getElementById('music-vote-form').addEventListener('submit', async function(e) {
+document.getElementById('music-form').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const statusDiv = document.getElementById('music-vote-status');
+  const statusDiv = document.getElementById('music-status');
   statusDiv.textContent = 'Submitting...';
 
   const data = {
@@ -400,8 +491,8 @@ async function fetchMusicTopics() {
 }
 
 // Render table rows
-function renderMusicVoteTable(topics) {
-  const tbody = document.getElementById('music-vote-table-body');
+function renderMusicTable(topics) {
+  const tbody = document.getElementById('music-table-body');
   tbody.innerHTML = '';
   if (!topics.length) {
     tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No music requests so far.</td></tr>';
@@ -440,11 +531,11 @@ function renderMusicVoteTable(topics) {
 // Load and render topics
 async function loadMusicTopics() {
   // Render loading state immediately
-  const tbody = document.getElementById('music-vote-table-body');
+  const tbody = document.getElementById('music-table-body');
   tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Loading...</td></tr>';
   // Fetch in parallel, then render
   const topics = await fetchMusicTopics();
-  renderMusicVoteTable(topics);
+  renderMusicTable(topics);
 }
 
 // Fetch topics as soon as possible
@@ -454,9 +545,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Search logic
-const searchInput = document.getElementById('music-vote-search');
-const searchBtn = document.getElementById('music-vote-search-btn');
-const searchClearBtn = document.getElementById('music-vote-search-clear');
+const searchInput = document.getElementById('music-search');
+const searchBtn = document.getElementById('music-search-btn');
+const searchClearBtn = document.getElementById('music-search-clear');
 
 searchBtn.addEventListener('click', function() {
   doSearch();
@@ -475,7 +566,7 @@ searchClearBtn.addEventListener('click', function() {
 
 async function doSearch() {
   const q = searchInput.value.trim();
-  const tbody = document.getElementById('music-vote-table-body');
+  const tbody = document.getElementById('music-table-body');
   if (!q) {
     loadMusicTopics();
     return;
@@ -492,7 +583,7 @@ async function doSearch() {
       tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">No requests matching your search query.</td></tr>';
       return;
     }
-    renderMusicVoteTable(topics);
+    renderMusicTable(topics);
   } catch {
     tbody.innerHTML = '<tr><td colspan="7" style="color:#b3b3b3;text-align:center;">Search failed.</td></tr>';
   }
