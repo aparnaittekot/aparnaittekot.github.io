@@ -15,9 +15,10 @@ layout: page
   background: #23272f;
   border-radius: 16px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.13);
-  padding: 2.2rem 2rem 2.5rem 2rem;
+  padding: 1.2rem 1rem 1.5rem 1rem;
   color: #fff;
   margin-bottom: 2.5rem;
+  overflow-x: auto;
 }
 .music-vote-form-section {
   max-width: 420px;
@@ -36,19 +37,27 @@ layout: page
 }
 .music-vote-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   margin-bottom: 1.5rem;
+  background: #181818;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.98em;
+  table-layout: auto;
 }
 .music-vote-table th, .music-vote-table td {
-  padding: 0.7em 0.6em;
+  padding: 0.55em 0.6em;
   border-bottom: 1px solid #333;
   text-align: left;
-  font-size: 1em;
+  font-size: 0.97em;
+  vertical-align: top;
 }
 .music-vote-table th {
   color: #b3b3b3;
   font-weight: 700;
   background: #23272f;
+  border-bottom: 2px solid #23272f;
 }
 .music-vote-table tr:last-child td {
   border-bottom: none;
@@ -56,6 +65,15 @@ layout: page
 .music-vote-table td {
   color: #fff;
   background: #181818;
+  border-bottom: 1px solid #23272f;
+}
+.music-vote-table thead th:first-child,
+.music-vote-table tbody td:first-child {
+  border-top-left-radius: 10px;
+}
+.music-vote-table thead th:last-child,
+.music-vote-table tbody td:last-child {
+  border-top-right-radius: 10px;
 }
 .music-vote-form label {
   color: #fff;
@@ -103,7 +121,7 @@ layout: page
   position: static;
   margin: 1.2rem 0 1.2rem 0;
   display: block;
-  background: #1db954;
+  background: #181818;
   color: #fff;
   border: none;
   border-radius: 7px;
@@ -116,7 +134,8 @@ layout: page
   transition: background 0.2s;
 }
 .music-vote-popup-btn:hover {
-  background: #15913e;
+  background: #1db954;
+  color: #fff;
 }
 .music-vote-popup-overlay {
   display: none;
@@ -171,11 +190,15 @@ layout: page
     min-width: 0;
     padding: 1.2rem 0.7rem 1.5rem 0.7rem;
   }
+  .music-vote-table th, .music-vote-table td {
+    font-size: 0.95em;
+    padding: 0.45em 0.4em;
+  }
 }
 </style>
 
 <div class="music-vote-layout">
-  <button id="music-vote-popup-btn" class="music-vote-popup-btn" type="button">Any requests from your side? Click here to submit!</button>
+  <button id="music-vote-popup-btn" class="music-vote-popup-btn" type="button">Music Request Submission Form</button>
   <div id="music-vote-popup-overlay" class="music-vote-popup-overlay">
     <div class="music-vote-popup-content">
       <button class="music-vote-popup-close" id="music-vote-popup-close" title="Close">&times;</button>
