@@ -3,8 +3,6 @@ layout: page
 # Youtube Videos
 ---
 
-{% include lang.html %}
-
 <h3>Music Theory</h3>
 <div id="youtube-videos-tiles-theory" style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:flex-start;"></div>
 
@@ -36,7 +34,6 @@ const PLAYLISTS = [
     id: "PLtniji69-8wKC63HhRzatikgWaLtAnoA3",
     name: "Music Cover"
   }
-  // Add more playlists here as needed
 ];
 const API_KEY = "AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM"; // Replace with your API key
 
@@ -44,7 +41,6 @@ const ReactQuery = window.ReactQuery || window.TanStackReactQuery;
 const { QueryClient, QueryCache } = ReactQuery;
 
 function fetchFromYouTube(playlistId) {
-  // Add a log to confirm API call is attempted
   console.log("Fetching from YouTube API for playlist:", playlistId);
   return fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,status&maxResults=9&playlistId=${playlistId}&key=${API_KEY}`)
     .then(res => {
@@ -59,7 +55,6 @@ function fetchFromYouTube(playlistId) {
         console.warn("No items returned from YouTube API", data);
         return [];
       }
-      // Exclude private videos
       return data.items.filter(
         item =>
           item.snippet &&
@@ -87,7 +82,6 @@ const queryClient = new QueryClient({
 });
 
 function persistTanstackCache() {
-  // Store cache per playlist ID
   const cacheData = {};
   queryClient.getQueryCache().getAll().forEach(q => {
     const key = Array.isArray(q.queryKey) && q.queryKey[0] === 'playlist' ? q.queryKey[1] : null;
@@ -122,8 +116,6 @@ async function getVideos() {
   } catch (e) {}
   let cacheDate = cacheData && cacheData._date;
   let nowDate = todayStr();
-
-  // Check cache per playlist
   const isCacheEmpty = !cacheData || !cacheData.cache || Object.keys(cacheData.cache).length === 0;
   if ((isAfterRefreshTime() && cacheDate !== nowDate) || isCacheEmpty) {
     if (isCacheEmpty) {
@@ -165,13 +157,10 @@ async function getVideos() {
 }
 
 function renderVideosTiles(videosByPlaylist) {
-  // Separate containers for theory and cover
   const containerTheory = document.getElementById("youtube-videos-tiles-theory");
   const containerCover = document.getElementById("youtube-videos-tiles-cover");
   containerTheory.innerHTML = "";
   containerCover.innerHTML = "";
-
-  // Music Theory section
   let theoryVideos = [];
   for (const pl of PLAYLISTS) {
     if (pl.name === "Music Theory") {
@@ -207,7 +196,6 @@ function renderVideosTiles(videosByPlaylist) {
     containerTheory.appendChild(tile);
   });
 
-  // Music Cover section
   let coverVideos = [];
   for (const pl of PLAYLISTS) {
     if (pl.name === "Music Cover") {
