@@ -1,0 +1,246 @@
+---
+layout: page
+# Youtube Videos
+---
+
+<h3>Music Theory</h3>
+<div id="youtube-videos-tiles-theory" style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:flex-start;"></div>
+
+<h3 style="margin-top:2em;">Music Covers</h3>
+<div id="youtube-videos-tiles-cover" style="display:flex;flex-wrap:wrap;gap:1.5em;justify-content:flex-start;"></div>
+
+<!-- React and ReactDOM (required) -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+<!-- TanStack React Query UMD -->
+<script src="https://unpkg.com/@tanstack/react-query@4.29.10/build/umd/index.production.js"></script>
+
+<script>
+const PLAYLISTS = [
+  {
+    id: "PLtniji69-8wKtFUzWQu7jZj7Sygs-OvYB",
+    name: "Music Theory"
+  },
+  {
+    id: "PLtniji69-8wLmj2y2r0A2NfgLvOG1vTfD",
+    name: "Music Cover"
+  },
+  {
+    id: "PLtniji69-8wIAJgompURXA1Usota1iexo",
+    name: "Music Cover"
+  },
+  {
+    id: "PLtniji69-8wKC63HhRzatikgWaLtAnoA3",
+    name: "Music Cover"
+  }
+  // Add more playlists here as needed
+];
+const API_KEY = "AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM"; // Replace with your API key
+
+const ReactQuery = window.ReactQuery || window.TanStackReactQuery;
+const { QueryClient, QueryCache } = ReactQuery;
+
+function fetchFromYouTube(playlistId) {
+  // Add a log to confirm API call is attempted
+  console.log("Fetching from YouTube API for playlist:", playlistId);
+  return fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet,status&maxResults=9&playlistId=${playlistId}&key=${API_KEY}`)
+    .then(res => {
+      if (!res.ok) {
+        console.error("YouTube API error:", res.status, res.statusText);
+        throw new Error("YouTube API error");
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (!data.items) {
+        console.warn("No items returned from YouTube API", data);
+        return [];
+      }
+      // Exclude private videos
+      return data.items.filter(
+        item =>
+          item.snippet &&
+          item.snippet.title &&
+          item.snippet.publishedAt &&
+          (!item.status || item.status.privacyStatus !== "private")
+      );
+    });
+}
+
+function isAfterRefreshTime() {
+  const now = new Date();
+  const utcHour = now.getUTCHours();
+  const utcMin = now.getUTCMinutes();
+  return (utcHour > 16) || (utcHour === 16 && utcMin >= 0);
+}
+
+function todayStr() {
+  const now = new Date();
+  return now.getUTCFullYear() + '-' + (now.getUTCMonth()+1).toString().padStart(2,'0') + '-' + now.getUTCDate().toString().padStart(2,'0');
+}
+
+const queryClient = new QueryClient({
+  queryCache: new QueryCache()
+});
+
+function persistTanstackCache() {
+  // Store cache per playlist ID
+  const cacheData = {};
+  queryClient.getQueryCache().getAll().forEach(q => {
+    const key = Array.isArray(q.queryKey) && q.queryKey[0] === 'playlist' ? q.queryKey[1] : null;
+    if (key) {
+      cacheData[key] = q.state;
+    }
+  });
+  localStorage.setItem('tanstack_youtube_cache', JSON.stringify({
+    cache: cacheData,
+    _date: todayStr()
+  }));
+}
+
+function restoreTanstackCache() {
+  try {
+    const data = JSON.parse(localStorage.getItem('tanstack_youtube_cache') || '{}');
+    if (data && data.cache) {
+      Object.entries(data.cache).forEach(([playlistId, state]) => {
+        const queryKey = ['playlist', playlistId];
+        queryClient.getQueryCache().build(queryClient, { queryKey, queryFn: () => state.data });
+        queryClient.getQueryCache().find(queryKey).setState(state);
+      });
+    }
+  } catch (e) {}
+}
+
+async function getVideos() {
+  restoreTanstackCache();
+  let cacheData = null;
+  try {
+    cacheData = JSON.parse(localStorage.getItem('tanstack_youtube_cache') || '{}');
+  } catch (e) {}
+  let cacheDate = cacheData && cacheData._date;
+  let nowDate = todayStr();
+
+  // Check cache per playlist
+  const isCacheEmpty = !cacheData || !cacheData.cache || Object.keys(cacheData.cache).length === 0;
+  if ((isAfterRefreshTime() && cacheDate !== nowDate) || isCacheEmpty) {
+    if (isCacheEmpty) {
+      console.log("Cache empty. Fetching from YouTube API...");
+    } else {
+      console.log("Cache miss or expired after 9:30pm IST. Fetching from YouTube API...");
+    }
+    let allVideos = {};
+    queryClient.clear();
+    for (const pl of PLAYLISTS) {
+      console.log(`Calling YouTube API for playlist: ${pl.id}`);
+      allVideos[pl.id] = await queryClient.fetchQuery({
+        queryKey: ['playlist', pl.id],
+        queryFn: () => fetchFromYouTube(pl.id),
+        staleTime: Infinity
+      });
+    }
+    persistTanstackCache();
+    return allVideos;
+  } else {
+    let allVideos = {};
+    for (const pl of PLAYLISTS) {
+      let data = queryClient.getQueryData(['playlist', pl.id]);
+      if (!data) {
+        console.log(`Cache miss before 9:30pm IST for playlist: ${pl.id}. Fetching from YouTube API...`);
+        data = await queryClient.fetchQuery({
+          queryKey: ['playlist', pl.id],
+          queryFn: () => fetchFromYouTube(pl.id),
+          staleTime: Infinity
+        });
+        persistTanstackCache();
+      } else {
+        console.log(`Cache hit for playlist: ${pl.id}`);
+      }
+      allVideos[pl.id] = data;
+    }
+    return allVideos;
+  }
+}
+
+function renderVideosTiles(videosByPlaylist) {
+  // Separate containers for theory and cover
+  const containerTheory = document.getElementById("youtube-videos-tiles-theory");
+  const containerCover = document.getElementById("youtube-videos-tiles-cover");
+  containerTheory.innerHTML = "";
+  containerCover.innerHTML = "";
+
+  // Music Theory section
+  let theoryVideos = [];
+  for (const pl of PLAYLISTS) {
+    if (pl.name === "Music Theory") {
+      const videos = videosByPlaylist[pl.id] || [];
+      theoryVideos = theoryVideos.concat(videos);
+    }
+  }
+  theoryVideos.sort((a, b) => {
+    const dateA = new Date(a.snippet?.publishedAt || 0);
+    const dateB = new Date(b.snippet?.publishedAt || 0);
+    return dateB - dateA;
+  });
+  theoryVideos.forEach(v => {
+    const s = v.snippet;
+    if (!s || !s.title || !s.publishedAt) return;
+    const tile = document.createElement("div");
+    tile.style.cssText = `
+      background:#232526;
+      border-radius:10px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.15);
+      padding:0.5em;
+      width:240px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      margin-bottom:0.8em;
+    `;
+    tile.innerHTML = `
+      <img src="${s.thumbnails?.medium?.url || s.thumbnails?.default?.url || ''}" alt="thumb" style="width:180px;height:100px;object-fit:cover;border-radius:6px;">
+      <div style="margin:0.5em 0 0.3em 0;font-weight:600;font-size:0.95em;text-align:center;color:#fafafa;">${s.title}</div>
+      <a href="https://www.youtube.com/watch?v=${s.resourceId?.videoId || ''}" target="_blank" style="margin-top:auto;display:inline-block;background:#fff;color:#181818;padding:0.32em 0.8em;border-radius:5px;text-decoration:none;font-weight:500;font-size:0.95em;">Watch</a>
+    `;
+    containerTheory.appendChild(tile);
+  });
+
+  // Music Cover section
+  let coverVideos = [];
+  for (const pl of PLAYLISTS) {
+    if (pl.name === "Music Cover") {
+      const videos = videosByPlaylist[pl.id] || [];
+      coverVideos = coverVideos.concat(videos);
+    }
+  }
+  coverVideos.sort((a, b) => {
+    const dateA = new Date(a.snippet?.publishedAt || 0);
+    const dateB = new Date(b.snippet?.publishedAt || 0);
+    return dateB - dateA;
+  });
+  coverVideos.forEach(v => {
+    const s = v.snippet;
+    if (!s || !s.title || !s.publishedAt) return;
+    const tile = document.createElement("div");
+    tile.style.cssText = `
+      background:#232526;
+      border-radius:10px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.15);
+      padding:0.5em;
+      width:240px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      margin-bottom:0.8em;
+    `;
+    tile.innerHTML = `
+      <img src="${s.thumbnails?.medium?.url || s.thumbnails?.default?.url || ''}" alt="thumb" style="width:180px;height:100px;object-fit:cover;border-radius:6px;">
+      <div style="margin:0.5em 0 0.3em 0;font-weight:600;font-size:0.95em;text-align:center;color:#fafafa;">${s.title}</div>
+      <a href="https://www.youtube.com/watch?v=${s.resourceId?.videoId || ''}" target="_blank" style="margin-top:auto;display:inline-block;background:#fff;color:#181818;padding:0.32em 0.8em;border-radius:5px;text-decoration:none;font-weight:500;font-size:0.95em;">Watch</a>
+    `;
+    containerCover.appendChild(tile);
+  });
+}
+
+getVideos().then(renderVideosTiles);
+</script>

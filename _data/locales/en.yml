@@ -21,7 +21,7 @@ tabs:
   music-requests: Music Requests
   music-blogs: Music Blogs
   technology: Technology
-  # upcoming-music-covers: Upcoming Music Covers
+  youtube-videos: Youtube Videos
 
 # the text displayed in the search bar & search results
 search:
