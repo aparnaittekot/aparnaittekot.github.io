@@ -20,7 +20,7 @@ timezone: Asia/Calcutta
 
 title: A Unified Website # the main title
 
-tagline: Focussed on Music, Technology and Public Speaking.  # it will display as the sub-title
+tagline: Focused on topics such as Technology, Music and Public Speaking.  # it will display as the sub-title
 description: >-                        # used by seo meta and the atom feed
   Contains blog posts based on any topics aka "categories".
   
