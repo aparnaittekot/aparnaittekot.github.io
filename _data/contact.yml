@@ -1,21 +1,2 @@
 #  The contact options.
 # icons powered by <https://fontawesome.com/>
--
-  type: linkedin
-  icon: 'fab fa-linkedin' 
-  url:  'https://www.linkedin.com/in/aparnaittekot/'
-
--
-  type: youtube
-  icon: 'fab fa-youtube' 
-  url:  'https://www.youtube.com/@instro_muse' 
-
--
-  type: instagram
-  icon: 'fab fa-instagram' 
-  url:  'https://www.instagram.com/instro_muse/'  
-
--
-  type: goodreads
-  icon: 'fab fa-goodreads' 
-  url:  'https://www.goodreads.com/aparnaittekot/'
