@@ -1,2 +1,11 @@
 #  The contact options.
 # icons powered by <https://fontawesome.com/>
+-
+  type: linkedin
+  icon: 'fab fa-linkedin' 
+  url:  'https://www.linkedin.com/in/aparnaittekot/'
+
+-
+  type: youtube
+  icon: 'fab fa-youtube' 
+  url:  'https://www.youtube.com/@instro_muse' 
