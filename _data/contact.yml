@@ -6,6 +6,11 @@
   url:  'https://www.linkedin.com/in/aparnaittekot/'
 
 -
-  type: youtube
-  icon: 'fab fa-youtube' 
-  url:  'https://www.youtube.com/@instro_muse' 
+  type: github
+  icon: 'fab fa-github' 
+  url:  'https://github.com/aparnaittekot' 
+
+-
+  type: medium
+  icon: 'fab fa-medium' 
+  url:  'https://medium.com/@aparnaittekot' 
