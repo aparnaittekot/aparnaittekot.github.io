@@ -11,8 +11,6 @@ description: Confused about AI vs ML vs DL?
 subType: Blog 
 ---
 
-# 🤖 AI vs Machine Learning vs Deep Learning
-
 ## 🧠 Artificial Intelligence (AI)
 
 ### What is AI?
