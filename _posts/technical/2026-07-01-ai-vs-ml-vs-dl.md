@@ -1,6 +1,6 @@
 --- 
 title: Confused between AI vs ML vs DL?
-categories: [Coding]
+categories: [Technology]
 tagline: Confused between AI vs ML vs DL?
 tags: [AI, ML, DL]
 date: 2026-01-07 00:00:00 +0530
