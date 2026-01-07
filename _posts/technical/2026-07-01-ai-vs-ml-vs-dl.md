@@ -1,13 +1,13 @@
 --- 
-title: Confused about AI vs ML vs DL?
+title: Confused between AI vs ML vs DL?
 categories: [Coding]
-tagline: Confused about AI vs ML vs DL?
+tagline: Confused between AI vs ML vs DL?
 tags: [AI, ML, DL]
 date: 2026-01-07 00:00:00 +0530
 name: Artificial Intelligence, Deep Learning, Machine Learning
 type: BlogPosting
 last_modified_at: 2026-01-07 00:00:00 +0530
-description: Confused about AI vs ML vs DL?
+description: Confused between AI vs ML vs DL?
 subType: Blog 
 ---
 
