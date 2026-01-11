@@ -79,6 +79,11 @@ avatar: /assets/img/site/avatar.png
 toc: true
 future: false
 
+comments:
+  provider: disqus
+  disqus:
+    shortname: aparnaittekot
+    
 disqus:
   comments: true  # boolean type, the global switch for posts comments.
   shortname: 'aparnaittekot'    # Fill with your Disqus shortname. › https://help.disqus.com/en/articles/1717111-what-s-a-shortname
