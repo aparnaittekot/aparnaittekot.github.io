@@ -18,7 +18,7 @@ timezone: Asia/Calcutta
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
-title: A Unified Website # the main title
+title: Engineering Blog # the main title
 
 tagline: 
 description: >-                        # used by seo meta and the atom feed
