@@ -101,6 +101,4 @@ List<String> startsWithA =
 Below blogs have in detailed examples for usages of functional programming in Java. 
 </div>
 1. [Functional Interfaces examples (Functional programming)](../functional-programming-in-java-examples)
-2. [Monads examples (Functional programming)](../functional-programming-monads)
- <br />  
-  <br />  
+2. [Monads examples (Functional programming)](../functional-programming-monads)  
