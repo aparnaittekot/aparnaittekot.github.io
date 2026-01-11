@@ -106,6 +106,3 @@ Below blogs have in detailed examples for usages of functional programming in Ja
 2. [Monads examples (Functional programming)](../functional-programming-monads)
  <br />  
   <br />  
-{% if site.disqus.shortname %}
-  {% include disqus.html %}
-{% endif %}
