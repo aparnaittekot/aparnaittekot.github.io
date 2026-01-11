@@ -9,6 +9,7 @@ type: BlogPosting
 last_modified_at: 2023-11-01 00:00:00 +0530
 description: Functional Interfaces in Java
 subType: Blog 
+comments: true
 ---
 
 Before moving to examples, do read the blog [Functional programming in Java - What and Why?](../functional-programming-in-java-what-and-why) to get more context on what is functional programming.
@@ -113,8 +114,3 @@ logger.debug(findRandomValue.get());
 
 ## Monads
 [blog post on Monads](../functional-programming-monads).
-
-<br/>
-{% if site.disqus.shortname %}
-  {% include disqus.html %}
-{% endif %}
