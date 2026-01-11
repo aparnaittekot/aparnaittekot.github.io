@@ -81,6 +81,7 @@ future: false
 
 comments:
   provider: disqus
+  active: true
   disqus:
     shortname: aparnaittekot
     
