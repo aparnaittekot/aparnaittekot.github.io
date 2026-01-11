@@ -9,6 +9,7 @@ type: BlogPosting
 last_modified_at: 2023-11-01 00:00:00 +0530
 description: Monads in Java
 subType: Blog 
+comments: true
 ---
 
 ## Pre-read blogs:
@@ -60,8 +61,3 @@ Optional<Integer> finalResult = Optional.of(firstOperation(firstInput))
 ```
 
 Monads help in simplifying code and avoids the infamous `NullPointerException` in the production code.
-
-<br />
-{% if site.disqus.shortname %}
-  {% include disqus.html %}
-{% endif %}
