@@ -9,6 +9,7 @@ type: BlogPosting
 last_modified_at: 2026-01-07 00:00:00 +0530
 description: Confused between AI vs ML vs DL?
 subType: Blog 
+comments: true
 ---
 
 ## 🧠 Artificial Intelligence (AI)
@@ -61,9 +62,3 @@ It works best with large amounts of unstructured data like images, audio, and vi
 - Use **AI** when rule-based logic is enough  
 - Use **ML** when patterns exist in data  
 - Use **DL** when data is large and complex
-
-  
-<br/>
-{% if site.disqus.shortname %}
-  {% include disqus.html %}
-{% endif %}
