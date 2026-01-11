@@ -8,8 +8,6 @@ name: Functional programming
 type: BlogPosting
 last_modified_at: 2023-11-01 00:00:00 +0530
 comments: true
-# image:
-#   path: /commons/FP.png
 description: Functional programming in Java - What and Why?
 subType: Blog 
 ---
