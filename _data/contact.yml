@@ -1,11 +1,9 @@
 #  The contact options.
 # icons powered by <https://fontawesome.com/>
--
-  type: linkedin
-  icon: 'fab fa-linkedin' 
-  url:  'https://www.linkedin.com/in/aparnaittekot/'
+- type: linkedin
+  icon: 'fab fa-linkedin'
+  url: 'https://www.linkedin.com/in/aparnaittekot/'
 
--
-  type: github
-  icon: 'fab fa-github' 
-  url: 'https://github.com/aparnaittekot/' 
+- type: github
+  icon: 'fab fa-github'
+  url: 'https://github.com/aparnaittekot/'
