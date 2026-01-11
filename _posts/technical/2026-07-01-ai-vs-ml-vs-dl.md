@@ -62,5 +62,8 @@ It works best with large amounts of unstructured data like images, audio, and vi
 - Use **ML** when patterns exist in data  
 - Use **DL** when data is large and complex
 
-{% if site.disqus.shortname %} {% include disqus.html %} {% endif %}
-
+  
+<br/>
+{% if site.disqus.shortname %}
+  {% include disqus.html %}
+{% endif %}
