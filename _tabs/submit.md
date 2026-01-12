@@ -2,6 +2,7 @@
 title: Submit
 icon: fas fa-paper-plane
 order: 10
+layout: default
 ---
 
 <style>
