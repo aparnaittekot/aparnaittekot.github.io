@@ -2,5 +2,5 @@
 layout: all-posts
 title: Archives
 icon: fas fa-history
-order: 6
+order: 9
 ---
