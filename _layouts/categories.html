@@ -1,0 +1,67 @@
+---
+layout: default
+---
+
+<div class="container">
+
+  <div class="row">
+    <div class="col-12">
+
+      <h1 class="page-title">{{ page.title }}</h1>
+
+      <div id="categories" class="categories mt-4">
+
+        {% assign categories = site.categories | sort %}
+
+        {% for category in categories %}
+          {% assign category_name = category | first %}
+          {% assign posts = category | last %}
+
+          <div class="category-item mb-3">
+
+            <!-- Category header (clickable dropdown) -->
+            <div class="category-header d-flex justify-content-between align-items-center"
+                 data-bs-toggle="collapse"
+                 data-bs-target="#cat-{{ category_name | slugify }}"
+                 aria-expanded="false"
+                 style="cursor: pointer;">
+
+              <span class="category-title">
+                {{ category_name }}
+              </span>
+
+              <span class="badge bg-primary">
+                {{ posts | size }}
+              </span>
+
+            </div>
+
+            <!-- Dropdown content -->
+            <div id="cat-{{ category_name | slugify }}"
+                 class="collapse category-posts mt-2">
+
+              <ul class="list-unstyled ms-3">
+                {% for post in posts %}
+                  <li class="mb-1">
+                    <a href="{{ post.url | relative_url }}">
+                      {{ post.title }}
+                    </a>
+                    <small class="text-muted">
+                      – {{ post.date | date: "%b %d, %Y" }}
+                    </small>
+                  </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+
+          </div>
+
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
