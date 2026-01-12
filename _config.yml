@@ -18,9 +18,9 @@ timezone: Asia/Calcutta
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
-title: The Engineering Stack # the main title
+title: The Knowledge Stack # the main title
 
-tagline: Learn. Build. Improve.
+tagline: Blogs by Aparna Ittekot
 description: 
   
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
