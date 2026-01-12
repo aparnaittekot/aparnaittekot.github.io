@@ -1,67 +1,56 @@
 ---
 layout: default
+refactor: true
 ---
 
-<div class="container">
+{% assign MAX = 1000 %}
 
-  <div class="row">
-    <div class="col-12">
+<div class="row">
+  <div class="col-12">
 
-      <h1 class="page-title">{{ page.title }}</h1>
+    <h1 class="page-title">{{ page.title }}</h1>
 
-      <div id="categories" class="categories mt-4">
+    <div id="categories" class="d-flex flex-wrap mt-3">
 
-        {% assign categories = site.categories | sort %}
+      {% assign categories = site.categories | sort %}
 
-        {% for category in categories %}
-          {% assign category_name = category | first %}
-          {% assign posts = category | last %}
+      {% for category in categories %}
+        {% assign category_name = category | first %}
+        {% assign posts = category | last %}
 
-          <div class="category-item mb-3">
+        <div class="category card">
+          <div class="card-body">
 
-            <!-- Category header (clickable dropdown) -->
-            <div class="category-header d-flex justify-content-between align-items-center"
-                 data-bs-toggle="collapse"
-                 data-bs-target="#cat-{{ category_name | slugify }}"
-                 aria-expanded="false"
-                 style="cursor: pointer;">
+            <div class="d-flex justify-content-between align-items-center">
 
-              <span class="category-title">
+              <span class="category-name">
                 {{ category_name }}
               </span>
 
-              <span class="badge bg-primary">
+              <span class="badge badge-primary badge-pill">
                 {{ posts | size }}
               </span>
 
             </div>
 
-            <!-- Dropdown content -->
-            <div id="cat-{{ category_name | slugify }}"
-                 class="collapse category-posts mt-2">
+            <ul class="category-posts list-unstyled mt-2">
 
-              <ul class="list-unstyled ms-3">
-                {% for post in posts %}
-                  <li class="mb-1">
-                    <a href="{{ post.url | relative_url }}">
-                      {{ post.title }}
-                    </a>
-                    <small class="text-muted">
-                      – {{ post.date | date: "%b %d, %Y" }}
-                    </small>
-                  </li>
-                {% endfor %}
-              </ul>
+              {% for post in posts limit:MAX %}
+                <li>
+                  <a href="{{ post.url | relative_url }}">
+                    {{ post.title }}
+                  </a>
+                </li>
+              {% endfor %}
 
-            </div>
+            </ul>
 
           </div>
+        </div>
 
-        {% endfor %}
-
-      </div>
+      {% endfor %}
 
     </div>
-  </div>
 
+  </div>
 </div>
