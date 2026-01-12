@@ -6,25 +6,6 @@ layout: default
 ---
 
 <style>
-/* Fix extra top spacing added by Chirpy */
-.post-content,
-.page-content,
-.content {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.post-content > *:first-child,
-.content > *:first-child {
-  margin-top: 0 !important;
-}
-
-/* Hide page title spacing (optional but recommended) */
-.page-title {
-  display: none;
-}
-
-/* Slightly zoom out the Tally form */
 .tally-scale {
   transform: scale(0.95);
   transform-origin: top center;
@@ -42,3 +23,5 @@ layout: default
 </div>
 
 <script async src="https://tally.so/widgets/embed.js"></script>
+<script async src="https://tally.so/widgets/embed.js"></script>
+
