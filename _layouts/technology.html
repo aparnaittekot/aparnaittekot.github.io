@@ -1,38 +1,60 @@
 ---
-layout: page
-# The Archives of technology.
+layout: default
+refactor: true
 ---
 
 {% include lang.html %}
 
-{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
-{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+<!-- All posts, pinned first; this page is not paginated so the filter covers every post -->
+{% assign pinned = site.posts | where: 'pin', 'true' %}
+{% assign default = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+{% assign posts = pinned | concat: default %}
 
-<div id="archives" class="pl-xl-3">
-  {% for post in site.posts %}
-    {% if post.tags contains "technology" %}
-      {% assign cur_year = post.date | date: '%Y' %}
+{% assign listed_count = 0 %}
+{% for post in posts %}
+  {% unless post.tags contains "coming-soon" or post.tags contains "music-soon" %}
+    {% assign listed_count = listed_count | plus: 1 %}
+  {% endunless %}
+{% endfor %}
 
-      {% if cur_year != last_year %}
-        {% unless forloop.first %}</ul>{% endunless %}
+<!-- Page title, matching the Music page -->
+<h1 class="dynamic-title">{{ site.data.locales[lang].tabs.technology }}</h1>
 
-        <time class="year lead d-block">{{ cur_year }}</time>
-        {{ '<ul class="list-unstyled">' }}
+<!-- Archive tiles are rendered first so their count is known for the tab label -->
+{% capture archive_tiles %}{% include archive-tiles.html %}{% endcapture %}
 
-      {% assign last_year = cur_year %}
-    {% else %}
-    {% endif %}
-
-    <li>
-      {% assign ts = post.date | date: '%s' %}
-      <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
-      <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
-        {{ post.date | date: df_strftime_m }}
-      </span>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      <text>({{post.categories }})            </text>
-    </li>
-    {% endif %}
-    {% if forloop.last %}</ul>{% endif %}
-  {% endfor %}
+<!-- Nested tabs, styled like the Music page; Blogs holds the post list and its filter -->
+<div class="music-tabs" role="tablist" aria-label="Technology sections">
+  <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
+    Blogs <span class="music-tab-count">{{ listed_count }}</span>
+  </button>
+  <button type="button" class="music-tab" role="tab" id="tab-archives" aria-controls="panel-archives" aria-selected="false" tabindex="-1">
+    Archives <span class="music-tab-count">{{ archived_count }}</span>
+  </button>
 </div>
+
+<div class="music-panel tech-panel" role="tabpanel" id="panel-blogs" aria-labelledby="tab-blogs">
+  {% include post-filter.html %}
+
+  <p id="filter-empty" class="post-filter-empty" hidden>
+    No posts match these filters.
+    <button type="button" id="filter-empty-clear" class="post-filter-clear">Clear filters</button>
+  </p>
+
+  <div id="post-list" class="flex-grow-1 px-xl-1">
+    {% for post in posts %}
+      {% if post.tags contains "coming-soon" or post.tags contains "music-soon" %}
+      {% else %}
+      {% include post-card.html post=post lang=lang %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  <!-- #post-list -->
+</div>
+
+<div class="music-panel tech-panel" role="tabpanel" id="panel-archives" aria-labelledby="tab-archives" hidden>
+  {{ archive_tiles }}
+</div>
+
+{% include nested-tabs.html %}
+

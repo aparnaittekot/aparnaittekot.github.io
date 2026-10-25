@@ -5,89 +5,66 @@ refactor: true
 
 {% include lang.html %}
 
-{% assign pinned = site.posts | where: 'pin', 'true' %}
-{% assign default = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
+<!-- Landing page: the two pillars of the site, each linking to its own page -->
 
-{% assign posts = '' | split: '' %}
-
-<!-- Get pinned posts -->
-
-{% assign offset = paginator.page | minus: 1 | times: paginator.per_page %}
-{% assign pinned_num = pinned.size | minus: offset %}
-
-{% if pinned_num > 0 %}
-  {% for i in (offset..pinned.size) limit: pinned_num %}
-    {% assign posts = posts | push: pinned[i] %}
-  {% endfor %}
-{% else %}
-  {% assign pinned_num = 0 %}
-{% endif %}
-
-<!-- Get default posts -->
-
-{% assign default_beg = offset | minus: pinned.size %}
-
-{% if default_beg < 0 %}
-  {% assign default_beg = 0 %}
-{% endif %}
-
-{% assign default_num = paginator.posts | size | minus: pinned_num %}
-{% assign default_end = default_beg | plus: default_num | minus: 1 %}
-
-{% if default_num > 0 %}
-  {% for i in (default_beg..default_end) %}
-    {% assign posts = posts | push: default[i] %}
-  {% endfor %}
-{% endif %}
-
-{% assign listed_count = 0 %}
-{% for post in posts %}
+<!-- Technology: the newest listed post to feature -->
+{% assign tech_posts = site.posts | where_exp: 'item', 'item.hidden != true' %}
+{% assign latest_post = nil %}
+{% for post in tech_posts %}
   {% unless post.tags contains "coming-soon" or post.tags contains "music-soon" %}
-    {% assign listed_count = listed_count | plus: 1 %}
+    {% unless latest_post %}{% assign latest_post = post %}{% endunless %}
   {% endunless %}
 {% endfor %}
 
-<!-- Page title, matching the Music page -->
-<h1 class="dynamic-title">{{ site.data.locales[lang].tabs.home }}</h1>
+<!-- Music: the newest keyboard cover to feature -->
+{% assign music_sections = site.data.youtube | default: empty %}
+{% assign covers = music_sections | where: 'id', 'covers' | first %}
+{% assign latest_video = covers.videos | first %}
 
-<!-- Archive tiles are rendered first so their count is known for the tab label -->
-{% capture archive_tiles %}{% include archive-tiles.html %}{% endcapture %}
+<section class="landing-hero">
+  <h1 class="landing-title">{{ site.title }}</h1>
+  {% if site.tagline != empty %}<p class="landing-lead">{{ site.tagline }}</p>{% endif %}
+</section>
 
-<!-- Nested tabs, styled like the Music page; Blogs holds the post list and its filter -->
-<div class="music-tabs" role="tablist" aria-label="Technology sections">
-  <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
-    Blogs <span class="music-tab-count">{{ listed_count }}</span>
-  </button>
-  <button type="button" class="music-tab" role="tab" id="tab-archives" aria-controls="panel-archives" aria-selected="false" tabindex="-1">
-    Archives <span class="music-tab-count">{{ archived_count }}</span>
-  </button>
-</div>
+<!-- Work comes first; music follows under "Beyond work" with a Hobby tag. Both cards share one layout -->
+<section class="landing-section">
+  <h2 class="landing-section-title">What I do</h2>
+  <a class="pillar pillar-primary" href="{{ '/technology/' | relative_url }}">
+    <div class="pillar-main">
+      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
+      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.technology }}</h3>
+      <p class="pillar-text">Blogs, projects, research papers and more.</p>
+      <span class="pillar-cta">Explore Technology <i class="fas fa-arrow-right"></i></span>
+    </div>
+    {% if latest_post %}
+      <div class="pillar-latest">
+        <span class="pillar-latest-label">Latest blog</span>
+        <span class="pillar-latest-title">{{ latest_post.title }}</span>
+        <span class="pillar-latest-date">{{ latest_post.date | date: '%b %-d, %Y' }}</span>
+      </div>
+    {% endif %}
+  </a>
+</section>
 
-<div class="music-panel tech-panel" role="tabpanel" id="panel-blogs" aria-labelledby="tab-blogs">
-  {% include post-filter.html %}
-
-  <p id="filter-empty" class="post-filter-empty" hidden>
-    No posts match these filters.
-    <button type="button" id="filter-empty-clear" class="post-filter-clear">Clear filters</button>
-  </p>
-
-  <div id="post-list" class="flex-grow-1 px-xl-1">
-    {% for post in posts %}
-      {% if post.tags contains "coming-soon" or post.tags contains "music-soon" %}
-      {% else %}
-      {% include post-card.html post=post lang=lang %}
-      {% endif %}
-    {% endfor %}
-  </div>
-  <!-- #post-list -->
-</div>
-
-<div class="music-panel tech-panel" role="tabpanel" id="panel-archives" aria-labelledby="tab-archives" hidden>
-  {{ archive_tiles }}
-</div>
-
-{% include nested-tabs.html %}
-
-{% if paginator.total_pages > 1 %}
-  {% include post-paginator.html %}
-{% endif %}
+<section class="landing-section">
+  <h2 class="landing-section-title">Beyond work</h2>
+  <a class="pillar pillar-primary" href="{{ '/music/' | relative_url }}">
+    <div class="pillar-main">
+      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+      <h3 class="pillar-title">Music <span class="pillar-tag">Hobby</span></h3>
+      <p class="pillar-text">A hobby I love: music covers and theory videos on my YouTube channel.</p>
+      <span class="pillar-cta">Listen <i class="fas fa-arrow-right"></i></span>
+    </div>
+    {% if latest_video %}
+      <div class="pillar-latest pillar-latest-video">
+        <!-- the theme adds loading="lazy" to images on this page -->
+        <img src="{{ latest_video.thumbnail }}" alt="Thumbnail for {{ latest_video.title | escape }}">
+        <div>
+          <span class="pillar-latest-label">Latest cover</span>
+          <span class="pillar-latest-title">{{ latest_video.title }}</span>
+          <span class="pillar-latest-date">{{ latest_video.published | date: '%b %-d, %Y' }}</span>
+        </div>
+      </div>
+    {% endif %}
+  </a>
+</section>

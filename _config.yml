@@ -18,9 +18,9 @@ timezone: Asia/Calcutta
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # --------------------------
 
-title: The Knowledge Stack # the main title
+title: Aparna's Portfolio # the main title
 
-tagline: Technology, music & curious ideas
+tagline: "" # optional line under the title; empty hides it
 description: 
   
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'

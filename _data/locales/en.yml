@@ -10,7 +10,8 @@ layout:
 # The tabs of sidebar
 tabs:
   # format: <filename_without_extension>: <value>
-  home: Technology
+  home: Home
+  technology: Technology
   categories: Categories
   tags: Tags
   all-posts: Archives
