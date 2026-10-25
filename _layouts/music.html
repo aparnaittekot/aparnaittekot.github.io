@@ -1,0 +1,105 @@
+---
+layout: page
+# Music page: YouTube videos in tabs, one per section in _config.yml (youtube.sections).
+# The videos come from _plugins/youtube-feed.rb at build time.
+---
+
+{% assign sections = site.data.youtube | default: empty %}
+
+<p class="video-intro">
+  Keyboard covers and music theory videos from my YouTube channel (@instro_muse).
+  <a href="{{ site.youtube.url }}" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-youtube fa-fw"></i>See all videos on YouTube
+  </a>
+</p>
+
+{% if sections.size > 0 %}
+  <div class="music-tabs" role="tablist" aria-label="Video sections">
+    {% for section in sections %}
+      <button
+        type="button"
+        class="music-tab"
+        role="tab"
+        id="tab-{{ section.id }}"
+        aria-controls="panel-{{ section.id }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        {% unless forloop.first %}tabindex="-1"{% endunless %}
+      >
+        {{ section.title }} <span class="music-tab-count">{{ section.videos.size }}</span>
+      </button>
+    {% endfor %}
+  </div>
+
+  {% for section in sections %}
+    <div
+      class="music-panel"
+      role="tabpanel"
+      id="panel-{{ section.id }}"
+      aria-labelledby="tab-{{ section.id }}"
+      {% unless forloop.first %}hidden{% endunless %}
+    >
+      {% if section.videos.size > 0 %}
+        <div class="video-tiles">
+          {% for video in section.videos %}
+            <a class="video-tile" href="{{ video.url }}" target="_blank" rel="noopener noreferrer">
+              <div class="video-thumb">
+                <img src="{{ video.thumbnail }}" alt="Thumbnail for {{ video.title | escape }}" loading="lazy">
+                <span class="video-play" aria-hidden="true"><i class="fas fa-play"></i></span>
+                {% if video.label %}<span class="video-badge">{{ video.label }}</span>{% endif %}
+              </div>
+              <div class="video-body">
+                <h2 class="video-title">{{ video.title }}</h2>
+                <time class="video-date" datetime="{{ video.published | date_to_xmlschema }}">
+                  {{ video.published | date: '%b %-d, %Y' }}
+                </time>
+              </div>
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">
+          These videos couldn't be loaded right now.
+          <a href="{{ site.youtube.url }}" target="_blank" rel="noopener noreferrer">Watch them on YouTube</a> instead.
+        </p>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabs = Array.from(document.querySelectorAll('.music-tab'));
+
+      function select(tab, updateHash) {
+        tabs.forEach((t) => {
+          const selected = t === tab;
+          t.setAttribute('aria-selected', selected);
+          t.tabIndex = selected ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+        });
+        if (updateHash) {
+          history.replaceState(null, '', '#' + tab.id.replace('tab-', ''));
+        }
+      }
+
+      tabs.forEach((tab, i) => {
+        tab.addEventListener('click', () => select(tab, true));
+        // Left/right arrows move between tabs
+        tab.addEventListener('keydown', (e) => {
+          if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+          const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+          next.focus();
+          select(next, true);
+        });
+      });
+
+      // Open the tab named in the address, e.g. /music/#theory
+      const fromHash = document.getElementById('tab-' + window.location.hash.slice(1));
+      if (fromHash && tabs.includes(fromHash)) select(fromHash, false);
+    });
+  </script>
+{% else %}
+  <p class="text-muted">
+    Videos couldn't be loaded right now.
+    <a href="{{ site.youtube.url }}" target="_blank" rel="noopener noreferrer">Watch them on YouTube</a> instead.
+  </p>
+{% endif %}

@@ -20,7 +20,7 @@ timezone: Asia/Calcutta
 
 title: The Knowledge Stack # the main title
 
-tagline: Aparna Ittekot
+tagline: Technology, music & curious ideas
 description: 
   
 # fill in the base hostname & protocol for your site, e.g., 'https://username.github.io'
@@ -29,6 +29,22 @@ authors: [Aparna Ittekot]             # change to your full name
 
 github:
   username: aparnaittekot           # change to your github username
+
+youtube:
+  url: https://www.youtube.com/@instro_muse/videos
+  # Sections on the Music page, read from these playlists by _plugins/youtube-feed.rb
+  sections:
+    - id: covers
+      title: Keyboard Covers
+      label_prefix: "Keyboard Covers - " # tiles show the rest of the playlist name, e.g. "English Songs"
+      playlists:
+        - PLtniji69-8wIAJgompURXA1Usota1iexo # Keyboard Covers - English Songs
+        - PLtniji69-8wKC63HhRzatikgWaLtAnoA3 # Keyboard Covers - Western Classical
+        - PLtniji69-8wLmj2y2r0A2NfgLvOG1vTfD # Keyboard Covers - Tamil Songs
+    - id: theory
+      title: Music Theory
+      playlists:
+        - PLtniji69-8wKtFUzWQu7jZj7Sygs-OvYB # Simplified Music Theory
 
 social:
   name: Aparna Ittekot              # it will shows as the copyright owner in Footer
