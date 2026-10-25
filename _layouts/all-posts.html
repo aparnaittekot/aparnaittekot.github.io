@@ -18,9 +18,10 @@ layout: page
   align-items: stretch;
 }
 .all-posts-tile {
-  background: #181818;
+  background: var(--card-bg);
+  border-left: 3px solid #1a9e8f;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+  box-shadow: var(--card-shadow);
   padding: 0.8rem;
   min-width: 0;
   min-height: 80px;
@@ -28,8 +29,8 @@ layout: page
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  transition: box-shadow 0.2s;
-  color: #f1f1f1;
+  transition: box-shadow 0.2s, transform 0.2s;
+  color: var(--text-color);
   box-sizing: border-box;
   flex: 1 1 calc((100% - 2.4rem) / 3); /* 3 tiles per row, 2 gaps */
   max-width: calc((100% - 2.4rem) / 3);
@@ -65,29 +66,30 @@ layout: page
   }
 }
 .all-posts-tile:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.32);
+  box-shadow: 0 6px 18px rgba(30, 42, 56, 0.12);
+  transform: translateY(-2px);
 }
 .all-posts-tile-title {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.3rem;
-  color: #fff;
+  color: var(--heading-color);
 }
 .all-posts-tile-title a {
-  color: #fff;
+  color: var(--heading-color);
   text-decoration: none;
 }
 .all-posts-tile-title a:hover {
-  color: #1db954;
+  color: #13857a;
 }
 .all-posts-tile-meta {
   font-size: 0.85rem;
-  color: #b3b3b3;
+  color: var(--text-muted-color);
   margin-bottom: 0.3rem;
 }
 .all-posts-tile-categories {
   font-size: 0.75rem;
-  color: #fff;
+  color: #13857a;
   font-weight: 600;
 }
 </style>
@@ -101,7 +103,7 @@ layout: page
         </div>
         <div class="all-posts-tile-preview" style="margin-top:0.5rem;">
           <a href="{{ post.url | relative_url }}">
-            <div style="color:#b3b3b3;font-size:0.92em;line-height:1.4em;max-height:3.8em;overflow:hidden;">
+            <div style="color:var(--text-muted-color);font-size:0.92em;line-height:1.4em;max-height:3.8em;overflow:hidden;">
               {{ post.description | default: post.excerpt | strip_html | truncate: 110 }}
             </div>
           </a>
@@ -111,11 +113,11 @@ layout: page
           <div class="all-posts-tile-categories">
             {{ post.categories | join: ", " }}
             {% if post.subType %}
-              <span style="color:#b3b3b3;font-size:0.85em;font-weight:400;">&nbsp;|&nbsp;{{ post.subType }}</span>
+              <span style="color:var(--text-muted-color);font-size:0.85em;font-weight:400;">&nbsp;|&nbsp;{{ post.subType }}</span>
             {% endif %}
           </div>
         {% endif %}
-        <div style="color:#b3b3b3;font-size:0.85em;margin-top:0.5em;">
+        <div style="color:var(--text-muted-color);font-size:0.85em;margin-top:0.5em;">
           {{ post.date | date: "%b %-d, %Y" }}
         </div>
       </div>

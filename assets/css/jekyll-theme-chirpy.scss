@@ -1,0 +1,115 @@
+---
+---
+
+@import 'main';
+
+/* append your custom style below */
+
+/* Midnight & teal palette */
+html,
+html[data-mode='light'] {
+  --link-color: #13857a;
+  --link-underline-color: #b8e2dc;
+  --heading-color: #1e2a38;
+  --text-color: #2c3440;
+  --toc-highlight: #13857a;
+  --btn-share-hover-color: #1a9e8f;
+  --checkbox-checked-color: #1a9e8f;
+  --prompt-info-bg: #e3f5f2;
+  --prompt-info-icon-color: #13857a;
+  --footnote-target-bg: #e3f5f2;
+
+  /* Sidebar */
+  --sidebar-bg: #1e2a38;
+  --sidebar-border-color: #1e2a38;
+  --site-title-color: #ffffff;
+  --site-subtitle-color: #9fb3c8;
+  --sidebar-muted-color: #9fb3c8;
+  --sidebar-active-color: #ffffff;
+  --sidebar-hover-bg: rgba(26, 158, 143, 0.25);
+  --sidebar-btn-bg: #2a3a4d;
+  --sidebar-btn-color: #9fb3c8;
+  --avatar-border-color: #1a9e8f;
+
+  /* Home page */
+  --btn-paginator-hover-color: #e3f5f2;
+
+  /* Tags and archive */
+  --tag-hover: #d4efeb;
+  --timeline-node-bg: #1a9e8f;
+}
+
+/* Tag buttons (trending tags, post tags) use Bootstrap's primary color */
+.btn-outline-primary {
+  --bs-btn-hover-bg: #1a9e8f;
+  --bs-btn-hover-border-color: #1a9e8f;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: #13857a;
+  --bs-btn-active-border-color: #13857a;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-focus-shadow-rgb: 26, 158, 143;
+}
+
+/* Post cards on the home page: teal tint, accent bar and a slight lift on hover */
+#post-list .post-preview {
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &::before {
+    background-color: #1a9e8f;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.75rem;
+    bottom: 0.75rem;
+    width: 3px;
+    border-radius: 3px;
+    background: #1a9e8f;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .card-title {
+    transition: color 0.25s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(30, 42, 56, 0.12);
+
+    &::before {
+      opacity: 0.06;
+    }
+
+    &::after {
+      opacity: 1;
+    }
+
+    .card-body .card-title {
+      color: #13857a !important; /* the theme sets the title color with !important */
+    }
+  }
+}
+
+/* Breadcrumb at the top ("Blogs", "Blogs › Post"): larger and bolder */
+#topbar #breadcrumb {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e2a38;
+
+  a {
+    color: #13857a;
+
+    &:hover {
+      color: #1a9e8f;
+    }
+  }
+}
+
+#sidebar .nav-item.active .nav-link,
+#sidebar .nav-link:hover {
+  color: #ffffff;
+}
