@@ -190,6 +190,41 @@ main .landing-section-title {
   margin-top: 1.25rem;
 }
 
+/* Cards with a corner icon: the main link stretches over the whole card so it stays
+   clickable everywhere, and the icon link sits above it */
+.pillar-linked {
+  cursor: pointer;
+
+  .pillar-stretched {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      border-radius: inherit;
+    }
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .pillar-social {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 2;
+  }
+
+  /* keep the top-right corner free for the icons: the latest box sits at the bottom */
+  @media (min-width: 768px) {
+    .pillar-latest {
+      align-self: end;
+      margin-top: 2.75rem; /* room for the corner icons above a tall box */
+    }
+  }
+}
+
 /* A card that isn't a link itself (it holds its own link), so no hover lift */
 .pillar-static {
   &:hover {
@@ -372,6 +407,55 @@ main .pillar-title {
       background: #1a9e8f;
       color: #ffffff;
       text-decoration: none;
+    }
+  }
+}
+
+/* Brand colors for the social icons; on hover the circle fills with the brand color */
+main .page-social {
+  .social-linkedin {
+    color: #0a66c2;
+
+    &:hover {
+      border-color: #0a66c2;
+      background: #0a66c2;
+    }
+  }
+
+  .social-youtube {
+    color: #ff0000;
+
+    &:hover {
+      border-color: #ff0000;
+      background: #ff0000;
+    }
+  }
+
+  .social-github {
+    color: #181717;
+
+    &:hover {
+      border-color: #181717;
+      background: #181717;
+    }
+  }
+
+  .social-instagram {
+    i {
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    &:hover {
+      border-color: #d6249f;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+
+      i {
+        background: none;
+        color: #ffffff;
+      }
     }
   }
 }

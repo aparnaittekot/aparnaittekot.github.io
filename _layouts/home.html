@@ -29,12 +29,14 @@ refactor: true
 <!-- Work comes first; "Beyond work" follows with Public Speaking, then Music (tagged Hobby). All cards share one layout -->
 <section class="landing-section">
   <h2 class="landing-section-title">What I do</h2>
-  <a class="pillar pillar-primary" href="{{ '/technology/' | relative_url }}">
+  <!-- The "Explore Technology" link stretches over the whole card; the corner icon is its own link on top -->
+  <div class="pillar pillar-primary pillar-linked">
+    {% include page-social.html types="linkedin,github" class="pillar-social" %}
     <div class="pillar-main">
       <span class="pillar-icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
       <h3 class="pillar-title">{{ site.data.locales[lang].tabs.technology }}</h3>
       <p class="pillar-text">Blogs, projects, research papers and more.</p>
-      <span class="pillar-cta">Explore Technology <i class="fas fa-arrow-right"></i></span>
+      <a class="pillar-cta pillar-stretched" href="{{ '/technology/' | relative_url }}">Explore Technology <i class="fas fa-arrow-right"></i></a>
     </div>
     {% if latest_post %}
       <div class="pillar-latest">
@@ -43,7 +45,7 @@ refactor: true
         <span class="pillar-latest-date">{{ latest_post.date | date: '%b %-d, %Y' }}</span>
       </div>
     {% endif %}
-  </a>
+  </div>
 </section>
 
 <section class="landing-section">
@@ -73,12 +75,14 @@ refactor: true
     </div>
   </div>
 
-  <a class="pillar pillar-primary" href="{{ '/music/' | relative_url }}">
+  <!-- The "Listen" link stretches over the whole card; the corner icon is its own link on top -->
+  <div class="pillar pillar-primary pillar-linked">
+    {% include page-social.html types="youtube,instagram" class="pillar-social" %}
     <div class="pillar-main">
       <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
       <h3 class="pillar-title">Music <span class="pillar-tag">Hobby</span></h3>
       <p class="pillar-text">Off the clock, I play the keyboard and share covers and music theory on YouTube.</p>
-      <span class="pillar-cta">Listen <i class="fas fa-arrow-right"></i></span>
+      <a class="pillar-cta pillar-stretched" href="{{ '/music/' | relative_url }}">Listen <i class="fas fa-arrow-right"></i></a>
     </div>
     {% if latest_video %}
       <div class="pillar-latest pillar-latest-video">
@@ -91,5 +95,5 @@ refactor: true
         </div>
       </div>
     {% endif %}
-  </a>
+  </div>
 </section>

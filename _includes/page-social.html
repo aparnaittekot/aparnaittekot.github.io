@@ -11,7 +11,7 @@
         {% when 'youtube' %}{% assign label = 'YouTube' %}
         {% else %}{% assign label = entry.type | capitalize %}
       {% endcase %}
-      <a href="{{ entry.url }}" aria-label="{{ label }}" title="{{ label }}" target="_blank" rel="noopener noreferrer">
+      <a class="social-{{ entry.type }}" href="{{ entry.url }}" aria-label="{{ label }}" title="{{ label }}" target="_blank" rel="noopener noreferrer">
         <i class="{{ entry.icon }}"></i>
       </a>
     {% endif %}
