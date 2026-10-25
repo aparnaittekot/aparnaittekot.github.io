@@ -1,0 +1,39 @@
+<!-- Switches between .music-tab tabs and their panels; the address hash (e.g. #theory) picks the open tab -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const tabs = Array.from(document.querySelectorAll('.music-tab'));
+
+    function select(tab, updateHash) {
+      tabs.forEach((t) => {
+        const selected = t === tab;
+        t.setAttribute('aria-selected', selected);
+        t.tabIndex = selected ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !selected;
+      });
+      if (updateHash) {
+        history.replaceState(null, '', '#' + tab.id.replace('tab-', ''));
+      }
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(tab, true));
+      // Left/right arrows move between tabs
+      tab.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        next.focus();
+        select(next, true);
+      });
+    });
+
+    // Open the tab named in the address, e.g. /music/#theory
+    function selectFromHash() {
+      const fromHash = document.getElementById('tab-' + window.location.hash.slice(1));
+      if (fromHash && tabs.includes(fromHash)) select(fromHash, false);
+    }
+
+    selectFromHash();
+    // Links to another tab on the same page (e.g. href="#blogs") switch tabs too
+    window.addEventListener('hashchange', selectFromHash);
+  });
+</script>

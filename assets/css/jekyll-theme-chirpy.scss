@@ -94,18 +94,17 @@ html[data-mode='light'] {
   }
 }
 
-/* Home page header: "Blogs" title on the left, filters on the right, one row */
-.home-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem 1rem;
-  margin: 2rem 0 1.25rem;
-
-  h1.dynamic-title {
-    margin: 0;
+/* Technology page: the Blogs tab holds the filter bar and the post list */
+@media (min-width: 850px) {
+  h1.dynamic-title + .music-tabs {
+    margin-top: 0; /* the title above already adds space; phones hide the title */
   }
+}
+
+.tech-panel .post-filter,
+.tech-panel .prompt-info,
+.tech-panel .all-posts-tiles {
+  margin-top: 1.25rem;
 }
 
 /* Home page filter bar: year, category and tag dropdowns */
@@ -193,9 +192,9 @@ html[data-mode='light'] {
   display: none !important;
 }
 
-/* The header already adds space above the list */
-.home-header ~ #post-list {
-  margin-top: 0;
+/* The filter bar already adds space above the list */
+.tech-panel #post-list {
+  margin-top: 1.25rem;
 }
 
 /* Phones: the theme hides the title, so the dropdowns share one full-width row */

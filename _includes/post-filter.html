@@ -69,7 +69,7 @@
         f.select.value ? params.set(key, f.select.value) : params.delete(key);
       });
       const query = params.toString();
-      history.replaceState(null, '', window.location.pathname + (query ? `?${query}` : ''));
+      history.replaceState(null, '', window.location.pathname + (query ? `?${query}` : '') + window.location.hash);
     }
 
     function clearAll() {
