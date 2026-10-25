@@ -94,8 +94,29 @@ layout: page
 }
 </style>
 
+<!-- Archives list only posts older than 2 years; subtracting 20000 from YYYYMMDD goes back exactly 2 years -->
+{% assign cutoff = site.time | date: '%Y%m%d' | plus: 0 | minus: 20000 %}
+{% assign archived_count = 0 %}
+{% for post in site.posts %}
+  {% assign post_day = post.date | date: '%Y%m%d' | plus: 0 %}
+  {% if post_day < cutoff %}{% assign archived_count = archived_count | plus: 1 %}{% endif %}
+{% endfor %}
+
+<blockquote class="prompt-info">
+  <p>
+    The Archives show posts older than 2 years.
+    For newer posts, see <a href="{{ '/' | relative_url }}">Blogs</a>.
+  </p>
+</blockquote>
+
+{% if archived_count == 0 %}
+  <p class="text-muted">No posts are older than 2 years yet.</p>
+{% endif %}
+
 <div class="all-posts-tiles">
   {% for post in site.posts %}
+    {% assign post_day = post.date | date: '%Y%m%d' | plus: 0 %}
+    {% if post_day >= cutoff %}{% continue %}{% endif %}
     <div class="all-posts-tile">
       <div>
         <div class="all-posts-tile-title">
