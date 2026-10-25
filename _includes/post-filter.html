@@ -1,0 +1,96 @@
+<!-- Filter bar for the home page post list: year, category and tag dropdowns -->
+<div id="post-filter" class="post-filter" hidden>
+  <div class="post-filter-selects">
+    <label class="post-filter-field">
+      <span class="visually-hidden">Year</span>
+      <select id="filter-year" aria-label="Filter by year">
+        <option value="">All years</option>
+      </select>
+    </label>
+    <label class="post-filter-field">
+      <span class="visually-hidden">Category</span>
+      <select id="filter-category" aria-label="Filter by category">
+        <option value="">All categories</option>
+      </select>
+    </label>
+    <label class="post-filter-field">
+      <span class="visually-hidden">Tag</span>
+      <select id="filter-tag" aria-label="Filter by tag">
+        <option value="">All tags</option>
+      </select>
+    </label>
+  </div>
+  <button type="button" id="filter-clear" class="post-filter-clear" hidden>Clear</button>
+  <span id="filter-count" class="post-filter-count" aria-live="polite"></span>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const cards = Array.from(document.querySelectorAll('#post-list .card-wrapper[data-year]'));
+    if (cards.length === 0) return;
+
+    const split = (value) => (value ? value.split('|') : []);
+    const byText = (a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' });
+
+    const filters = {
+      year: { select: document.getElementById('filter-year'), values: (c) => [c.dataset.year] },
+      category: { select: document.getElementById('filter-category'), values: (c) => split(c.dataset.categories) },
+      tag: { select: document.getElementById('filter-tag'), values: (c) => split(c.dataset.tags) }
+    };
+
+    // Fill each dropdown with the values found on the cards
+    Object.entries(filters).forEach(([key, filter]) => {
+      const values = [...new Set(cards.flatMap(filter.values))];
+      values.sort(key === 'year' ? (a, b) => b - a : byText);
+      values.forEach((value) => filter.select.add(new Option(value, value)));
+    });
+
+    const clearButton = document.getElementById('filter-clear');
+    const count = document.getElementById('filter-count');
+    const empty = document.getElementById('filter-empty');
+
+    function apply() {
+      const active = Object.entries(filters).filter(([, f]) => f.select.value);
+      let shown = 0;
+
+      cards.forEach((card) => {
+        const match = active.every(([, f]) => f.values(card).includes(f.select.value));
+        card.hidden = !match;
+        if (match) shown++;
+      });
+
+      clearButton.hidden = active.length === 0;
+      count.textContent = active.length ? `Showing ${shown} of ${cards.length} posts` : '';
+      empty.hidden = shown > 0;
+
+      // Keep the filters in the address so a filtered view can be shared
+      const params = new URLSearchParams(window.location.search);
+      Object.entries(filters).forEach(([key, f]) => {
+        f.select.value ? params.set(key, f.select.value) : params.delete(key);
+      });
+      const query = params.toString();
+      history.replaceState(null, '', window.location.pathname + (query ? `?${query}` : ''));
+    }
+
+    function clearAll() {
+      Object.values(filters).forEach((f) => (f.select.value = ''));
+      apply();
+    }
+
+    // Restore filters from the address, ignoring values that don't exist
+    const params = new URLSearchParams(window.location.search);
+    Object.entries(filters).forEach(([key, f]) => {
+      const value = params.get(key);
+      if (value && Array.from(f.select.options).some((o) => o.value === value)) {
+        f.select.value = value;
+      }
+    });
+
+    Object.values(filters).forEach((f) => f.select.addEventListener('change', apply));
+    clearButton.addEventListener('click', clearAll);
+    document.getElementById('filter-empty-clear').addEventListener('click', clearAll);
+
+    document.getElementById('post-filter').hidden = false;
+    apply();
+  });
+</script>

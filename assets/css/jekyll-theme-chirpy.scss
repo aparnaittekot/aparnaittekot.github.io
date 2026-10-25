@@ -94,6 +94,140 @@ html[data-mode='light'] {
   }
 }
 
+/* Home page header: "Blogs" title on the left, filters on the right, one row */
+.home-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin: 2rem 0 1.25rem;
+
+  h1.dynamic-title {
+    margin: 0;
+  }
+}
+
+/* Home page filter bar: year, category and tag dropdowns */
+.post-filter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-left: auto;
+
+  &[hidden] {
+    display: none;
+  }
+
+  select {
+    appearance: none;
+    padding: 0.4rem 2rem 0.4rem 0.8rem;
+    border: 1px solid var(--btn-border-color);
+    border-radius: 0.5rem;
+    background: var(--card-bg)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231e2a38' stroke-width='1.5'/%3E%3C/svg%3E")
+      no-repeat right 0.75rem center;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: #1a9e8f;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #1a9e8f;
+      box-shadow: 0 0 0 3px rgba(26, 158, 143, 0.2);
+    }
+  }
+}
+
+/* A dropdown with a value chosen gets the teal look */
+.post-filter select:not(:has(option:first-child:checked)) {
+  border-color: #1a9e8f;
+  background-color: #e3f5f2;
+  color: #13857a;
+  font-weight: 600;
+}
+
+.post-filter-selects {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.post-filter-clear {
+  border: 0;
+  background: none;
+  padding: 0.4rem 0.2rem;
+  color: #13857a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    color: #1a9e8f;
+    text-decoration: underline;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.post-filter-count {
+  color: var(--text-muted-color);
+  font-size: 0.85rem;
+}
+
+.post-filter-empty {
+  margin-top: 0.5rem;
+  color: var(--text-muted-color);
+}
+
+/* Bootstrap's .card sets display, so hidden cards need an explicit rule */
+#post-list .card-wrapper[hidden] {
+  display: none !important;
+}
+
+/* The header already adds space above the list */
+.home-header ~ #post-list {
+  margin-top: 0;
+}
+
+/* Phones: the theme hides the title, so the dropdowns share one full-width row */
+@media (max-width: 849px) {
+  .post-filter {
+    width: 100%;
+  }
+
+  .post-filter-selects {
+    flex: 1 1 100%;
+    min-width: 0;
+
+    .post-filter-field {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.4rem 1.5rem 0.4rem 0.6rem;
+      background-position: right 0.5rem center;
+      font-size: 0.85rem;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+/* Home page: the large "Blogs" title replaces the lone breadcrumb; other pages keep their trail */
+#topbar #breadcrumb:not(:has(a)) {
+  visibility: hidden;
+}
+
 /* Breadcrumb at the top ("Blogs", "Blogs › Post"): larger and bolder */
 #topbar #breadcrumb {
   font-size: 1.1rem;

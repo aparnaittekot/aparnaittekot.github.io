@@ -40,11 +40,27 @@ refactor: true
   {% endfor %}
 {% endif %}
 
+<!-- Page title (matching the Categories and Tags pages) with the filters on the same row -->
+<div class="home-header">
+  <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.home }}</h1>
+  {% include post-filter.html %}
+</div>
+
+<p id="filter-empty" class="post-filter-empty" hidden>
+  No posts match these filters.
+  <button type="button" id="filter-empty-clear" class="post-filter-clear">Clear filters</button>
+</p>
+
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}
     {% if post.tags contains "coming-soon" or post.tags contains "music-soon" %}
     {% else %}
-    <article class="card-wrapper card">
+    <article
+      class="card-wrapper card"
+      data-year="{{ post.date | date: '%Y' }}"
+      data-categories="{{ post.categories | join: '|' | escape }}"
+      data-tags="{{ post.tags | join: '|' | escape }}"
+    >
       <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
         {% assign card_body_col = '12' %}
 
