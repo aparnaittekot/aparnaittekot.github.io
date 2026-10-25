@@ -78,14 +78,14 @@ C --- D --- E --- F --- G --- A --- B --- C
 For example for C# Major:
 `C# – D# – E# – F# – G# – A# – B# – C#`
 
-The order (C# – D# – E# – F# – G# – A# – C – C#) can be avoided as C is repeated in the form of C and C#. Similarly the order, (C# – D# – F – F# – G# – A# – B# – C#) can be avoided as F is repeated in form of F and F#.
+The order (C# – D# – E# – F# – G# – A# – C – C#) can be avoided as C is repeated in the form of C and C#. Similarly the order, (C# – D# – F – F# – G# – A# – B# – C#) can be avoided as F is repeated in the form of F and F#.
 
 [3] `Using sharp or flat scale` : If you cannot do [1] on a note, use the # (sharp) or b (flat) versions of the note to form the scale. 
 
 For example for D#, the order is:
 (D# – F – G – G# – A# – C – D – D#)
 This is not simple to use and this cannot be converted like mentioned in [1].
-Hence you can use Eb (flat) which is same as D#. 
+Hence you can use Eb (flat) which is the same as D#. 
 
 `Eb – F – G – Ab – Bb – C – D – Eb`
 
