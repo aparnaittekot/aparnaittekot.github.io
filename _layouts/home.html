@@ -26,7 +26,7 @@ refactor: true
   {% if site.tagline != empty %}<p class="landing-lead">{{ site.tagline }}</p>{% endif %}
 </section>
 
-<!-- Work comes first; music follows under "Beyond work" with a Hobby tag. Both cards share one layout -->
+<!-- Work comes first; "Beyond work" follows with Public Speaking, then Music (tagged Hobby). All cards share one layout -->
 <section class="landing-section">
   <h2 class="landing-section-title">What I do</h2>
   <a class="pillar pillar-primary" href="{{ '/technology/' | relative_url }}">
@@ -48,11 +48,36 @@ refactor: true
 
 <section class="landing-section">
   <h2 class="landing-section-title">Beyond work</h2>
+  <!-- Not a link: the card has its own link to the certificate -->
+  <div class="pillar pillar-primary pillar-static">
+    <div class="pillar-main">
+      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-microphone"></i></span>
+      <h3 class="pillar-title">Public Speaking <span class="pillar-tag">Toastmasters</span></h3>
+      <p class="pillar-text">
+        I was a member of LinkedIn's Orators Club in India, affiliated with Toastmasters International.
+        It strengthened my public speaking, leadership and presentation skills, and I served as the
+        club's Vice President of Public Relations.
+      </p>
+      <a class="pillar-cta" href="{{ '/assets/img/site/toastmasters-presentation-mastery.webp' | relative_url }}" target="_blank" rel="noopener noreferrer">
+        View certificate <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    <div class="pillar-latest">
+      <span class="pillar-latest-label">Highlights</span>
+      <ul class="pillar-highlights">
+        <li>Completed the Presentation Mastery path (2024)</li>
+        <li>Triple Crown Award</li>
+        <li>Pathbreaker Citation Award</li>
+        <li>Vice President of Public Relations</li>
+      </ul>
+    </div>
+  </div>
+
   <a class="pillar pillar-primary" href="{{ '/music/' | relative_url }}">
     <div class="pillar-main">
       <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
       <h3 class="pillar-title">Music <span class="pillar-tag">Hobby</span></h3>
-      <p class="pillar-text">A hobby I love: music covers and theory videos on my YouTube channel.</p>
+      <p class="pillar-text">Off the clock, I play the keyboard and share covers and music theory on YouTube.</p>
       <span class="pillar-cta">Listen <i class="fas fa-arrow-right"></i></span>
     </div>
     {% if latest_video %}

@@ -4,10 +4,13 @@ layout: page
 # The videos come from _plugins/youtube-feed.rb at build time.
 ---
 
+<!-- Instagram and YouTube links, placed beside the page title by CSS (.page-social-beside-title) -->
+{% include page-social.html types="youtube,instagram" class="page-social-beside-title" %}
+
 {% assign sections = site.data.youtube | default: empty %}
 
 <p class="video-intro">
-  Outside of tech, I play musical instruments and am curious about music. Here are keyboard covers and music theory videos from my YouTube channel.
+  Outside of tech, I play musical instruments and love exploring how music works. Here are my keyboard covers and music theory videos from YouTube (@instro_muse).
   <a href="{{ site.youtube.url }}" target="_blank" rel="noopener noreferrer">
     <i class="fab fa-youtube fa-fw"></i>See all videos on YouTube
   </a>

@@ -185,6 +185,41 @@ main .landing-section-title {
   }
 }
 
+/* More than one card in a section (e.g. Music and Public Speaking under Beyond work) */
+.landing-section .pillar + .pillar {
+  margin-top: 1.25rem;
+}
+
+/* A card that isn't a link itself (it holds its own link), so no hover lift */
+.pillar-static {
+  &:hover {
+    transform: none;
+    box-shadow: var(--card-shadow);
+  }
+
+  .pillar-cta:hover {
+    color: #1a9e8f;
+    text-decoration: none;
+
+    i {
+      transform: translateX(4px);
+    }
+  }
+}
+
+.pillar-highlights {
+  margin: 0.2rem 0 0;
+  padding-left: 1.1rem;
+  color: #1e2a38;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.6;
+
+  li::marker {
+    color: #1a9e8f;
+  }
+}
+
 /* "Hobby" label next to the Music title */
 .pillar-tag {
   display: inline-block;
@@ -300,16 +335,81 @@ main .pillar-title {
   }
 }
 
-/* Technology page: the Blogs tab holds the filter bar and the post list */
-@media (min-width: 850px) {
-  h1.dynamic-title + .music-tabs {
-    margin-top: 0; /* the title above already adds space; phones hide the title */
+/* Page title row (Technology, Music) with social links on the right */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2rem 0 1.5rem;
+
+  h1.dynamic-title {
+    margin: 0;
   }
 }
 
-.tech-panel .post-filter,
-.tech-panel .prompt-info,
-.tech-panel .all-posts-tiles {
+.page-social {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto; /* stays on the right when phones hide the title */
+
+  /* "main" outranks the theme's .content link underline on the Music page */
+  main & a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: 1px solid var(--btn-border-color);
+    border-radius: 50%;
+    background: var(--card-bg);
+    color: #1e2a38;
+    font-size: 1.1rem;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover {
+      border-color: #1a9e8f;
+      background: #1a9e8f;
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+}
+
+/* Music page: the theme draws the title, so the icons are positioned beside it */
+main article:has(.page-social-beside-title) {
+  position: relative;
+}
+
+.page-social-beside-title {
+  position: absolute;
+  top: 0; /* centred on the theme's page title */
+  right: 0.25rem;
+}
+
+/* The theme hides the big page title below 850px; keep it on pages with social icons
+   so the icons always share a row with it */
+@media (max-width: 849px) {
+  main article:has(.page-social-beside-title),
+  .page-header {
+    h1.dynamic-title {
+      display: block;
+    }
+  }
+
+  main article:has(.page-social-beside-title) h1.dynamic-title ~ .content {
+    margin-top: 0;
+  }
+}
+
+/* Technology page: the Blogs tab holds the filter bar and the post list */
+@media (min-width: 850px) {
+  .page-header + .music-tabs {
+    margin-top: 0; /* the title row above already adds space; phones hide the title */
+  }
+}
+
+.tech-panel .post-filter {
   margin-top: 1.25rem;
 }
 

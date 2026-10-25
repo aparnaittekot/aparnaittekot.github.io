@@ -17,19 +17,16 @@ refactor: true
   {% endunless %}
 {% endfor %}
 
-<!-- Page title, matching the Music page -->
-<h1 class="dynamic-title">{{ site.data.locales[lang].tabs.technology }}</h1>
-
-<!-- Archive tiles are rendered first so their count is known for the tab label -->
-{% capture archive_tiles %}{% include archive-tiles.html %}{% endcapture %}
+<!-- Page title with LinkedIn and GitHub links on the right -->
+<div class="page-header">
+  <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.technology }}</h1>
+  {% include page-social.html types="linkedin,github" %}
+</div>
 
 <!-- Nested tabs, styled like the Music page; Blogs holds the post list and its filter -->
 <div class="music-tabs" role="tablist" aria-label="Technology sections">
   <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
     Blogs <span class="music-tab-count">{{ listed_count }}</span>
-  </button>
-  <button type="button" class="music-tab" role="tab" id="tab-archives" aria-controls="panel-archives" aria-selected="false" tabindex="-1">
-    Archives <span class="music-tab-count">{{ archived_count }}</span>
   </button>
 </div>
 
@@ -50,10 +47,6 @@ refactor: true
     {% endfor %}
   </div>
   <!-- #post-list -->
-</div>
-
-<div class="music-panel tech-panel" role="tabpanel" id="panel-archives" aria-labelledby="tab-archives" hidden>
-  {{ archive_tiles }}
 </div>
 
 {% include nested-tabs.html %}

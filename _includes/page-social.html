@@ -1,0 +1,19 @@
+<!-- Round social icon links for a page header. Usage: include page-social.html types="linkedin,github" class="optional-extra-class"
+     Links come from _data/contact.yml, the same list the sidebar uses; they appear in the order given. -->
+{% assign wanted = include.types | split: ',' %}
+<div class="page-social {{ include.class }}">
+  {% for type in wanted %}
+    {% assign entry = site.data.contact | where: 'type', type | first %}
+    {% if entry %}
+      {% case entry.type %}
+        {% when 'github' %}{% assign label = 'GitHub' %}
+        {% when 'linkedin' %}{% assign label = 'LinkedIn' %}
+        {% when 'youtube' %}{% assign label = 'YouTube' %}
+        {% else %}{% assign label = entry.type | capitalize %}
+      {% endcase %}
+      <a href="{{ entry.url }}" aria-label="{{ label }}" title="{{ label }}" target="_blank" rel="noopener noreferrer">
+        <i class="{{ entry.icon }}"></i>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
