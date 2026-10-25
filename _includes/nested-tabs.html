@@ -1,4 +1,5 @@
-<!-- Switches between .music-tab tabs and their panels; the address hash (e.g. #theory) picks the open tab -->
+<!-- Switches between .music-tab tabs and their panels; the address hash (e.g. #theory) picks the open tab.
+     Use /* */ comments in this script: the production HTML compressor joins lines, so // would comment out the rest. -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const tabs = Array.from(document.querySelectorAll('.music-tab'));
@@ -17,7 +18,7 @@
 
     tabs.forEach((tab, i) => {
       tab.addEventListener('click', () => select(tab, true));
-      // Left/right arrows move between tabs
+      /* Left/right arrows move between tabs */
       tab.addEventListener('keydown', (e) => {
         if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
         const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
@@ -26,14 +27,14 @@
       });
     });
 
-    // Open the tab named in the address, e.g. /music/#theory
+    /* Open the tab named in the address, e.g. /music/#theory */
     function selectFromHash() {
       const fromHash = document.getElementById('tab-' + window.location.hash.slice(1));
       if (fromHash && tabs.includes(fromHash)) select(fromHash, false);
     }
 
     selectFromHash();
-    // Links to another tab on the same page (e.g. href="#blogs") switch tabs too
+    /* Links to another tab on the same page (e.g. href="#blogs") switch tabs too */
     window.addEventListener('hashchange', selectFromHash);
   });
 </script>
