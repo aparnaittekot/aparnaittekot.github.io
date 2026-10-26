@@ -1,0 +1,82 @@
+# Experience tab on the Engineering page (_includes/experience.html).
+# Dates are YYYY-MM; leave `end` out for a current role. `org` picks the color and legend entry.
+
+orgs:
+  - id: linkedin
+    name: LinkedIn
+  - id: sap
+    name: SAP
+  - id: education
+    name: Education
+    hide_duration: true # the degrees overlap, so a total length would mislead
+
+roles:
+  # Text is from the LinkedIn profile. A highlight's lead-in before ": " shows in bold;
+  # a `heading:` entry starts a sub-list (e.g. one per project).
+  - title: Senior Software Engineer
+    org: linkedin
+    company: LinkedIn
+    start: 2023-10
+    project: Developer Productivity AI Platform
+    description:
+      - "Current project: Working on Developer Productivity AI Platform"
+      - "Previous project: Ads Review system is responsible for reviewing ads to ensure they adhere to LinkedIn policies before being published on the platform."
+    highlights:
+      - "Piloted Video Content Review: As video ads grew on LinkedIn, I piloted and enabled video content review by leveraging machine learning models, including object detection on key frames, to identify fraudulent or violative content."
+      - "Enabled LLM powered features in Ads Review System: There was a need to build stronger defenses within the ads review system to detect policy-violating ads with higher accuracy, including scam content and ads improperly referencing LinkedIn."
+      - "Onboarded several new LinkedIn Ad Types to the ads review system (Ad format onboarding): I piloted ads review support for new ad formats such as Sponsored Newsletter Ads, Sponsored Editorial Videos, and custom images for Lead Gen Forms. These initiatives required integration across multiple components of the ads review system."
+      - "Piloted support of ad review for non-english ads on the platform: With the expansion of member-boosted post ads, I enabled support for non-English ad review by building capabilities to review and evaluate multilingual content within the ads review system"
+      - "Spearheaded the self-serve ad review process guide: Led and developed an in-house self-serve onboarding guide to enable cross-functional teams to integrate with the ads review system, detailing processes across ads review, transparency, and control components."
+      - "I have provided mentoring, knowledge sharing support to the juniors in the team. My deep knowledge in the LinkedIn tech stack helped the juniors succeed in the team."
+
+  - title: Software Engineer
+    org: linkedin
+    company: LinkedIn
+    start: 2021-06
+    end: 2023-09
+    project: Ads Review
+    highlights:
+      - "Designed and implemented an extensible pre-approval framework for the ad review system, with healthcare as the pilot use case. Led seamless integration with LegitScript, a trusted third-party provider, to enable pharmaceutical pre-approvals for healthcare advertisers. Additionally, developed a self-serve portal empowering advertisers to manage their own pre-approval submissions, reducing manual overhead and accelerating turnaround times."
+      - "Expanded ad review capabilities to support custom and priority questions for Brand Lift Test Ads, increasing flexibility and enhancing advertiser insights."
+      - "Introduced an asynchronous review workflow to improve fairness and scalability, ensuring no single review source created bottlenecks while effectively balancing traffic surges and optimizing processing efficiency."
+      - "Strengthened system reliability by implementing dynamic alerting and auto-scaling mechanisms. Calibrated alerts based on real-time data trends, significantly reducing false positives and minimizing on-call fatigue for the engineering team."
+      - "Beyond my technical contributions, I participated in internal hackathons, serving on the team’s culture committee to drive engagement initiatives, organizing Radicul, a community-driven event series centered on connection and cross-team collaboration and contributing as an active member of the LinkedIn Orators Club to continuously refine communication and leadership skills."
+
+  - title: Software Engineer
+    org: sap
+    company: SAP
+    start: 2020-09
+    end: 2021-05
+    project: Climate 21
+    description:
+      - "Climate 21 project on SAP Cloud Platform, calculates CO2 footprints using various emission factors."
+    highlights:
+      - "Developed a module SAP Cloud Platform to determine emission factors based on consumer data, aiding in sustainability efforts."
+      - "Collaborated with team to analyze search sequences and optimize emission factor determination process."
+
+  - title: Scholar (MTech) | Associate Software Engineer
+    org: sap
+    company: SAP
+    start: 2016-08
+    end: 2020-08
+    project: Currency Services · Business Logging
+    highlights:
+      - heading: Currency Services
+      - "Managed the re-distribution platform for market rates from various external sources like European Central Bank and Thomson Reuters at SAP."
+      - "Analyzed and interpreted currency data to provide accurate and timely information to clients."
+      - "Collaborated with cross-functional teams to ensure seamless operations and client satisfaction."
+      - heading: Business Logging
+      - "Business Logging service is used to store business transactions. Contributed to several modules in the service."
+      - "Developed metering module to send usage metrics to metering service on cloud foundry platform."
+
+education:
+  - title: M.Tech, Software Engineering
+    org: education
+    company: BITS Pilani
+    start: 2016-08
+    end: 2018-08
+  - title: B.E., Computer Science
+    org: education
+    company: Visvesvaraya Technological University
+    start: 2012-08
+    end: 2016-07

@@ -23,10 +23,13 @@ refactor: true
   {% include page-social.html types="linkedin,github" %}
 </div>
 
-<!-- Nested tabs, styled like the Music page; Blogs holds the post list and its filter -->
+<!-- Nested tabs, styled like the Music page: Blogs (the post list and its filter, open by default), then Experience with the career tree -->
 <div class="music-tabs" role="tablist" aria-label="Engineering sections">
   <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
     Blogs <span class="music-tab-count">{{ listed_count }}</span>
+  </button>
+  <button type="button" class="music-tab" role="tab" id="tab-experience" aria-controls="panel-experience" aria-selected="false" tabindex="-1">
+    Experience
   </button>
 </div>
 
@@ -47,6 +50,10 @@ refactor: true
     {% endfor %}
   </div>
   <!-- #post-list -->
+</div>
+
+<div class="music-panel tech-panel" role="tabpanel" id="panel-experience" aria-labelledby="tab-experience" hidden>
+  {% include experience.html %}
 </div>
 
 {% include new-tag.html %}

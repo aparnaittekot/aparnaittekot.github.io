@@ -1,0 +1,100 @@
+<!-- Experience tab on the Engineering page: a career tree (a vertical line
+     with a node per organisation and its roles branching off).
+     --xp-step numbers the nodes so they rise into place one after another when the tab opens.
+     All from _data/experience.yml. "Present" is the build date; the site rebuilds daily. -->
+{% assign xp = site.data.experience %}
+
+{% assign _now = site.time | date: '%Y-%m' %}
+{% assign _now_y = _now | slice: 0, 4 | plus: 0 %}
+{% assign _now_m = _now | slice: 5, 2 | plus: 0 %}
+{% assign xp_now = _now_y | times: 12 | plus: _now_m | minus: 1 %}
+{% assign _all = xp.roles | concat: xp.education %}
+
+<section class="xp" aria-label="Experience">
+  <ol class="xp-tree">
+    {% assign side = 0 %}
+    {% assign step = 0 %}
+    {% for org in xp.orgs %}
+      {% assign items = _all | where: 'org', org.id | sort: 'start' | reverse %}
+      {% if items.size == 0 %}{% continue %}{% endif %}
+
+      <!-- The organisation's node spans from its first start to its last end (or today) -->
+      {% assign _org_start = items | map: 'start' | sort | first %}
+      {% assign _org_end = nil %}
+      {% assign _open = items | where_exp: 'i', 'i.end == nil' %}
+      {% if _open.size == 0 %}{% assign _org_end = items | map: 'end' | sort | last %}{% endif %}
+      {% include experience-span.html start=_org_start end=_org_end now=xp_now %}
+
+      <li class="xp-org xp-{{ org.id }}">
+        <div class="xp-org-node" style="--xp-step: {{ step }};">
+          <span class="xp-org-name">{{ org.name }}</span>
+          <span class="xp-org-dates">{{ xp_dates }}{% unless org.hide_duration %} · <span{% unless _org_end %} class="xp-live" data-start="{{ _org_start }}"{% endunless %}>{{ xp_duration }}</span>{% endunless %}</span>
+        </div>
+        {% assign step = step | plus: 1 %}
+
+        <ol class="xp-branches">
+          {% for item in items %}
+            {% include experience-span.html start=item.start end=item.end now=xp_now %}
+            {% assign _side = side | modulo: 2 %}
+            <li class="xp-leaf {% if _side == 0 %}xp-left{% else %}xp-right{% endif %}" style="--xp-step: {{ step }};">
+              <span class="xp-dot{% unless item.end %} xp-dot-now{% endunless %}" aria-hidden="true"></span>
+              <article class="xp-card">
+                <p class="xp-card-dates">
+                  {{ xp_dates }}<span class="xp-card-duration{% unless item.end %} xp-live{% endunless %}"{% unless item.end %} data-start="{{ item.start }}"{% endunless %}>{{ xp_duration }}</span>
+                  {% unless item.end %}<span class="xp-now-pill">Current</span>{% endunless %}
+                </p>
+                <h3 class="xp-card-title">{{ item.title }}</h3>
+                <p class="xp-card-org">{{ item.company }}{% if item.project %} · {{ item.project }}{% endif %}</p>
+                {% for line in item.description %}
+                  {% include experience-line.html line=line tag="p" %}
+                {% endfor %}
+                {% if item.highlights %}
+                  <!-- the first two points show (plus a leading sub-heading); the rest open with "Show more" -->
+                  {% assign _shown = 2 %}
+                  {% if item.highlights.first.heading %}{% assign _shown = 3 %}{% endif %}
+                  <ul class="xp-highlights">
+                    {% for line in item.highlights limit: _shown %}{% include experience-line.html line=line %}{% endfor %}
+                  </ul>
+                  {% assign _more = item.highlights | where_exp: 'l', 'l.heading == nil' | size %}
+                  {% assign _visible = item.highlights | slice: 0, _shown | where_exp: 'l', 'l.heading == nil' | size %}
+                  {% assign _more = _more | minus: _visible %}
+                  {% if _more > 0 %}
+                    <details class="xp-more">
+                      <summary>Show {{ _more }} more</summary>
+                      <ul class="xp-highlights">
+                        {% for line in item.highlights offset: _shown %}{% include experience-line.html line=line %}{% endfor %}
+                      </ul>
+                    </details>
+                  {% endif %}
+                {% endif %}
+              </article>
+            </li>
+            {% assign side = side | plus: 1 %}
+            {% assign step = step | plus: 1 %}
+          {% endfor %}
+        </ol>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<!-- Recount current roles' durations from today's date, so they stay right between rebuilds
+     (same rule as _includes/experience-span.html). Use /* */ comments: the HTML compressor joins lines -->
+<script>
+  (function () {
+    const today = new Date();
+    const now = today.getFullYear() * 12 + today.getMonth();
+    document.querySelectorAll('.xp-live').forEach((el) => {
+      const [year, month] = el.dataset.start.split('-').map(Number);
+      const months = now - (year * 12 + month - 1) + 1;
+      if (!(months > 0)) return;
+      const years = Math.floor(months / 12);
+      const rest = months % 12;
+      const parts = [];
+      if (years > 0) parts.push(`${years} yr${years > 1 ? 's' : ''}`);
+      if (rest > 0) parts.push(`${rest} mo`);
+      el.textContent = parts.join(' ');
+    });
+  })();
+</script>
+

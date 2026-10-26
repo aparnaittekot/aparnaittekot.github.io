@@ -1,0 +1,34 @@
+{%- comment -%}
+  Works out a date range for the Experience tab. Sets, in the caller's scope:
+  xp_s / xp_e (month numbers: year * 12 + month - 1), xp_dates ("Oct 2023 – Present")
+  and xp_duration ("3 yrs 1 mo", counting both end months like LinkedIn does).
+  Usage: include experience-span.html start="2023-10" end=role.end now=xp_now  (no end = present)
+{%- endcomment -%}
+{%- assign _start = include.start | append: '' -%}
+{%- assign _y = _start | slice: 0, 4 | plus: 0 -%}
+{%- assign _m = _start | slice: 5, 2 | plus: 0 -%}
+{%- assign xp_s = _y | times: 12 | plus: _m | minus: 1 -%}
+{%- assign _from = _start | append: '-01' | date: '%b %Y' -%}
+
+{%- if include.end -%}
+  {%- assign _end = include.end | append: '' -%}
+  {%- assign _y = _end | slice: 0, 4 | plus: 0 -%}
+  {%- assign _m = _end | slice: 5, 2 | plus: 0 -%}
+  {%- assign xp_e = _y | times: 12 | plus: _m | minus: 1 -%}
+  {%- assign _to = _end | append: '-01' | date: '%b %Y' -%}
+{%- else -%}
+  {%- assign xp_e = include.now -%}
+  {%- assign _to = 'Present' -%}
+{%- endif -%}
+
+{%- assign xp_dates = _from | append: ' – ' | append: _to -%}
+{%- assign _months = xp_e | minus: xp_s | plus: 1 -%}
+{%- assign _years = _months | divided_by: 12 -%}
+{%- assign _rest = _months | modulo: 12 -%}
+{%- assign xp_duration = '' -%}
+{%- if _years > 0 -%}
+  {%- assign xp_duration = _years | append: ' yr' -%}
+  {%- if _years > 1 -%}{%- assign xp_duration = xp_duration | append: 's' -%}{%- endif -%}
+  {%- if _rest > 0 -%}{%- assign xp_duration = xp_duration | append: ' ' -%}{%- endif -%}
+{%- endif -%}
+{%- if _rest > 0 -%}{%- assign xp_duration = xp_duration | append: _rest | append: ' mo' -%}{%- endif -%}

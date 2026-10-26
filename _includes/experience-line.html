@@ -1,0 +1,17 @@
+{%- comment -%}
+  One highlight on an Experience card: a `heading:` entry becomes a sub-heading; otherwise a
+  lead-in before ": " (if short) is shown in bold. Usage: include experience-line.html line=line tag="li"
+{%- endcomment -%}
+{%- assign _line = include.line -%}
+{%- assign _tag = include.tag | default: 'li' -%}
+{%- if _line.heading -%}
+  <li class="xp-hl-heading">{{ _line.heading }}</li>
+{%- else -%}
+  {%- assign _lead = _line | split: ': ' | first -%}
+  {%- if _lead != _line and _lead.size <= 100 -%}
+    {%- assign _rest = _line | remove_first: _lead | remove_first: ': ' -%}
+    <{{ _tag }}><strong>{{ _lead }}:</strong> {{ _rest }}</{{ _tag }}>
+  {%- else -%}
+    <{{ _tag }}>{{ _line }}</{{ _tag }}>
+  {%- endif -%}
+{%- endif -%}

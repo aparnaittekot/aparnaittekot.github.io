@@ -896,3 +896,368 @@ main .video-title {
   right: 0.5rem;
   margin-left: 0;
 }
+
+/* Engineering page: Experience tab (_includes/experience.html) */
+.xp {
+  /* one color per organisation: slots 1-3 of the validated categorical palette */
+  --xp-linkedin: #2a78d6;
+  --xp-sap: #eb6834;
+  --xp-education: #1baf7a;
+  --xp-line: rgba(30, 42, 56, 0.14);
+  --xp-gap: 2.25rem; /* space between the line and a card */
+
+  margin-top: 1.5rem;
+}
+
+.xp-linkedin {
+  --xp-color: var(--xp-linkedin);
+}
+
+.xp-sap {
+  --xp-color: var(--xp-sap);
+}
+
+.xp-education {
+  --xp-color: var(--xp-education);
+}
+
+/* Career tree: one vertical line down the middle */
+.xp-tree,
+.xp-branches {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.xp-tree {
+  position: relative;
+  padding-bottom: 0.5rem;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: var(--xp-line);
+    transform: translateX(-50%);
+  }
+}
+
+.xp-org + .xp-org {
+  margin-top: 2.5rem;
+}
+
+/* Organisation node: a pill sitting on the line */
+.xp-org-node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto 1.5rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  background: var(--xp-color);
+  color: #ffffff;
+  box-shadow: 0 0 0 5px var(--main-bg, #ffffff), 0 4px 14px rgba(30, 42, 56, 0.15);
+  text-align: center;
+}
+
+.xp-org-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.xp-org-dates {
+  font-size: 0.78rem;
+  opacity: 0.9;
+}
+
+/* Role branches: alternate sides, each with a dot on the line and a short connector */
+.xp-leaf {
+  position: relative;
+  display: flex;
+  width: 50%;
+
+  /* cards on opposite sides overlap a little so the tree zigzags; same-side cards still
+     keep a gap as long as each card is taller than twice this overlap */
+  & + & {
+    margin-top: -3rem;
+  }
+}
+
+.xp-left {
+  justify-content: flex-end;
+  padding-right: var(--xp-gap);
+}
+
+.xp-right {
+  margin-left: 50%;
+  padding-left: var(--xp-gap);
+}
+
+.xp-dot {
+  position: absolute;
+  top: 1.35rem;
+  z-index: 1;
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 3px solid var(--xp-color);
+  border-radius: 50%;
+  background: var(--card-bg);
+
+  /* connector from the dot to the card */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: calc(var(--xp-gap) - 0.45rem);
+    height: 2px;
+    background: var(--xp-color);
+    opacity: 0.35;
+    transform: translateY(-50%);
+  }
+}
+
+.xp-left .xp-dot {
+  right: -0.45rem;
+
+  &::after {
+    right: 100%;
+  }
+}
+
+.xp-right .xp-dot {
+  left: -0.45rem;
+
+  &::after {
+    left: 100%;
+  }
+}
+
+/* The current role's dot is filled and pulses */
+.xp-dot-now {
+  background: var(--xp-color);
+  animation: xp-pulse 2s ease-out infinite;
+}
+
+@keyframes xp-pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--xp-color) 55%, transparent);
+  }
+
+  70% {
+    box-shadow: 0 0 0 0.6rem color-mix(in srgb, var(--xp-color) 0%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.xp-card {
+  width: 100%;
+  padding: 1rem 1.2rem;
+  border-top: 3px solid var(--xp-color);
+  border-radius: 0.6rem;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(30, 42, 56, 0.12);
+  }
+}
+
+main .xp-card-dates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.35rem;
+  color: var(--xp-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.xp-card-duration {
+  color: var(--text-muted-color);
+  font-weight: 400;
+
+  &::before {
+    content: '·';
+    margin-right: 0.4rem;
+  }
+}
+
+.xp-now-pill {
+  padding: 0.05rem 0.5rem;
+  border-radius: 1rem;
+  background: rgba(26, 158, 143, 0.12);
+  color: #13857a;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+main .xp-card-title {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+main .xp-card-org {
+  margin: 0.15rem 0 0;
+  color: var(--text-muted-color);
+  font-size: 0.86rem;
+}
+
+.xp-highlights {
+  margin: 0.7rem 0 0;
+  padding-left: 1.1rem;
+  font-size: 0.88rem;
+
+  li + li {
+    margin-top: 0.3rem;
+  }
+
+  li::marker {
+    color: var(--xp-color);
+  }
+}
+
+/* Project description lines above a card's highlights */
+main .xp-card > p:not(.xp-card-dates):not(.xp-card-org) {
+  margin: 0.6rem 0 0;
+  font-size: 0.88rem;
+}
+
+.xp-highlights strong,
+main .xp-card > p strong {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+/* Project sub-heading inside a card's highlights */
+.xp-highlights .xp-hl-heading {
+  margin: 0.7rem 0 0.2rem -1.1rem;
+  color: var(--heading-color);
+  font-size: 0.82rem;
+  font-weight: 700;
+  list-style: none;
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+/* "Show more" highlights on a card */
+.xp-more {
+  margin-top: 0.4rem;
+
+  summary {
+    width: max-content;
+    color: var(--xp-color);
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      content: '\f107'; /* Font Awesome chevron-down */
+      margin-left: 0.35rem;
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+  }
+
+  &[open] summary {
+    margin-bottom: -0.3rem;
+
+    &::after {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+/* Nodes rise into place one after another; the animation replays each time the tab opens */
+.xp-org-node,
+.xp-leaf {
+  animation: xp-rise 0.5s ease both;
+  animation-delay: calc(var(--xp-step, 0) * 90ms);
+}
+
+@keyframes xp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-dot-now,
+  .xp-org-node,
+  .xp-leaf {
+    animation: none;
+  }
+}
+
+/* Narrow screens: the line moves to the left and every card sits on its right */
+@media (max-width: 768px) {
+  .xp {
+    --xp-gap: 1.75rem;
+  }
+
+  .xp-tree::before {
+    left: 0.6rem;
+  }
+
+  .xp-org-node {
+    align-items: flex-start;
+    margin: 0 0 1.25rem;
+    text-align: left;
+  }
+
+  .xp-leaf {
+    width: auto;
+
+    & + & {
+      margin-top: 1rem;
+    }
+  }
+
+  .xp-left,
+  .xp-right {
+    justify-content: flex-start;
+    margin-left: 0.6rem;
+    padding-right: 0;
+    padding-left: var(--xp-gap);
+  }
+
+  .xp-left .xp-dot {
+    right: auto;
+    left: -0.45rem;
+
+    &::after {
+      right: auto;
+      left: 100%;
+    }
+  }
+}
