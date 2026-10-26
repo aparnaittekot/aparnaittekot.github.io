@@ -10,13 +10,6 @@ refactor: true
 {% assign default = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
 {% assign posts = pinned | concat: default %}
 
-{% assign listed_count = 0 %}
-{% for post in posts %}
-  {% unless post.tags contains "coming-soon" or post.tags contains "music-soon" %}
-    {% assign listed_count = listed_count | plus: 1 %}
-  {% endunless %}
-{% endfor %}
-
 <!-- Page title with LinkedIn and GitHub links on the right -->
 <div class="page-header">
   <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.engineering }}</h1>
@@ -26,7 +19,7 @@ refactor: true
 <!-- Nested tabs, styled like the Music page: Blogs (the post list and its filter, open by default), then Experience with the career tree -->
 <div class="music-tabs" role="tablist" aria-label="Engineering sections">
   <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
-    Blogs <span class="music-tab-count">{{ listed_count }}</span>
+    Blogs
   </button>
   <button type="button" class="music-tab" role="tab" id="tab-experience" aria-controls="panel-experience" aria-selected="false" tabindex="-1">
     Experience
