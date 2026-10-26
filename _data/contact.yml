@@ -15,3 +15,15 @@
 - type: youtube
   icon: 'fab fa-youtube'
   url: 'https://www.youtube.com/@instro_muse'
+
+- type: soundcloud
+  icon: 'fab fa-soundcloud'
+  url: 'https://soundcloud.com/instromuse'
+
+- type: reddit
+  icon: 'fab fa-reddit-alien'
+  url: 'https://www.reddit.com/user/instro_muse/'
+
+- type: x
+  icon: 'fab fa-x-twitter'
+  url: 'https://x.com/instro_muse'

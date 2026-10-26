@@ -9,6 +9,8 @@
         {% when 'github' %}{% assign label = 'GitHub' %}
         {% when 'linkedin' %}{% assign label = 'LinkedIn' %}
         {% when 'youtube' %}{% assign label = 'YouTube' %}
+        {% when 'soundcloud' %}{% assign label = 'SoundCloud' %}
+        {% when 'x' %}{% assign label = 'X' %}
         {% else %}{% assign label = entry.type | capitalize %}
       {% endcase %}
       <a class="social-{{ entry.type }}" href="{{ entry.url }}" aria-label="{{ label }}" title="{{ label }}" target="_blank" rel="noopener noreferrer">

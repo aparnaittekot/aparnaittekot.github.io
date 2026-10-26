@@ -453,6 +453,33 @@ main .page-social {
     }
   }
 
+  .social-soundcloud {
+    color: #ff5500;
+
+    &:hover {
+      border-color: #ff5500;
+      background: #ff5500;
+    }
+  }
+
+  .social-reddit {
+    color: #ff4500;
+
+    &:hover {
+      border-color: #ff4500;
+      background: #ff4500;
+    }
+  }
+
+  .social-x {
+    color: #000000;
+
+    &:hover {
+      border-color: #000000;
+      background: #000000;
+    }
+  }
+
   .social-instagram {
     i {
       background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
