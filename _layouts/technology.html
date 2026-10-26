@@ -19,12 +19,12 @@ refactor: true
 
 <!-- Page title with LinkedIn and GitHub links on the right -->
 <div class="page-header">
-  <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.technology }}</h1>
+  <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.engineering }}</h1>
   {% include page-social.html types="linkedin,github" %}
 </div>
 
 <!-- Nested tabs, styled like the Music page; Blogs holds the post list and its filter -->
-<div class="music-tabs" role="tablist" aria-label="Technology sections">
+<div class="music-tabs" role="tablist" aria-label="Engineering sections">
   <button type="button" class="music-tab" role="tab" id="tab-blogs" aria-controls="panel-blogs" aria-selected="true">
     Blogs <span class="music-tab-count">{{ listed_count }}</span>
   </button>

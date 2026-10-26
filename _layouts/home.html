@@ -29,14 +29,14 @@ refactor: true
 <!-- Work comes first; "Beyond work" follows with Public Speaking, then Music (tagged Hobby). All cards share one layout -->
 <section class="landing-section">
   <h2 class="landing-section-title">What I do</h2>
-  <!-- The "Explore Technology" link stretches over the whole card; the corner icon is its own link on top -->
+  <!-- The "Explore Engineering" link stretches over the whole card; the corner icon is its own link on top -->
   <div class="pillar pillar-primary pillar-linked">
     {% include page-social.html types="linkedin,github" class="pillar-social" %}
     <div class="pillar-main">
       <span class="pillar-icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
-      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.technology }}</h3>
+      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.engineering }}</h3>
       <p class="pillar-text">Blogs, projects, research papers and more.</p>
-      <a class="pillar-cta pillar-stretched" href="{{ '/technology/' | relative_url }}">Explore Technology <i class="fas fa-arrow-right"></i></a>
+      <a class="pillar-cta pillar-stretched" href="{{ '/engineering/' | relative_url }}">Explore Engineering <i class="fas fa-arrow-right"></i></a>
     </div>
     {% if latest_post %}
       <div class="pillar-latest">
@@ -81,6 +81,7 @@ refactor: true
     <div class="pillar-main">
       <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
       <h3 class="pillar-title">Music <span class="pillar-tag">Hobby</span></h3>
+      <p class="pillar-handle"><i class="fab fa-youtube"></i> @instro_muse</p>
       <p class="pillar-text">Off the clock, I play the keyboard and share covers and music theory on YouTube.</p>
       <a class="pillar-cta pillar-stretched" href="{{ '/music/' | relative_url }}">Listen <i class="fas fa-arrow-right"></i></a>
     </div>

@@ -1,0 +1,158 @@
+<!--
+  Load the Music page videos from the YouTube Data API, so new uploads show without a rebuild.
+  Each section shows all of its public videos, newest first. The result is cached in the visitor's browser
+  for a day. If the request fails (no key, quota used up, network), the list from the last
+  build stays on the page.
+-->
+<script>
+  (function () {
+    const API_KEY = {{ site.youtube.api_key | jsonify }};
+    const SECTIONS = {{ site.youtube.sections | default: empty | jsonify }};
+    const API = 'https://www.googleapis.com/youtube/v3/';
+    if (!API_KEY || SECTIONS.length === 0) return;
+
+    const get = (path, params) =>
+      fetch(`${API}${path}?${new URLSearchParams({ ...params, key: API_KEY })}`).then((response) => {
+        if (!response.ok) throw new Error(`YouTube API ${response.status}`);
+        return response.json();
+      });
+
+    const escapeHtml = (text) =>
+      (text || '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+    const formatDate = (date) => date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    /* Same title clean-up as _plugins/youtube-feed.rb: drop hashtags */
+    const cleanTitle = (title) => title.replace(/\s*#\S+/g, '').trim() || title;
+
+    function tile(video, withBadge) {
+      return `<a class="video-tile" href="${video.url}" target="_blank" rel="noopener noreferrer">
+          <div class="video-thumb">
+            <img src="${video.thumbnail}" alt="Thumbnail for ${escapeHtml(video.title)}" loading="lazy">
+            <span class="video-play" aria-hidden="true"><i class="fas fa-play"></i></span>
+            ${withBadge && video.label ? `<span class="video-badge">${escapeHtml(video.label)}</span>` : ''}
+          </div>
+          <div class="video-body">
+            <h2 class="video-title">${escapeHtml(video.title)}</h2>
+            <time class="video-date" datetime="${video.published.toISOString()}">${formatDate(video.published)}</time>
+          </div>
+        </a>`;
+    }
+
+    /* All of a playlist's videos; the API returns 50 per page */
+    async function loadPlaylist(playlistId) {
+      const items = [];
+      let pageToken = '';
+      do {
+        const params = { part: 'snippet,status,contentDetails', maxResults: 50, playlistId };
+        if (pageToken) params.pageToken = pageToken;
+        const data = await get('playlistItems', params);
+        items.push(...data.items);
+        pageToken = data.nextPageToken;
+      } while (pageToken);
+
+      return items
+        .filter((item) => item.status.privacyStatus === 'public' && item.contentDetails.videoPublishedAt)
+        .map((item) => {
+          const id = item.contentDetails.videoId;
+          return {
+            id,
+            title: cleanTitle(item.snippet.title),
+            url: `https://www.youtube.com/watch?v=${id}`,
+            thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+            published: new Date(item.contentDetails.videoPublishedAt),
+            playlistId
+          };
+        });
+    }
+
+    /* Ask the API for each section's newest videos: { sectionId: [video, ...] } */
+    async function fetchSections() {
+      const playlistIds = [...new Set(SECTIONS.flatMap((s) => s.playlists || []))];
+      const [names, lists] = await Promise.all([
+        get('playlists', { part: 'snippet', id: playlistIds.join(','), maxResults: 50 }),
+        /* One broken playlist shouldn't hide the others */
+        Promise.all(playlistIds.map((id) => loadPlaylist(id).catch(() => [])))
+      ]);
+      const playlistTitle = Object.fromEntries(names.items.map((p) => [p.id, p.snippet.title]));
+      const videosByPlaylist = Object.fromEntries(playlistIds.map((id, i) => [id, lists[i]]));
+
+      return Object.fromEntries(
+        SECTIONS.map((section) => {
+          const seen = new Set();
+          const videos = (section.playlists || [])
+            .flatMap((id) =>
+              videosByPlaylist[id].map((video) => {
+                const name = playlistTitle[id] || '';
+                const prefix = section.label_prefix;
+                return { ...video, label: prefix && name.startsWith(prefix) ? name.slice(prefix.length).trim() : null };
+              })
+            )
+            .filter((video) => !seen.has(video.id) && seen.add(video.id))
+            .sort((a, b) => b.published - a.published);
+          return [section.id, videos];
+        })
+      );
+    }
+
+    /*
+      Cache the result in this browser for a day, so each visitor calls the API at most once
+      a day. The key includes the playlists, so editing _config.yml starts a fresh cache.
+    */
+    const CACHE_KEY = `music-videos:v2:${SECTIONS.map((s) => `${s.id}=${(s.playlists || []).join(',')}`).join(';')}`;
+    const CACHE_MS = 24 * 60 * 60 * 1000;
+
+    function readCache() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+        if (cached && Date.now() - cached.at < CACHE_MS) return cached.sections;
+      } catch (error) {
+        /* storage blocked or bad data: fetch instead */
+      }
+      return null;
+    }
+
+    function writeCache(sections) {
+      try {
+        Object.keys(localStorage)
+          .filter((key) => key.startsWith('music-videos:') && key !== CACHE_KEY)
+          .forEach((key) => localStorage.removeItem(key));
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ at: Date.now(), sections }));
+      } catch (error) {
+        /* storage full or blocked: the page still works, it just fetches next time */
+      }
+    }
+
+    function render(sections) {
+      SECTIONS.forEach((section) => {
+        const videos = (sections[section.id] || []).map((v) => ({ ...v, published: new Date(v.published) }));
+        if (videos.length === 0) return; /* keep whatever the build put there */
+
+        const panel = document.getElementById(`panel-${section.id}`);
+        const count = document.querySelector(`#tab-${section.id} .music-tab-count`);
+        if (panel) panel.innerHTML = `<div class="video-tiles">${videos.map((v) => tile(v, true)).join('')}</div>`;
+        if (count) count.textContent = videos.length;
+
+        const latest = document.querySelector(`.music-latest-item[data-section="${section.id}"]`);
+        if (latest) {
+          latest.querySelector('.music-latest-tile').outerHTML = tile(videos[0], false).replace(
+            'class="video-tile"',
+            'class="video-tile music-latest-tile"'
+          );
+          latest.hidden = false;
+        }
+      });
+    }
+
+    const cached = readCache();
+    if (cached) {
+      render(cached);
+    } else {
+      fetchSections()
+        .then((sections) => {
+          writeCache(sections);
+          render(sections);
+        })
+        .catch((error) => console.warn('Music videos: showing the list from the last build.', error));
+    }
+  })();
+</script>

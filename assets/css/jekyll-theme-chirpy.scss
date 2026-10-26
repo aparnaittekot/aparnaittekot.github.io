@@ -255,6 +255,19 @@ main .landing-section-title {
   }
 }
 
+/* Channel handle under the Music title */
+main .pillar-handle {
+  margin: -0.25rem 0 0.6rem;
+  color: #13857a;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  i {
+    color: #ff0000;
+    margin-right: 0.15rem;
+  }
+}
+
 /* "Hobby" label next to the Music title */
 .pillar-tag {
   display: inline-block;
@@ -800,4 +813,79 @@ main .video-title {
 #sidebar .nav-item.active .nav-link,
 #sidebar .nav-link:hover {
   color: #ffffff;
+}
+
+/* Topbar search results (_includes/search-loader.html) */
+#search-results {
+  .search-count {
+    width: 100%;
+    margin: 0 0 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  mark {
+    padding: 0 0.1em;
+    border-radius: 2px;
+    background: rgba(19, 133, 122, 0.18);
+    color: inherit;
+  }
+
+  .search-type {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+    font-weight: 600;
+  }
+
+  .search-type-video i {
+    color: #ff0000;
+  }
+
+  article h2 a:focus-visible {
+    outline: 2px solid #13857a;
+    outline-offset: 2px;
+  }
+}
+
+/* Music page: newest cover and theory video above the tabs */
+.music-latest {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+.music-latest-item[hidden] {
+  display: none;
+}
+
+main .music-latest-label {
+  margin: 0 0 0.5rem;
+  color: #13857a;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.music-latest-tile {
+  flex-direction: row;
+
+  .video-thumb {
+    flex: 0 0 45%;
+  }
+
+  .video-body {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .music-latest-tile {
+    flex-direction: column;
+
+    .video-thumb {
+      flex: none;
+    }
+  }
 }

@@ -21,6 +21,7 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: write # lets the keepalive step re-enable this workflow
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
@@ -64,3 +65,10 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Keep the daily schedule alive
+        # GitHub turns off scheduled workflows after 60 days without repo activity;
+        # re-enabling the workflow resets that timer so the daily rebuild keeps running.
+        if: github.event_name == 'schedule'
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/jekyll.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}

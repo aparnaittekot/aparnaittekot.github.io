@@ -11,7 +11,7 @@ layout:
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
-  technology: Technology
+  engineering: Engineering
   categories: Categories
   tags: Tags
   all-posts: Archives
@@ -21,7 +21,7 @@ tabs:
   # music-requests: Music Requests
   music-requests: Music Requests
   music-blogs: Music Blogs
-  technology: Technology
+  engineering: Engineering
   music: Music
   submit: Blog Requests
 

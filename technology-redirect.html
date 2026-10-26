@@ -1,0 +1,20 @@
+---
+# The Technology tab was renamed Engineering; send old /technology/ links to the new page.
+permalink: /technology/
+layout: null
+sitemap: false
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Moved to Engineering</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="{{ '/engineering/' | absolute_url }}">
+    <meta http-equiv="refresh" content="0; url={{ '/engineering/' | relative_url }}">
+    <script>location.replace('{{ "/engineering/" | relative_url }}' + location.search + location.hash);</script>
+  </head>
+  <body>
+    <p>This page moved to <a href="{{ '/engineering/' | relative_url }}">Engineering</a>.</p>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+---
+layout: compress
+swcache: true
+---
+{%- comment -%}
+  Search index for the topbar search (read by _includes/search-loader.html).
+  Overrides the theme's version to cover posts, the YouTube videos on the Music page
+  and the tab pages, with a "type" so results can be labelled.
+{%- endcomment -%}
+
+[
+  {% for post in site.posts %}
+  {
+    "type": "Post",
+    "title": {{ post.title | jsonify }},
+    "url": {{ post.url | relative_url | jsonify }},
+    "categories": {{ post.categories | join: ', ' | jsonify }},
+    "tags": {{ post.tags | join: ', ' | jsonify }},
+    "date": "{{ post.date | date: '%Y-%m-%d' }}",
+    {% include no-linenos.html content=post.content %}
+    {% assign _content = content | strip_html | strip_newlines %}
+    "content": {{ _content | jsonify }}
+  },
+  {% endfor %}
+
+  {% assign sections = site.data.youtube | default: empty %}
+  {% for section in sections %}
+    {% for video in section.videos %}
+  {
+    "type": "Video",
+    "title": {{ video.title | jsonify }},
+    "url": {{ video.url | jsonify }},
+    "categories": {{ 'Music, ' | append: section.title | jsonify }},
+    "tags": {{ video.label | default: '' | jsonify }},
+    "date": "{{ video.published | date: '%Y-%m-%d' }}",
+    "content": {{ 'YouTube ' | append: section.title | append: ' ' | append: video.label | jsonify }}
+  },
+    {% endfor %}
+  {% endfor %}
+
+  {% for tab in site.tabs %}
+    {% if tab.title %}
+  {
+    "type": "Page",
+    "title": {{ tab.title | jsonify }},
+    "url": {{ tab.url | relative_url | jsonify }},
+    "categories": "",
+    "tags": "",
+    "date": "",
+    {% assign _content = tab.content | strip_html | strip_newlines | normalize_whitespace %}
+    "content": {{ _content | truncate: 1500 | jsonify }}
+  },
+    {% endif %}
+  {% endfor %}
+
+  {
+    "type": "Page",
+    "title": "Home",
+    "url": {{ '/' | relative_url | jsonify }},
+    "categories": "",
+    "tags": "",
+    "date": "",
+    "content": {{ site.description | append: ' Technology Music Public Speaking' | jsonify }}
+  }
+]

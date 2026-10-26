@@ -32,10 +32,16 @@ github:
 
 youtube:
   url: https://www.youtube.com/@instro_muse/videos
-  # Sections on the Music page, read from these playlists by _plugins/youtube-feed.rb
+  # YouTube Data API key the Music page uses to load the newest videos (once a day per browser)
+  # (_includes/youtube-live.html). It is visible in the page, so in Google Cloud it is
+  # restricted to this site's address and to the YouTube Data API only.
+  api_key: AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM
+  # Sections on the Music page, read from these playlists. The build-time list from
+  # _plugins/youtube-feed.rb is shown first and used if the live request fails.
   sections:
     - id: covers
       title: Keyboard Covers
+      latest_label: Latest cover # heading of this section's card in the "Latest" strip
       label_prefix: "Keyboard Covers - " # tiles show the rest of the playlist name, e.g. "English Songs"
       playlists:
         - PLtniji69-8wIAJgompURXA1Usota1iexo # Keyboard Covers - English Songs
@@ -43,6 +49,7 @@ youtube:
         - PLtniji69-8wLmj2y2r0A2NfgLvOG1vTfD # Keyboard Covers - Tamil Songs
     - id: theory
       title: Music Theory
+      latest_label: Latest music theory
       playlists:
         - PLtniji69-8wKtFUzWQu7jZj7Sygs-OvYB # Simplified Music Theory
 
