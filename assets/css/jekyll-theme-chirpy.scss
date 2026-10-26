@@ -672,25 +672,7 @@ main article:has(.page-social-beside-title) {
   &[aria-selected='true'] {
     color: #1e2a38;
     border-bottom-color: #1a9e8f;
-
-    .music-tab-count {
-      background: #1a9e8f;
-      color: #ffffff;
-    }
   }
-}
-
-.music-tab-count {
-  display: inline-block;
-  min-width: 1.5rem;
-  margin-left: 0.3rem;
-  padding: 0 0.4rem;
-  border-radius: 1rem;
-  background: var(--btn-border-color);
-  color: var(--text-muted-color);
-  font-size: 0.75rem;
-  line-height: 1.4rem;
-  text-align: center;
 }
 
 .music-panel[hidden] {
