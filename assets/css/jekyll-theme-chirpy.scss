@@ -847,90 +847,52 @@ main .video-title {
   }
 }
 
-/* Music page: "New video" banner (_includes/new-video-banner.html) */
-.new-video-banner {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid rgba(26, 158, 143, 0.35);
-  border-radius: 0.6rem;
-  background: rgba(26, 158, 143, 0.08);
+/* Red "New" tag on blog cards and video tiles from the last week (_includes/new-tag.html) */
+.new-tag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 0.3rem;
+  background: #dc3545;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  vertical-align: middle;
+  animation: new-tag-pulse 2s ease-out infinite;
 
   &[hidden] {
     display: none;
   }
 }
 
-.new-video-list {
-  flex-grow: 1;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+/* A red ring that grows and fades around the tag */
+@keyframes new-tag-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.6);
+  }
 
-  li + li {
-    margin-top: 0.35rem;
+  70% {
+    box-shadow: 0 0 0 0.45rem rgba(220, 53, 69, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
   }
 }
 
-.new-video-badge {
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-  padding: 0.15rem 0.55rem;
-  border-radius: 1rem;
-  background: #1a9e8f;
-  color: #ffffff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-main .new-video-link {
-  color: var(--heading-color);
-  font-weight: 600;
-
-  &:hover {
-    color: #13857a;
-    text-decoration: none;
-  }
-
-  i {
-    margin-left: 0.25rem;
-    font-size: 0.8em;
+@media (prefers-reduced-motion: reduce) {
+  .new-tag {
+    animation: none;
   }
 }
 
-.new-video-section {
-  color: #13857a;
-}
-
-.new-video-close {
-  flex-shrink: 0;
-  padding: 0.25rem 0.4rem;
-  border: 0;
-  background: none;
-  color: var(--text-muted-color);
-  cursor: pointer;
-
-  &:hover {
-    color: var(--heading-color);
-  }
-}
-
-@media (max-width: 576px) {
-  .new-video-banner {
-    flex-wrap: wrap;
-  }
-
-  .new-video-list {
-    order: 3;
-    flex-basis: 100%;
-  }
-
-  .new-video-close {
-    margin-left: auto;
-  }
+/* On a video tile the tag sits in the thumbnail's top-right corner */
+.video-new-tag {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  margin-left: 0;
 }

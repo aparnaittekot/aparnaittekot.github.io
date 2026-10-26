@@ -18,8 +18,6 @@ layout: page
 </p>
 
 {% if sections.size > 0 %}
-  {% include new-video-banner.html sections=sections %}
-
   <div class="music-tabs" role="tablist" aria-label="Video sections">
     {% for section in sections %}
       <button
@@ -52,6 +50,7 @@ layout: page
                 <img src="{{ video.thumbnail }}" alt="Thumbnail for {{ video.title | escape }}" loading="lazy">
                 <span class="video-play" aria-hidden="true"><i class="fas fa-play"></i></span>
                 {% if video.label %}<span class="video-badge">{{ video.label }}</span>{% endif %}
+                <span class="new-tag video-new-tag" data-published="{{ video.published }}" hidden>New</span>
               </div>
               <div class="video-body">
                 <h2 class="video-title">{{ video.title }}</h2>
@@ -72,6 +71,7 @@ layout: page
   {% endfor %}
 
   {% include nested-tabs.html %}
+  {% include new-tag.html %}
 {% else %}
   <p class="text-muted">
     Videos couldn't be loaded right now.

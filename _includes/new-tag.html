@@ -1,0 +1,11 @@
+<!-- Shows each red .new-tag (a blog card or video tile) for NEW_DAYS days after its data-published
+     date. Include once per page, after the tags. Use /* */ comments: the HTML compressor joins lines. -->
+<script>
+  (function () {
+    const NEW_DAYS = 7;
+    document.querySelectorAll('.new-tag').forEach((tag) => {
+      const age = (Date.now() - new Date(tag.dataset.published)) / 86400000;
+      tag.hidden = !(age >= 0 && age <= NEW_DAYS);
+    });
+  })();
+</script>

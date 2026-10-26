@@ -33,7 +33,11 @@
 
     <div class="col-md-{{ card_body_col }}">
       <div class="card-body d-flex flex-column">
-        <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
+        <h1 class="card-title my-2 mt-md-0">
+          {{ post.title }}
+          <!-- shown for a week after the post date by _includes/new-tag.html -->
+          <span class="new-tag" data-published="{{ post.date | date_to_xmlschema }}" hidden>New</span>
+        </h1>
 
         <div class="card-text content mt-0 mb-3">
           <p>
