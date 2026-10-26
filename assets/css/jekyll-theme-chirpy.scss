@@ -850,7 +850,7 @@ main .video-title {
 /* Music page: "New video" banner (_includes/new-video-banner.html) */
 .new-video-banner {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.75rem;
   margin-top: 1.25rem;
   padding: 0.7rem 0.9rem;
@@ -863,8 +863,21 @@ main .video-title {
   }
 }
 
+.new-video-list {
+  flex-grow: 1;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li + li {
+    margin-top: 0.35rem;
+  }
+}
+
 .new-video-badge {
   flex-shrink: 0;
+  margin-top: 0.1rem;
   padding: 0.15rem 0.55rem;
   border-radius: 1rem;
   background: #1a9e8f;
@@ -876,8 +889,6 @@ main .video-title {
 }
 
 main .new-video-link {
-  flex-grow: 1;
-  min-width: 0;
   color: var(--heading-color);
   font-weight: 600;
 
@@ -914,7 +925,7 @@ main .new-video-link {
     flex-wrap: wrap;
   }
 
-  main .new-video-link {
+  .new-video-list {
     order: 3;
     flex-basis: 100%;
   }
