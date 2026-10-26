@@ -1,12 +1,12 @@
-<!-- "New video" banner for the Music page: lists every video published in the last NEW_DAYS
-     days, newest first. Closing it hides it until a newer video comes out (per browser).
-     Each section's 5 newest videos are written out hidden; the script picks the recent ones.
+<!-- "New video" banner for the Music page: the newest video, if it was published in the last
+     NEW_DAYS days. Closing it hides it until a newer video comes out (per browser).
+     Each section's newest video is written out hidden; the script shows the newest recent one.
      Use /* */ comments in this script: the production HTML compressor joins lines. -->
 <div class="new-video-banner" role="status" hidden>
-  <span class="new-video-badge"><i class="fas fa-bell"></i> <span class="new-video-heading">New video</span></span>
+  <span class="new-video-badge"><i class="fas fa-bell"></i> New video</span>
   <ul class="new-video-list">
     {% for section in include.sections %}
-      {% for video in section.videos limit: 5 %}
+      {% for video in section.videos limit: 1 %}
         <li data-video="{{ video.id }}" data-published="{{ video.published }}" hidden>
           <a class="new-video-link" href="{{ video.url }}" target="_blank" rel="noopener noreferrer">
             <span class="new-video-section">{{ section.title }}:</span> {{ video.title }}&nbsp;<i class="fas fa-arrow-right" aria-hidden="true"></i>
@@ -42,12 +42,7 @@
       /* storage blocked: just show the banner */
     }
 
-    recent.forEach((item) => {
-      item.hidden = false;
-      list.appendChild(item); /* newest first */
-    });
-    banner.querySelector('.new-video-heading').textContent =
-      recent.length === 1 ? 'New video' : `${recent.length} new videos`;
+    recent[0].hidden = false;
     banner.hidden = false;
 
     banner.querySelector('.new-video-close').addEventListener('click', function () {
