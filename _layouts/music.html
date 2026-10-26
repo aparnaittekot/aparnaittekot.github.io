@@ -1,8 +1,8 @@
 ---
 layout: page
 # Music page: YouTube videos in tabs, one per section in _config.yml (youtube.sections).
-# The videos come from _plugins/youtube-feed.rb at build time, then _includes/youtube-live.html
-# reloads the newest ones from the YouTube Data API (cached for a day per browser).
+# The videos come from _data/youtube.json, refreshed daily from the YouTube Data API by
+# .github/workflows/youtube-videos.yml (tools/fetch-youtube.rb).
 ---
 
 <!-- Instagram and YouTube links, placed beside the page title by CSS (.page-social-beside-title) -->
@@ -70,7 +70,6 @@ layout: page
   {% endfor %}
 
   {% include nested-tabs.html %}
-  {% include youtube-live.html %}
 {% else %}
   <p class="text-muted">
     Videos couldn't be loaded right now.

@@ -32,12 +32,8 @@ github:
 
 youtube:
   url: https://www.youtube.com/@instro_muse/videos
-  # YouTube Data API key the Music page uses to load the newest videos (once a day per browser)
-  # (_includes/youtube-live.html). It is visible in the page, so in Google Cloud it is
-  # restricted to this site's address and to the YouTube Data API only.
-  api_key: AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM
-  # Sections on the Music page, read from these playlists. The build-time list from
-  # _plugins/youtube-feed.rb is shown first and used if the live request fails.
+  # Sections on the Music page, read from these playlists by tools/fetch-youtube.rb,
+  # which saves the videos to _data/youtube.json once a day
   sections:
     - id: covers
       title: Keyboard Covers

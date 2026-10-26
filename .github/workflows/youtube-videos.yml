@@ -1,0 +1,60 @@
+# Once a day, fetch the Music page videos from the YouTube Data API into _data/youtube.json
+# (tools/fetch-youtube.rb). When the list changed, commit it and redeploy the site.
+# Needs the repository secret YOUTUBE_API_KEY: a key restricted to the YouTube Data API v3,
+# with no website restriction.
+name: Update YouTube videos
+
+on:
+  schedule:
+    - cron: "30 10 * * *" # half an hour before the daily site rebuild
+  workflow_dispatch:
+
+permissions:
+  contents: write # commit _data/youtube.json
+  actions: write # start the deploy, and keep this schedule switched on
+
+concurrency:
+  group: youtube-videos
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch videos
+        run: ruby tools/fetch-youtube.rb
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+      - name: Commit if the list changed
+        id: commit
+        run: |
+          if git diff --quiet -- _data/youtube.json; then
+            echo "No new videos."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add _data/youtube.json
+            git commit -m "Update YouTube videos"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Redeploy the site
+        # A push made with the workflow token doesn't start other workflows, so start the deploy here
+        if: steps.commit.outputs.changed == 'true'
+        run: gh workflow run jekyll.yml --ref "${{ github.ref_name }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Keep the daily schedule alive
+        # GitHub turns off scheduled workflows after 60 days without repo activity;
+        # re-enabling the workflow resets that timer.
+        if: github.event_name == 'schedule'
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/youtube-videos.yml/enable"
+        env:
+          GH_TOKEN: ${{ github.token }}
