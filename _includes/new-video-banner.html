@@ -1,0 +1,57 @@
+<!-- "New video" banner for the Music page: the newest video across all sections, shown for
+     NEW_DAYS days after it was published. Closing it hides it for that video in this browser.
+     Use /* */ comments in this script: the production HTML compressor joins lines. -->
+{% assign newest = nil %}
+{% assign newest_section = nil %}
+{% for section in include.sections %}
+  {% assign candidate = section.videos | first %}
+  {% unless candidate %}{% continue %}{% endunless %}
+  {% assign newer = true %}
+  {% if newest and candidate.published <= newest.published %}{% assign newer = false %}{% endif %}
+  {% if newer %}
+    {% assign newest = candidate %}
+    {% assign newest_section = section %}
+  {% endif %}
+{% endfor %}
+
+{% if newest %}
+  <div class="new-video-banner" data-video="{{ newest.id }}" data-published="{{ newest.published }}" role="status" hidden>
+    <span class="new-video-badge"><i class="fas fa-bell"></i> New video</span>
+    <a class="new-video-link" href="{{ newest.url }}" target="_blank" rel="noopener noreferrer">
+      <span class="new-video-section">{{ newest_section.title }}:</span> {{ newest.title }}
+      <i class="fas fa-arrow-right" aria-hidden="true"></i>
+    </a>
+    <button type="button" class="new-video-close" aria-label="Dismiss new video banner">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      const NEW_DAYS = 7;
+      const banner = document.querySelector('.new-video-banner');
+      const published = new Date(banner.dataset.published);
+      const key = `new-video-dismissed:${banner.dataset.video}`;
+
+      let dismissed = false;
+      try {
+        dismissed = localStorage.getItem(key) === '1';
+      } catch (error) {
+        /* storage blocked: just show the banner */
+      }
+
+      const ageDays = (Date.now() - published) / 86400000;
+      if (dismissed || !(ageDays >= 0 && ageDays <= NEW_DAYS)) return;
+      banner.hidden = false;
+
+      banner.querySelector('.new-video-close').addEventListener('click', function () {
+        banner.hidden = true;
+        try {
+          localStorage.setItem(key, '1');
+        } catch (error) {
+          /* storage blocked: it just shows again next visit */
+        }
+      });
+    })();
+  </script>
+{% endif %}
