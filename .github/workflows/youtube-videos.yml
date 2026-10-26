@@ -28,7 +28,7 @@ jobs:
         run: ruby tools/fetch-youtube.rb
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-          YOUTUBE_REFERER: https://aparnaittekot.github.io/
+          YOUTUBE_REFERER: https://aparnaittekot.com/ # the site address the key allows
 
       - name: Commit if the list changed
         id: commit
