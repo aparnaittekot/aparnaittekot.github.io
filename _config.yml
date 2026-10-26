@@ -41,7 +41,6 @@ youtube:
   sections:
     - id: covers
       title: Keyboard Covers
-      latest_label: Latest cover # heading of this section's card in the "Latest" strip
       label_prefix: "Keyboard Covers - " # tiles show the rest of the playlist name, e.g. "English Songs"
       playlists:
         - PLtniji69-8wIAJgompURXA1Usota1iexo # Keyboard Covers - English Songs
@@ -49,7 +48,6 @@ youtube:
         - PLtniji69-8wLmj2y2r0A2NfgLvOG1vTfD # Keyboard Covers - Tamil Songs
     - id: theory
       title: Music Theory
-      latest_label: Latest music theory
       playlists:
         - PLtniji69-8wKtFUzWQu7jZj7Sygs-OvYB # Simplified Music Theory
 

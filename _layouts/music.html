@@ -18,28 +18,6 @@ layout: page
 </p>
 
 {% if sections.size > 0 %}
-  <!-- Newest video of each section; hidden until a section has one -->
-  <div class="music-latest">
-    {% for section in sections %}
-      {% assign latest = section.videos | first %}
-      <div class="music-latest-item" data-section="{{ section.id }}" {% unless latest %}hidden{% endunless %}>
-        <p class="music-latest-label">{{ section.latest_label | default: section.title }}</p>
-        <a class="video-tile music-latest-tile" href="{{ latest.url }}" target="_blank" rel="noopener noreferrer">
-          <div class="video-thumb">
-            <img src="{{ latest.thumbnail }}" alt="Thumbnail for {{ latest.title | escape }}" loading="lazy">
-            <span class="video-play" aria-hidden="true"><i class="fas fa-play"></i></span>
-          </div>
-          <div class="video-body">
-            <h2 class="video-title">{{ latest.title }}</h2>
-            <time class="video-date" datetime="{{ latest.published | date_to_xmlschema }}">
-              {{ latest.published | date: '%b %-d, %Y' }}
-            </time>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
-  </div>
-
   <div class="music-tabs" role="tablist" aria-label="Video sections">
     {% for section in sections %}
       <button

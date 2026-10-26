@@ -80,7 +80,6 @@ module YoutubeFeed
         {
           'id' => section['id'],
           'title' => section['title'],
-          'latest_label' => section['latest_label'],
           'videos' => videos.uniq { |v| v['id'] }.sort_by { |v| v['published'] }.reverse
         }
       end
