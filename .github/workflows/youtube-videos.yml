@@ -1,6 +1,6 @@
 # Once a day, fetch the Music page videos from the YouTube Data API into _data/youtube.json
 # (tools/fetch-youtube.rb). When the list changed, commit it and redeploy the site.
-# Needs the repository secret YOUTUBE_API_KEY: a key restricted to the YouTube Data API v3.
+# Uses the repository secret YOUTUBE_API_KEY if set, otherwise the key written below.
 # Requests name the site as their Referer, so a key restricted to the site's address works.
 name: Update YouTube videos
 
@@ -27,7 +27,9 @@ jobs:
       - name: Fetch videos
         run: ruby tools/fetch-youtube.rb
         env:
-          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          # Uses the YOUTUBE_API_KEY secret when set, otherwise this key. The key is only allowed
+          # for aparnaittekot.com and the YouTube Data API, so it's safe to have in the repo.
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY || 'AIzaSyCUaQxvA9oFcly57S1jjNwFS_E3i49itSM' }}
           YOUTUBE_REFERER: https://aparnaittekot.com/ # the site address the key allows
 
       - name: Commit if the list changed
