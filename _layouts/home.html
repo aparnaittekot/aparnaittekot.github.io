@@ -5,7 +5,7 @@ refactor: true
 
 {% include lang.html %}
 
-<!-- Landing page: tiles for Experience and Blogs, then Public Speaking and a smaller Music tile -->
+<!-- Landing page: tiles for Blogs and Experience, then Public Speaking and a smaller Music tile -->
 
 <!-- Blogs: the newest listed post to feature -->
 {% assign tech_posts = site.posts | where_exp: 'item', 'item.hidden != true' %}
@@ -16,13 +16,8 @@ refactor: true
   {% endunless %}
 {% endfor %}
 
-<!-- Experience: the current role (the one without an end date) -->
-{% assign current_role = site.data.experience.roles | where_exp: 'r', 'r.end == nil' | first %}
-
-<section class="landing-hero">
-  <h1 class="landing-title">{{ site.title }}</h1>
-  {% if site.tagline != empty %}<p class="landing-lead">{{ site.tagline }}</p>{% endif %}
-</section>
+<!-- No visible heading: the page opens on "What I do". The title stays for screen readers and search engines -->
+<h1 class="visually-hidden">{{ site.title }}</h1>
 
 <!-- Work comes first: Blogs and Experience side by side, in the sidebar's order. "Beyond work" follows with Public Speaking,
      then a smaller Music tile. Each linked tile's main link stretches over the whole tile -->
@@ -51,13 +46,6 @@ refactor: true
         I’m a Senior Software Engineer at LinkedIn. My work revolves around building AI-powered features, AI agents,
         and high-impact engineering solutions that turn emerging technology into real business outcomes.
       </p>
-      {% if current_role %}
-        <div class="pillar-latest">
-          <span class="pillar-latest-label">Current role</span>
-          <span class="pillar-latest-title">{{ current_role.title }}, {{ current_role.company }}</span>
-          {% if current_role.project %}<span class="pillar-latest-date">{{ current_role.project }}</span>{% endif %}
-        </div>
-      {% endif %}
       <a class="pillar-cta pillar-stretched" href="{{ '/experience/' | relative_url }}">View experience <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>

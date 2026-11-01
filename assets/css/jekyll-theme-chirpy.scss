@@ -94,27 +94,16 @@ html[data-mode='light'] {
   }
 }
 
-/* Home (landing) page: hero and the two pillar cards */
-.landing-hero {
-  margin: 2.5rem 0 2rem;
-
-  main & .landing-title {
-    margin: 0 0 0.5rem;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #1e2a38;
-  }
-
-  .landing-lead {
-    margin: 0;
-    font-size: 1.15rem;
-    color: var(--text-muted-color);
-  }
-}
+/* Home (landing) page: the section cards */
 
 /* "What I do" and "Beyond work" sections */
 .landing-section {
   margin-bottom: 2.25rem;
+
+  /* the first section opens the page, so it gets the space a heading would have had */
+  &:first-of-type {
+    margin-top: 2.5rem;
+  }
 }
 
 main .landing-section-title {
@@ -185,17 +174,39 @@ main .landing-section-title {
   }
 }
 
-/* "What I do": Experience and Blogs tiles side by side, stacked on phones */
+/* "What I do": Blogs and Experience tiles side by side, stacked on phones */
 .pillar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: 1.25rem;
 }
 
-/* A tile: icon, title, text, a highlight box, then the link at the bottom */
+/* A tile: icon, title, text, then a highlight box and the link pinned to the bottom, so
+   side-by-side tiles line up even when one description is longer */
 .pillar-tile {
+  padding: 1.5rem;
+
+  .pillar-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .pillar-text {
+    margin-bottom: 1rem;
+  }
+
   .pillar-latest {
-    margin: 0.25rem 0 1.25rem;
+    margin: auto 0 1.25rem;
+  }
+
+  .pillar-cta {
+    margin-top: auto;
+  }
+
+  .pillar-latest + .pillar-cta {
+    margin-top: 0;
   }
 }
 
