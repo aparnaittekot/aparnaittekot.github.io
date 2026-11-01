@@ -1,0 +1,14 @@
+---
+layout: default
+refactor: true
+---
+
+{% include lang.html %}
+
+<!-- Experience page: the career tree from _data/experience.yml -->
+<div class="page-header">
+  <h1 class="dynamic-title">{{ site.data.locales[lang].tabs.experience }}</h1>
+  {% include page-social.html types="linkedin,github" %}
+</div>
+
+{% include experience.html %}

@@ -185,9 +185,66 @@ main .landing-section-title {
   }
 }
 
-/* More than one card in a section (e.g. Music and Public Speaking under Beyond work) */
+/* "What I do": Experience and Blogs tiles side by side, stacked on phones */
+.pillar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+}
+
+/* A tile: icon, title, text, a highlight box, then the link at the bottom */
+.pillar-tile {
+  .pillar-latest {
+    margin: 0.25rem 0 1.25rem;
+  }
+}
+
+/* Music: a slim, quieter row (smaller icon and title, grey top edge) */
+.pillar-compact {
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-top-color: var(--btn-border-color);
+
+  .pillar-icon {
+    flex-shrink: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .pillar-compact-text {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .pillar-title {
+    margin-bottom: 0.1rem;
+    font-size: 1.05rem;
+  }
+
+  .pillar-text {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .pillar-cta {
+    flex-shrink: 0;
+    margin-top: 0;
+    font-size: 0.9rem;
+  }
+}
+
+/* More than one card in a section (e.g. Music and Public Speaking under Beyond work);
+   tiles in a grid get their spacing from the grid gap instead */
 .landing-section .pillar + .pillar {
   margin-top: 1.25rem;
+}
+
+.pillar-grid .pillar + .pillar {
+  margin-top: 0;
 }
 
 /* Cards with a corner icon: the main link stretches over the whole card so it stays
@@ -214,14 +271,6 @@ main .landing-section-title {
     top: 1rem;
     right: 1rem;
     z-index: 2;
-  }
-
-  /* keep the top-right corner free for the icons: the latest box sits at the bottom */
-  @media (min-width: 768px) {
-    .pillar-latest {
-      align-self: end;
-      margin-top: 2.75rem; /* room for the corner icons above a tall box */
-    }
   }
 }
 
@@ -252,19 +301,6 @@ main .landing-section-title {
 
   li::marker {
     color: #1a9e8f;
-  }
-}
-
-/* Channel handle under the Music title */
-main .pillar-handle {
-  margin: -0.25rem 0 0.6rem;
-  color: #13857a;
-  font-size: 0.9rem;
-  font-weight: 600;
-
-  i {
-    color: #ff0000;
-    margin-right: 0.15rem;
   }
 }
 
@@ -316,41 +352,6 @@ main .pillar-title {
   padding: 0.75rem 0.9rem;
   border-radius: 0.5rem;
   background: #e3f5f2;
-}
-
-.pillar-latest-video {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.8rem;
-
-  /* The theme wraps the thumbnail in a .preview-img.shimmer box; size that box, not just the image */
-  .shimmer {
-    flex-shrink: 0;
-    width: 6rem;
-    aspect-ratio: 16 / 9;
-    border-radius: 0.35rem;
-    background: none;
-
-    /* turn off the theme's loading animation */
-    &::before {
-      content: none;
-      animation: none;
-    }
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 0.35rem;
-  }
-
-  > div:last-child {
-    display: flex;
-    flex-direction: column;
-    gap: 0.15rem;
-    min-width: 0;
-  }
 }
 
 .pillar-latest-label {

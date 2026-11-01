@@ -35,8 +35,9 @@
             <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
           </a>
         </li>
-        <!-- the real tabs -->
+        <!-- the real tabs; a tab with `sidebar: false` keeps its page but stays out of the sidebar -->
         {% for tab in site.tabs %}
+          {% if tab.sidebar == false %}{% continue %}{% endif %}
           <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
             <a href="{{ tab.url | relative_url }}" class="nav-link">
               <i class="fa-fw {{ tab.icon }}"></i>

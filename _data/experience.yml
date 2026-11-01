@@ -1,4 +1,4 @@
-# Experience tab on the Engineering page (_includes/experience.html).
+# Experience page (_includes/experience.html).
 # Dates are YYYY-MM; leave `end` out for a current role. `org` picks the color and legend entry.
 
 orgs:

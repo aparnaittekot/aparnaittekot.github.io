@@ -11,7 +11,8 @@ layout:
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
-  engineering: Engineering
+  experience: Experience
+  blogs: Blogs
   categories: Categories
   tags: Tags
   all-posts: Archives
@@ -21,7 +22,8 @@ tabs:
   # music-requests: Music Requests
   music-requests: Music Requests
   music-blogs: Music Blogs
-  engineering: Engineering
+  experience: Experience
+  blogs: Blogs
   music: Music
   submit: Blog Requests
 

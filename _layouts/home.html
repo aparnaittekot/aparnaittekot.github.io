@@ -5,9 +5,9 @@ refactor: true
 
 {% include lang.html %}
 
-<!-- Landing page: the two pillars of the site, each linking to its own page -->
+<!-- Landing page: tiles for Experience and Blogs, then Public Speaking and a smaller Music tile -->
 
-<!-- Technology: the newest listed post to feature -->
+<!-- Blogs: the newest listed post to feature -->
 {% assign tech_posts = site.posts | where_exp: 'item', 'item.hidden != true' %}
 {% assign latest_post = nil %}
 {% for post in tech_posts %}
@@ -16,35 +16,47 @@ refactor: true
   {% endunless %}
 {% endfor %}
 
-<!-- Music: the newest keyboard cover to feature -->
-{% assign music_sections = site.data.youtube | default: empty %}
-{% assign covers = music_sections | where: 'id', 'covers' | first %}
-{% assign latest_video = covers.videos | first %}
+<!-- Experience: the current role (the one without an end date) -->
+{% assign current_role = site.data.experience.roles | where_exp: 'r', 'r.end == nil' | first %}
 
 <section class="landing-hero">
   <h1 class="landing-title">{{ site.title }}</h1>
   {% if site.tagline != empty %}<p class="landing-lead">{{ site.tagline }}</p>{% endif %}
 </section>
 
-<!-- Work comes first; "Beyond work" follows with Public Speaking, then Music (tagged Hobby). All cards share one layout -->
+<!-- Work comes first: Blogs and Experience side by side, in the sidebar's order. "Beyond work" follows with Public Speaking,
+     then a smaller Music tile. Each linked tile's main link stretches over the whole tile -->
 <section class="landing-section">
   <h2 class="landing-section-title">What I do</h2>
-  <!-- The "Explore Engineering" link stretches over the whole card; the corner icon is its own link on top -->
-  <div class="pillar pillar-primary pillar-linked">
-    {% include page-social.html types="linkedin,github" class="pillar-social" %}
-    <div class="pillar-main">
-      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></span>
-      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.engineering }}</h3>
-      <p class="pillar-text">Industry experience, blogs, projects, research papers and more.</p>
-      <a class="pillar-cta pillar-stretched" href="{{ '/engineering/' | relative_url }}">Explore Engineering <i class="fas fa-arrow-right"></i></a>
+  <div class="pillar-grid">
+    <div class="pillar pillar-tile pillar-linked">
+      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-pen-nib"></i></span>
+      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.blogs }}</h3>
+      <p class="pillar-text">Blogs, projects, research papers and more.</p>
+      {% if latest_post %}
+        <div class="pillar-latest">
+          <span class="pillar-latest-label">Latest blog</span>
+          <span class="pillar-latest-title">{{ latest_post.title }}</span>
+          <span class="pillar-latest-date">{{ latest_post.date | date: '%b %-d, %Y' }}</span>
+        </div>
+      {% endif %}
+      <a class="pillar-cta pillar-stretched" href="{{ '/blogs/' | relative_url }}">Read blogs <i class="fas fa-arrow-right"></i></a>
     </div>
-    {% if latest_post %}
-      <div class="pillar-latest">
-        <span class="pillar-latest-label">Latest blog</span>
-        <span class="pillar-latest-title">{{ latest_post.title }}</span>
-        <span class="pillar-latest-date">{{ latest_post.date | date: '%b %-d, %Y' }}</span>
-      </div>
-    {% endif %}
+
+    <div class="pillar pillar-tile pillar-linked">
+      {% include page-social.html types="linkedin,github" class="pillar-social" %}
+      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-briefcase"></i></span>
+      <h3 class="pillar-title">{{ site.data.locales[lang].tabs.experience }}</h3>
+      <p class="pillar-text">Industry experience at LinkedIn and SAP, from ads review to AI platforms.</p>
+      {% if current_role %}
+        <div class="pillar-latest">
+          <span class="pillar-latest-label">Current role</span>
+          <span class="pillar-latest-title">{{ current_role.title }}, {{ current_role.company }}</span>
+          {% if current_role.project %}<span class="pillar-latest-date">{{ current_role.project }}</span>{% endif %}
+        </div>
+      {% endif %}
+      <a class="pillar-cta pillar-stretched" href="{{ '/experience/' | relative_url }}">View experience <i class="fas fa-arrow-right"></i></a>
+    </div>
   </div>
 </section>
 
@@ -75,26 +87,13 @@ refactor: true
     </div>
   </div>
 
-  <!-- The "Listen" link stretches over the whole card; the corner icon is its own link on top -->
-  <div class="pillar pillar-primary pillar-linked">
-    {% include page-social.html types="youtube,instagram,soundcloud,reddit,x" class="pillar-social" %}
-    <div class="pillar-main">
-      <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+  <!-- Music is a hobby, so it gets a slim, quieter tile; the whole tile links to the Music page -->
+  <div class="pillar pillar-compact pillar-linked">
+    <span class="pillar-icon" aria-hidden="true"><i class="fas fa-music"></i></span>
+    <div class="pillar-compact-text">
       <h3 class="pillar-title">Music <span class="pillar-tag">Hobby</span></h3>
-      <p class="pillar-handle"><i class="fab fa-youtube"></i> @instro_muse</p>
-      <p class="pillar-text">Off the clock, I play the keyboard and share covers and music theory on YouTube.</p>
-      <a class="pillar-cta pillar-stretched" href="{{ '/music/' | relative_url }}">Listen <i class="fas fa-arrow-right"></i></a>
+      <p class="pillar-text">Keyboard covers and music theory on YouTube.</p>
     </div>
-    {% if latest_video %}
-      <div class="pillar-latest pillar-latest-video">
-        <!-- the theme adds loading="lazy" to images on this page -->
-        <img src="{{ latest_video.thumbnail }}" alt="Thumbnail for {{ latest_video.title | escape }}">
-        <div>
-          <span class="pillar-latest-label">Latest cover</span>
-          <span class="pillar-latest-title">{{ latest_video.title }}</span>
-          <span class="pillar-latest-date">{{ latest_video.published | date: '%b %-d, %Y' }}</span>
-        </div>
-      </div>
-    {% endif %}
+    <a class="pillar-cta pillar-stretched" href="{{ '/music/' | relative_url }}">Listen <i class="fas fa-arrow-right"></i></a>
   </div>
 </section>

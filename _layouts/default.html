@@ -43,8 +43,8 @@ layout: compress
           {% unless full_width %}
           <!-- panel -->
           <aside aria-label="Panel" id="panel-wrapper" class="col-xl-3 ps-2 mb-5 text-muted">
-            <!-- Recently Updated and Trending Tags appear only on the Technology page -->
-            {% if page.layout == 'technology' %}
+            <!-- Recently Updated and Trending Tags appear only on the Blogs page -->
+            {% if page.layout == 'blogs' %}
               <div class="access">
                 {% include_cached update-list.html lang=lang %}
                 {% include_cached trending-tags.html lang=lang %}

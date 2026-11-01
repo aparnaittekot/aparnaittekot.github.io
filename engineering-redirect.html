@@ -1,0 +1,27 @@
+---
+# Engineering was split into Experience and Blogs; send old /engineering/ links to the right one
+# (#experience to Experience, anything else, including ?tag= filters, to Blogs).
+permalink: /engineering/
+layout: null
+sitemap: false
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Moved to Blogs</title>
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="{{ '/blogs/' | absolute_url }}">
+    <meta http-equiv="refresh" content="0; url={{ '/blogs/' | relative_url }}">
+    <script>
+      if (location.hash === '#experience') {
+        location.replace('{{ "/experience/" | relative_url }}');
+      } else {
+        location.replace('{{ "/blogs/" | relative_url }}' + location.search);
+      }
+    </script>
+  </head>
+  <body>
+    <p>This page moved to <a href="{{ '/blogs/' | relative_url }}">Blogs</a> and <a href="{{ '/experience/' | relative_url }}">Experience</a>.</p>
+  </body>
+</html>
